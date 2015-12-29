@@ -1,2 +1,5 @@
-var rhymes = require('rhyme-plus');
-console.log("hello test.");
+var rhyme = require('rhyme-plus');
+
+rhyme((r) => {
+    console.log(r.rhyme('bed').join(' '));
+});
