@@ -1,0 +1,33 @@
+{
+  "name": "alexabestmc",
+  "version": "1.0.0",
+  "description": "AWS lambda function that is used by the Alexa Skills Kit to generate rap verses.",
+  "main": "index.js",
+  "dependencies": {
+    "rhyme-plus": "0.0.6",
+    "smiley": "^0.2.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/httpNick/AlexaBestMC.git"
+  },
+  "keywords": [
+    "rap",
+    "generator",
+    "alexa",
+    "echo",
+    "verses",
+    "aws",
+    "lambda"
+  ],
+  "author": "NameRevoked",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/httpNick/AlexaBestMC/issues"
+  },
+  "homepage": "https://github.com/httpNick/AlexaBestMC#readme"
+}

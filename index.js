@@ -7,6 +7,8 @@
  * http://amzn.to/1LGWsLG
  */
 
+ var rhymes = require('rhyme-plus');
+
 // Route the incoming request based on type (LaunchRequest, IntentRequest,
 // etc.) The JSON body of the request is provided in the event parameter.
 exports.handler = function (event, context) {
@@ -78,10 +80,10 @@ function onIntent(intentRequest, session, callback) {
         intentName = intentRequest.intent.name;
 
     // Dispatch to your skill's intent handlers
-    if ("MyColorIsIntent" === intentName) {
-        setColorInSession(intent, session, callback);
-    } else if ("WhatsMyColorIntent" === intentName) {
-        getColorFromSession(intent, session, callback);
+    if ("RapAbout" === intentName) {
+        setTopicInSession(intent, session, callback);
+    } else if ("WhatsMyTopic" === intentName) {
+        getTopicFromSession(intent, session, callback);
     } else if ("AMAZON.HelpIntent" === intentName) {
         getWelcomeResponse(callback);
     } else {
@@ -105,12 +107,12 @@ function getWelcomeResponse(callback) {
     // If we wanted to initialize the session to have some attributes we could add those here.
     var sessionAttributes = {};
     var cardTitle = "Welcome";
-    var speechOutput = "Welcome to the Alexa Skills Kit sample. " +
-        "Please tell me your favorite color by saying, my favorite color is red";
+    var speechOutput = "Welcome please tell me a word to create rap verses for by saying, " +
+      "rap about bagels";
     // If the user either does not reply to the welcome message or says something that is not
     // understood, they will be prompted again with this text.
-    var repromptText = "Please tell me your favorite color by saying, " +
-        "my favorite color is red";
+    var repromptText = "Please tell me what to rap about by saying, " +
+        "rap about bagels";
     var shouldEndSession = false;
 
     callback(sessionAttributes,
@@ -120,53 +122,53 @@ function getWelcomeResponse(callback) {
 /**
  * Sets the color in the session and prepares the speech to reply to the user.
  */
-function setColorInSession(intent, session, callback) {
+function setTopicInSession(intent, session, callback) {
     var cardTitle = intent.name;
-    var favoriteColorSlot = intent.slots.Color;
+    var rapTopicSlot = intent.slots.Topic;
     var repromptText = "";
     var sessionAttributes = {};
     var shouldEndSession = false;
     var speechOutput = "";
 
-    if (favoriteColorSlot) {
-        var favoriteColor = favoriteColorSlot.value;
-        sessionAttributes = createFavoriteColorAttributes(favoriteColor);
-        speechOutput = "I now know your favorite color is " + favoriteColor + ". You can ask me " +
-            "your favorite color by saying, what's my favorite color?";
-        repromptText = "You can ask me your favorite color by saying, what's my favorite color?";
+    if (rapTopicSlot) {
+        var rapTopic = rapTopicSlot.value;
+        sessionAttributes = createRapTopic(rapTopic);
+        speechOutput = "Lay me down a sick beat while I rap about " +
+          rapTopic + ".";
+        repromptText = "Yo give me another word so I can spit some rhymes.";
     } else {
-        speechOutput = "I'm not sure what your favorite color is. Please try again";
-        repromptText = "I'm not sure what your favorite color is. You can tell me your " +
-            "favorite color by saying, my favorite color is red";
+        speechOutput = "I'm not sure what you want me to rap about. Please try again";
+        repromptText = "I'm not sure what you want me to rap about. You can tell me what to " +
+            "rap about by saying, rap about bagels";
     }
 
     callback(sessionAttributes,
          buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
 }
 
-function createFavoriteColorAttributes(favoriteColor) {
+function createRapTopic(rapTopic) {
     return {
-        favoriteColor: favoriteColor
+        rapTopic: rapTopic
     };
 }
 
-function getColorFromSession(intent, session, callback) {
-    var favoriteColor;
+function getTopicFromSession(intent, session, callback) {
+    var rapTopic;
     var repromptText = null;
     var sessionAttributes = {};
     var shouldEndSession = false;
     var speechOutput = "";
 
     if (session.attributes) {
-        favoriteColor = session.attributes.favoriteColor;
+        rapTopic = session.attributes.rapTopic;
     }
 
     if (favoriteColor) {
-        speechOutput = "Your favorite color is " + favoriteColor + ". Goodbye.";
+        speechOutput = "Your topic is " + rapTopic + ". Goodbye.";
         shouldEndSession = true;
     } else {
-        speechOutput = "I'm not sure what your favorite color is, you can say, my favorite color " +
-            " is red";
+        speechOutput = "I'm not sure what your rap topic is, you can say, rap about " +
+            " potatoes";
     }
 
     // Setting repromptText to null signifies that we do not want to reprompt the user.
