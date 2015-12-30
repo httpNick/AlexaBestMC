@@ -5,3 +5,5 @@ If you make changes and have access to the lambda function follow these steps to
 * run `npm install`
 * zip `nodule_modules` and `index.js` together into one folder.
 * Edit Lambda function on AWS and upload new zip folder.
+
+High level diagram of logic: http://www.gliffy.com/go/publish/9718515

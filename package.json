@@ -4,9 +4,9 @@
   "description": "AWS lambda function that is used by the Alexa Skills Kit to generate rap verses.",
   "main": "index.js",
   "dependencies": {
+    "grammar-graph": "^3.1.0",
     "request": "^2.67.0",
-    "rhyme-plus": "0.0.6",
-    "smiley": "^0.2.2"
+    "rhyme-plus": "0.0.6"
   },
   "devDependencies": {},
   "scripts": {
