@@ -22,23 +22,6 @@ exports.getRelatedWords = function(topic, callback) {
 
     callback(null, result.associations_array);
   });
-/*
-  https.get(options, function(res) {
-    console.log(res.statusCode);
-
-    var body = '';
-    res.on('data', function(data) {
-      body += data;
-    });
-
-    res.on('end', function() {
-      var result = JSON.parse(body);
-      callback(null, result.associations_array);
-    })
-  }).on('error', function(err) {
-    callback(err);
-  });
-*/
 }
 
 exports.getPartsOfSpeech = function(word, callback) {
