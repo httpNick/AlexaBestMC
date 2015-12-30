@@ -7,7 +7,8 @@
  * http://amzn.to/1LGWsLG
  */
 
- var rhymes = require('rhyme-plus');
+var rhymes = require('rhyme-plus');
+var wordsService = require('./services/words');
 
 // Route the incoming request based on type (LaunchRequest, IntentRequest,
 // etc.) The JSON body of the request is provided in the event parameter.
@@ -130,20 +131,38 @@ function setTopicInSession(intent, session, callback) {
     var shouldEndSession = false;
     var speechOutput = "";
 
-    if (rapTopicSlot) {
+    if(rapTopicSlot) {
         var rapTopic = rapTopicSlot.value;
-        sessionAttributes = createRapTopic(rapTopic);
-        speechOutput = "Lay me down a sick beat while I rap about " +
-          rapTopic + ".";
-        repromptText = "Yo give me another word so I can spit some rhymes.";
-    } else {
-        speechOutput = "I'm not sure what you want me to rap about. Please try again";
-        repromptText = "I'm not sure what you want me to rap about. You can tell me what to " +
-            "rap about by saying, rap about bagels";
-    }
 
-    callback(sessionAttributes,
-         buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+        if(rapTopic) {
+            wordsService.getRelatedWords(rapTopic, function(err, result) {
+                console.log("Related Words: " + result);
+
+                var here = result[Math.floor(Math.random() * result.length)];
+                var bottom = result[Math.floor(Math.random() * result.length)];
+                console.log("AAA");
+                console.log("Bottom: " + bottom);
+                console.log("Here: " + here);
+                sessionAttributes = createRapTopic(rapTopic);
+                console.log("Before speech output");
+                speechOutput = "Lay me down a sick beat while I rap about " + rapTopic + ". We started from the " + bottom + " and now we're " + here;
+                repromptText = "Yo give me another word so I can spit some rhymes.";
+
+                callback(sessionAttributes,
+                     buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+            });
+        } else {
+            speechOutput = "I'm not sure what you want me to rap about. Please try again";
+            repromptText = "I'm not sure what you want me to rap about. You can tell me what to " +
+                "rap about by saying, rap about bagels";
+
+            callback(sessionAttributes,
+                     buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+        }
+    } else {
+        callback(sessionAttributes,
+                     buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+    }
 }
 
 function createRapTopic(rapTopic) {
