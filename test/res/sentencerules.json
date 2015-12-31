@@ -1,5 +1,5 @@
 {
-  "Sentence": ["NounPhrase", "SingularPossesiveNounPhrase"],
+  "Sentence": ["NounPhrase VerbPhrase SingularPossesivePronoun Noun and then SingularPossesiveNounPhrase",],
   "SingularPossesiveNounPhrase": [
     "SingularPossesivePronoun Noun PastVerb SingularPossesivePronoun Noun",
     "SingularPossesivePronoun Noun cannot Verb SingularPossesivePronoun Noun"
@@ -10,7 +10,7 @@
   ],
   "VerbPhrase": [
     "PastVerb",
-    "Verb NounPhrase"
+    "PastVerb NounPhrase"
   ],
   "RelativeClause": ["that VerbPhrase"],
   "Noun": [
