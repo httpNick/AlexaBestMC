@@ -137,9 +137,15 @@ function setTopicInSession(intent, session, callback) {
         if(rapTopic) {
             wordsService.getRelatedWords(rapTopic, function(err, result) {
                 console.log("Related Words: " + result);
-
-                var here = result[Math.floor(Math.random() * result.length)];
-                var bottom = result[Math.floor(Math.random() * result.length)];
+                var bottom = ''
+                , here = '';
+                if (result.length > 0) {
+                  here = result[Math.floor(Math.random() * result.length)];
+                  bottom = result[Math.floor(Math.random() * result.length)];
+                } else {
+                  here = "here";
+                  bottom = "bottom";
+                }
                 console.log("AAA");
                 console.log("Bottom: " + bottom);
                 console.log("Here: " + here);
