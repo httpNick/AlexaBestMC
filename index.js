@@ -139,9 +139,25 @@ function setTopicInSession(intent, session, callback) {
                 wordsService.getPartsOfSpeech(words, function(pos)) {
                     console.log("Related Words: " + words);
 
-                    var here = pos.nouns[Math.floor(Math.random() * pos.nouns.length)];
-                    var bottom = pos.nouns[Math.floor(Math.random() * pos.nouns.length)];
-                    var chosenVerb = pos.verbs[Math.floor(Math.random() * pos.verbs.length)];
+                    var bottom = 'bottom',
+                        here = 'here';
+                        chosenVerb = 'started';
+
+                    if(pos) {
+                        var nouns = pos.nouns;
+                        var verbs = pos.verbs;
+                        var adjectives = pos.adjectives;
+                        var adverbs = pos.adverbs;
+                        var rest = pos.rest;
+
+                        if(nouns.length > 0) {
+                            here = nouns[Math.floor(Math.random() * nouns.length)];
+                            bottom = nouns[Math.floor(Math.random() * nouns.length)];
+                        }
+                        if(verbs.length > 0) {
+                            chosenVerb = verbs[Math.floor(Math.random() * verbs.length)];
+                        }
+                    }
                     
                     sessionAttributes = createRapTopic(rapTopic);
 

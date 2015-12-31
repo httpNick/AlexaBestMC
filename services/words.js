@@ -1,5 +1,8 @@
 var https = require('https');
 var request = require('request');
+var WordPOS = require('wordpos');
+
+var wordPos = new WordPOS();
 
 exports.getRelatedWords = function(topic, callback) {
   var urlPath = '/associations/?entry=' + topic;
@@ -24,6 +27,12 @@ exports.getRelatedWords = function(topic, callback) {
   });
 }
 
+exports.getPartsOfSpeech = function(words, callback) {
+  wordPos.getPOS(words, function(partsOfSpeech) {
+    callback(partsOfSpeech);
+  });
+}
+/*
 exports.getPartsOfSpeech = function(word, callback) {
   var options = {
     url: 'http://dictionaryapi.net/api/definition/' + word,
@@ -45,3 +54,4 @@ exports.getPartsOfSpeech = function(word, callback) {
     callback(null, partsOfSpeech);
   });
 }
+*/
