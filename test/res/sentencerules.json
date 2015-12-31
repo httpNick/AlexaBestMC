@@ -1,11 +1,15 @@
 {
-  "Sentence": ["NounPhrase VerbPhrase"],
+  "Sentence": ["NounPhrase", "SingularPossesiveNounPhrase"],
+  "SingularPossesiveNounPhrase": [
+    "SingularPossesivePronoun Noun PastVerb SingularPossesivePronoun Noun",
+    "SingularPossesivePronoun Noun cannot Verb SingularPossesivePronoun Noun"
+  ],
   "NounPhrase": [
     "the Noun",
     "the Noun RelativeClause"
   ],
   "VerbPhrase": [
-    "Verb",
+    "PastVerb",
     "Verb NounPhrase"
   ],
   "RelativeClause": ["that VerbPhrase"],
@@ -13,12 +17,38 @@
     "dog",
     "cat",
     "bird",
-    "squirrel"
+    "squirrel",
+    "sister",
+    "brother",
+    "mom",
+    "dad",
+    "uncle"
   ],
-  "Verb": [
+  "PastVerb": [
     "befriended",
     "loved",
     "ate",
     "attacked"
+  ],
+  "Verb": [
+    "believe",
+    "attack",
+    "love",
+    "eat",
+    "befriend",
+    "accept",
+    "acknowledge",
+    "add",
+    "admire",
+    "admit",
+    "admonish",
+    "advise"
+  ],
+  "SingularPossesivePronoun": [
+    "my",
+    "your",
+    "his",
+    "her",
+    "its"
   ]
 }
