@@ -19,7 +19,7 @@ var generateSentencePool = (grammar) => {
         Math.floor(Math.random()*guide.choices().length)
       ]
     );
-    
+
     currSentence = guide.constructs()[
       Math.floor(Math.random()*guide.constructs().length)
     ];
@@ -34,7 +34,7 @@ var parser = JSONStream.parse()
   console.log(x);
   return x;
 })
-var rStream = fs.createReadStream(
+, rStream = fs.createReadStream(
   __dirname + '/res/sentenceRules.json'
 ).pipe(
   parser
