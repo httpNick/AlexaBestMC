@@ -1,5 +1,7 @@
 {
-  "Sentence": ["NounPhrase VerbPhrase SingularPossesivePronoun Noun and then SingularPossesiveNounPhrase",],
+  "Sentence": [
+    "NounPhrase VerbPhrase SingularPossesivePronoun Noun and then SingularPossesiveNounPhrase",
+  ],
   "SingularPossesiveNounPhrase": [
     "SingularPossesivePronoun Noun PastVerb SingularPossesivePronoun Noun",
     "SingularPossesivePronoun Noun cannot Verb SingularPossesivePronoun Noun"
