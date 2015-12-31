@@ -135,21 +135,23 @@ function setTopicInSession(intent, session, callback) {
         var rapTopic = rapTopicSlot.value;
 
         if(rapTopic) {
-            wordsService.getRelatedWords(rapTopic, function(err, result) {
-                console.log("Related Words: " + result);
+            wordsService.getRelatedWords(rapTopic, function(err, words) {
+                wordsService.getPartsOfSpeech(words, function(pos)) {
+                    console.log("Related Words: " + words);
 
-                var here = result[Math.floor(Math.random() * result.length)];
-                var bottom = result[Math.floor(Math.random() * result.length)];
-                console.log("AAA");
-                console.log("Bottom: " + bottom);
-                console.log("Here: " + here);
-                sessionAttributes = createRapTopic(rapTopic);
-                console.log("Before speech output");
-                speechOutput = "Lay me down a sick beat while I rap about " + rapTopic + ". We started from the " + bottom + " and now we're " + here;
-                repromptText = "Yo give me another word so I can spit some rhymes.";
+                    var here = pos.nouns[Math.floor(Math.random() * pos.nouns.length)];
+                    var bottom = pos.nouns[Math.floor(Math.random() * pos.nouns.length)];
+                    var chosenVerb = pos.verbs[Math.floor(Math.random() * pos.verbs.length)];
+                    
+                    sessionAttributes = createRapTopic(rapTopic);
 
-                callback(sessionAttributes,
-                     buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+                    speechOutput = "Lay me down a sick beat while I rap about " + rapTopic + 
+                                    ". We " + chosenVerb + " from the " + bottom + " and now we're " + here;
+                    repromptText = "Yo give me another word so I can spit some rhymes.";
+
+                    callback(sessionAttributes,
+                         buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+                });
             });
         } else {
             speechOutput = "I'm not sure what you want me to rap about. Please try again";
