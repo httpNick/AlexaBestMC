@@ -75,7 +75,7 @@ function onLaunch(launchRequest, session, callback) {
 /**
  * Called when the user specifies an intent for this skill.
  */
-function onIntent(intentRequest, session, callback) {
+var onIntent = function(intentRequest, session, callback) {
     console.log("onIntent requestId=" + intentRequest.requestId +
         ", sessionId=" + session.sessionId);
 
@@ -93,6 +93,7 @@ function onIntent(intentRequest, session, callback) {
         throw "Invalid intent";
     }
 }
+$._onIntent = onIntent;
 
 /**
  * Called when the user ends the session.
@@ -125,7 +126,7 @@ function getWelcomeResponse(callback) {
 /**
  * Sets the color in the session and prepares the speech to reply to the user.
  */
-var setTopicInSession = function(intent, session, callback) {
+function setTopicInSession(intent, session, callback) {
     console.log("setTopicInSession() called");
     var cardTitle = intent.name;
     var rapTopicSlot = intent.slots.Topic;
@@ -192,7 +193,6 @@ var setTopicInSession = function(intent, session, callback) {
                      buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
     }
 }
-$._setTopicInSession = setTopicInSession;
 
 function createRapTopic(rapTopic) {
     return {
