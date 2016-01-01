@@ -125,7 +125,7 @@ function getWelcomeResponse(callback) {
 /**
  * Sets the color in the session and prepares the speech to reply to the user.
  */
-function setTopicInSession(intent, session, callback) {
+var setTopicInSession = function(intent, session, callback) {
     console.log("setTopicInSession() called");
     var cardTitle = intent.name;
     var rapTopicSlot = intent.slots.Topic;
@@ -192,6 +192,7 @@ function setTopicInSession(intent, session, callback) {
                      buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
     }
 }
+$._setTopicInSession = setTopicInSession;
 
 function createRapTopic(rapTopic) {
     return {
