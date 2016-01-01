@@ -29,6 +29,7 @@ exports.getRelatedWords = function(topic, callback) {
 
 exports.getPartsOfSpeech = function(words, callback) {
   wordPos.getPOS(words, function(partsOfSpeech) {
+    console.log("getPartsOfSpeech() called");
     callback(partsOfSpeech);
   });
 }

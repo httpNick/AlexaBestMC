@@ -10,6 +10,8 @@
 var rhymes = require('rhyme-plus');
 var wordsService = require('./services/words');
 
+var $ = module.exports;
+
 // Route the incoming request based on type (LaunchRequest, IntentRequest,
 // etc.) The JSON body of the request is provided in the event parameter.
 exports.handler = function (event, context) {
@@ -124,6 +126,7 @@ function getWelcomeResponse(callback) {
  * Sets the color in the session and prepares the speech to reply to the user.
  */
 function setTopicInSession(intent, session, callback) {
+    console.log("setTopicInSession() called");
     var cardTitle = intent.name;
     var rapTopicSlot = intent.slots.Topic;
     var repromptText = "";
@@ -132,15 +135,16 @@ function setTopicInSession(intent, session, callback) {
     var speechOutput = "";
 
     if(rapTopicSlot) {
+        console.log("Topic slot exists");
+
         var rapTopic = rapTopicSlot.value;
 
         if(rapTopic) {
             wordsService.getRelatedWords(rapTopic, function(err, words) {
-                wordsService.getPartsOfSpeech(words, function(pos)) {
-                    console.log("Related Words: " + words);
-
+                console.log("Related Words: " + words);
+                wordsService.getPartsOfSpeech(words, function(pos) {
                     var bottom = 'bottom',
-                        here = 'here';
+                        here = 'here',
                         chosenVerb = 'started';
 
                     if(pos) {
@@ -151,14 +155,20 @@ function setTopicInSession(intent, session, callback) {
                         var rest = pos.rest;
 
                         if(nouns.length > 0) {
+                            console.log("Nouns");
                             here = nouns[Math.floor(Math.random() * nouns.length)];
                             bottom = nouns[Math.floor(Math.random() * nouns.length)];
                         }
                         if(verbs.length > 0) {
+                            console.log("Verbs");
                             chosenVerb = verbs[Math.floor(Math.random() * verbs.length)];
                         }
                     }
                     
+                    console.log("Bottom: " + bottom);
+                    console.log("Here: " + here);
+                    console.log("ChosenVerb: " + chosenVerb);
+
                     sessionAttributes = createRapTopic(rapTopic);
 
                     speechOutput = "Lay me down a sick beat while I rap about " + rapTopic + 
