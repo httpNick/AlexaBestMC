@@ -1,7 +1,7 @@
 var https = require('https');
 var request = require('request');
 var WordPOS = require('wordpos');
-
+var randomWords = require('random-words');
 var wordPos = new WordPOS();
 
 exports.getRelatedWords = function(topic, callback) {
@@ -25,14 +25,24 @@ exports.getRelatedWords = function(topic, callback) {
 
     callback(null, result.associations_array);
   });
-}
+};
 
-exports.getPartsOfSpeech = function(words, callback) {
+var getPartsOfSpeech = function(words, callback) {
   wordPos.getPOS(words, function(partsOfSpeech) {
     console.log("getPartsOfSpeech() called");
     callback(partsOfSpeech);
   });
-}
+};
+exports.getPartsOfSpeech = getPartsOfSpeech;
+
+exports.getRandomWordsByPos = function(callback) {
+  var words = [];
+  for(var i = 0; i < 50; i++) {
+    words.push(randomWords());
+  }
+  getPartsOfSpeech(words, callback);
+};
+
 /*
 exports.getPartsOfSpeech = function(word, callback) {
   var options = {

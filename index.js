@@ -144,40 +144,87 @@ function setTopicInSession(intent, session, callback) {
             wordsService.getRelatedWords(rapTopic, function(err, words) {
                 console.log("Related Words: " + words);
                 wordsService.getPartsOfSpeech(words, function(pos) {
-                    var bottom = 'bottom',
-                        here = 'here',
-                        chosenVerb = 'started';
+                    var topicNouns = ['missing nouns'];
+                    var topicVerbs = ['missing verbs'];
+                    var topicAdjectives = ['missing adjectives'];
+                    var topicAdverbs = ['missing adverbs'];
+                    var topicRest = ['missing rest'];
 
                     if(pos) {
-                        var nouns = pos.nouns;
-                        var verbs = pos.verbs;
-                        var adjectives = pos.adjectives;
-                        var adverbs = pos.adverbs;
-                        var rest = pos.rest;
-
-                        if(nouns.length > 0) {
-                            console.log("Nouns");
-                            here = nouns[Math.floor(Math.random() * nouns.length)];
-                            bottom = nouns[Math.floor(Math.random() * nouns.length)];
-                        }
-                        if(verbs.length > 0) {
-                            console.log("Verbs");
-                            chosenVerb = verbs[Math.floor(Math.random() * verbs.length)];
-                        }
+                        topicNouns = pos.nouns;
+                        topicVerbs = pos.verbs;
+                        topicAdjectives = pos.adjectives;
+                        topicAdverbs = pos.adverbs;
+                        topicRest = pos.rest;
                     }
-                    
-                    console.log("Bottom: " + bottom);
-                    console.log("Here: " + here);
-                    console.log("ChosenVerb: " + chosenVerb);
 
-                    sessionAttributes = createRapTopic(rapTopic);
+                    wordsService.getRandomWordsByPos(function(randomWordsPos) {
+                        var randomNouns = ['missing nouns'];
+                        var randomVerbs = ['missing verbs'];
+                        var randomAdjectives = ['missing adjecetives'];
+                        var randomAdverbs = ['missing adverbs'];
+                        var randomRest = ['missing rest'];
 
-                    speechOutput = "Lay me down a sick beat while I rap about " + rapTopic + 
-                                    ". We " + chosenVerb + " from the " + bottom + " and now we're " + here;
-                    repromptText = "Yo give me another word so I can spit some rhymes.";
+                        if(randomWordsPos) {
+                            randomNouns = randomWordsPos.nouns;
+                            randomVerbs = randomWordsPos.verbs;
+                            randomAdjectives = randomWordsPos.adjectives;
+                            randomAdverbs = randomWordsPos.adverbs;
+                            randomRest = randomWordsPos.rest;
+                        }
 
-                    callback(sessionAttributes,
-                         buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+                        var getNoun = function() {
+                            return getRandomValueFromCollection(randomNouns, 0);
+                        };
+                        var getVerb = function() {
+                            return getRandomValueFromCollection(randomVerbs, 0);
+                        };
+                        var getAdjective = function() {
+                            return getRandomValueFromCollection(randomAdjectives, 0);
+                        };
+                        var getAdverb = function() {
+                            return getRandomValueFromCollection(randomAdverbs, 0);
+                        };
+                        var getMisc = function() {
+                            return getRandomValueFromCollection(randomRest, 0);
+                        };
+                        /*
+                        var getPronoun = function() {
+                            return getRandomValueFromCollection(randomPronouns, 0);
+                        };
+                        var getAuxVerb = function() {
+                            return getRandomValueFromCollection(randomAuxVerbs, 0);
+                        };
+                        */
+
+                        var getTopicNoun = function() {
+                            return getRandomValueFromCollection(topicNouns, 0);
+                        };
+                        var getTopicVerb = function() {
+                            return getRandomValueFromCollection(topicVerbs, 0);
+                        };
+                        var getTopicAdjective = function() {
+                            return getRandomValueFromCollection(topicAdjectives, 0);
+                        };
+                        var getTopicAdverb = function() {
+                            return getRandomValueFromCollection(topicAdverbs, 0);
+                        };
+                        var getMisc = function() {
+                            return getRandomValueFromCollection(topicRest, 0);
+                        };                        
+
+                        sessionAttributes = createRapTopic(rapTopic);
+
+                        speechOutput = "Lay me down a sick beat while I rap about " + rapTopic + 
+                                        getTopicVerb() + " from the " + getTopicNoun() + " now we're " + getTopicNoun() + ". " +
+                                        getTopicVerb() + " from the " + getTopicNoun() + " now my whole team " + getVerb() + " " + getTopicNoun() + ". " +
+                                        getVerb() + " from the " + getTopicAdjective() + " " + getTopicNoun() + " and now we're " + getNoun() + ". ";
+
+                        repromptText = "Yo give me another word so I can spit some rhymes.";
+
+                        callback(sessionAttributes,
+                             buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+                    });
                 });
             });
         } else {
@@ -255,4 +302,10 @@ function buildResponse(sessionAttributes, speechletResponse) {
         sessionAttributes: sessionAttributes,
         response: speechletResponse
     };
+}
+
+// --------------------- Other helpers ------------------------
+
+function getRandomValueFromCollection(collection, lowerbound) {
+    return collection[Math.floor(Math.random() * collection.length) + lowerbound];
 }
