@@ -40,13 +40,13 @@ var constructSentences = (words, grammar, numberOfSentences) => {
   grammar.Adverb = words.adverbs;
   grammar.Rest = words.rest;
 
-  var guide = new gg(grammar).createGuide(completeSentenceChoice)
-  , recognizer = new gg(grammar).createRecognizer(completeSentenceChoice);
+  var recognizer = new gg(grammar).createRecognizer(completeSentenceChoice);
 
 
   while (constructedSentences.length < numberOfSentences) {
 
     var currSentence = '';
+    var guide = new gg(grammar).createGuide(completeSentenceChoice);
 
     while (!recognizer.isComplete(currSentence)) {
 
