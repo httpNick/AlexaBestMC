@@ -1,0 +1,14 @@
+{
+  "OneLine": [
+    "TopicWord rhymes with RhymesWithTopic and RhymesWithTopic",
+  ],
+  "TestSentence": [
+    "Noun Verb today"
+  ],
+  "Noun": [],
+  "Verb": [],
+  "RhymesWithTopic": [
+    "cackle",
+    "trample"
+  ]
+}
