@@ -1,5 +1,5 @@
 var research = require("suboptimal-research-tool");
-research("bats", function(err, subject){
+research("bagel", function(err, subject){
 	if(err){
 		return console.error(err);
 	}

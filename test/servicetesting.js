@@ -26,9 +26,29 @@ function wordnikTest() {
     } else {
       console.log(JSON.parse(body));
     }
-  });  
+  });
 }
 
-//----------------CALL TO TEST-----------------
-//wordsService_getRelatedWords();
-wordnikTest();
+
+var setSearchTopic = (topic) => {
+  return "http://api.wordnik.com:80/v4/word.json/"+ topic +"/relatedWords?useCanonical=false&limitPerRelationshipType=10&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5";
+};
+
+module.exports = {
+  topicRequest: (topic, cb) => {
+    var options = {
+      url: setSearchTopic(topic),
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    var value = request(options, (err, response, body) => {
+      if (err) {
+        cb(JSON.parse(body));
+      } else {
+        cb(JSON.parse(body));
+      }
+    });
+  }
+}

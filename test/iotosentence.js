@@ -2,36 +2,42 @@ var gg = require('grammar-graph')
 , JSONStream = require('JSONStream')
 , fs = require('fs')
 , es = require('event-stream')
-, topic = ''
+, services = require('./servicetesting')
+, topic = '';
 process.stdin.setEncoding('utf8')
 
-var generateSentencePool = (grammar) => {
+var generateSentencePool = (grammar, cb) => {
   process.stdout.write('topic is: ' + topic)
   topic = topic.replace(/(\r\n|\n|\r)/gm,"")
   grammar.TopicWord.push(topic);
   var guide = new gg(grammar).createGuide('OneLine')
   , recog = new gg(grammar).createRecognizer('OneLine')
   , currSentence = '';
-  while (!recog.isComplete(currSentence)) {
-    guide.choose(
-      guide.choices()[
-        Math.floor(Math.random()*guide.choices().length)
-      ]
-    );
+  services.topicRequest(topic, (results) => {
+    console.log(results);
+    grammar.RhymesWithTopic.push(results.)
+    while (!recog.isComplete(currSentence)) {
+      guide.choose(
+        guide.choices()[
+          Math.floor(Math.random()*guide.choices().length)
+        ]
+      );
 
-    currSentence = guide.constructs()[
-      Math.floor(Math.random()*guide.constructs().length)
-    ];
-  }
+      currSentence = guide.constructs()[
+        Math.floor(Math.random()*guide.constructs().length)
+      ];
+    }
 
-  return currSentence;
+    cb(currSentence);
+  });
 }
 
 var parser = JSONStream.parse()
 , sentenceGenerator = es.mapSync((data) => {
-  var x = generateSentencePool(data)
-  console.log(x);
-  return x;
+  generateSentencePool(data, (resultSentence) => {
+    console.log(resultSentence);
+    return resultSentence;
+  })
 })
 
 process.stdin.on('readable', function() {
