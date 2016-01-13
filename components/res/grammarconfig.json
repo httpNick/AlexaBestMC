@@ -1,12 +1,15 @@
 {
   "OneLine": [
-    "TopicWord rhymes with RhymesWithTopic and RhymesWithTopic",
+    "TopicWord rhymes with RhymesWithTopic and RhymesWithTopic"
   ],
   "TestSentence": [
-    "Noun Verb today"
+    "Noun Verb today and looked very Adjective"
   ],
   "Noun": [],
   "Verb": [],
+  "Adjective": [],
+  "Adverb": [],
+  "Rest": [],
   "RhymesWithTopic": [
     "cackle",
     "trample"
