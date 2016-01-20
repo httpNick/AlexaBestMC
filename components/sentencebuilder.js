@@ -1,8 +1,9 @@
-var gg, JSONStream, fs, es, completeSentenceChoice;
+var gg, JSONStream, fs, es, completeSentenceChoice, nlp;
 gg = require('grammar-graph');
 JSONStream = require('JSONStream');
 fs = require('fs');
 es = require('event-stream');
+nlp = require('nlp_compromise');
 completeSentenceChoice = 'TestSentence';
 
 module.exports = {
@@ -35,7 +36,7 @@ var constructSentences = (words, grammar, numberOfSentences) => {
   var constructedSentences = [];
 
   grammar.Noun = words.nouns;
-  grammar.Verb = words.verbs;
+  grammar.Verb = pastTenseConversion(words.verbs);
   grammar.Adjective = words.adjectives;
   grammar.Adverb = words.adverbs;
   grammar.Rest = words.Rest;
@@ -56,12 +57,24 @@ var constructSentences = (words, grammar, numberOfSentences) => {
           Math.floor(Math.random()*guide.choices().length)
         ]
       );
+
       currSentence = guide.constructs()[
         Math.floor(Math.random()*guide.constructs().length)
       ];
     }
-    constructedSentences.push(currSentence);
+
+    constructedSentences.push(
+      nlp.sentence(currSentence).to_past()
+    );
   }
 
   return constructedSentences;
 };
+
+var pastTenseConversion = (verbs) => {
+  for (var i = 0; i < verbs.length; i++) {
+    verbs[i] = nlp.verb(verbs[i]).to_past();
+  }
+  return verbs;
+};
+

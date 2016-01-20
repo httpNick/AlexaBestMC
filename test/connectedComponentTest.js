@@ -20,5 +20,5 @@ var mainTest = (topic, cb) => {
 
 mainTest('apple', (err, res) => {
    if (err) console.log(err);
-    console.log(res);
+    console.dir(res);
 });
