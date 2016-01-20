@@ -38,7 +38,7 @@ var constructSentences = (words, grammar, numberOfSentences) => {
   grammar.Verb = words.verbs;
   grammar.Adjective = words.adjectives;
   grammar.Adverb = words.adverbs;
-  grammar.Rest = words.rest;
+  grammar.Rest = words.Rest;
   grammar.TopicWord = words.topic;
 
   var recognizer = new gg(grammar).createRecognizer(completeSentenceChoice);

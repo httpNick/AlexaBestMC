@@ -9,7 +9,7 @@ var mainTest = (topic, cb) => {
             cb(err)
         } else {
             words.getPartsOfSpeech(res, (posDict) => {
-                posDict.topic = topic;
+                posDict.topic = [ topic ];
                 sentencebuilder.generateSentences(posDict, 2, (results) => {
                     cb(null, results);
                 });
