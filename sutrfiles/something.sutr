@@ -1,0 +1,31 @@
+def RapAbout (Literal Topic) {
+    Rap about {Topic}
+    Lay down a beat about {Topic}
+    Hit me with some hip {Topic}
+} => setTopicInSession
+
+
+def Repeat(){
+    Play that back for me
+    Hit me with that again
+    Do that again
+    One more time
+    Like Brittany
+    } => repeatLastRap
+
+
+    function onIntent(intentRequest, session, callback) {
+        console.log("onIntent requestId=" + intentRequest.requestId +
+            ", sessionId=" + session.sessionId);
+
+        var intent = intentRequest.intent,
+            intentName = intentRequest.intent.name;
+
+        if ("RapAbout" === intentName) {
+            setTopicInSession(intent, session, callback);
+        } else if ("Repeat" === intentName) {
+            repeatLastRap(intent, session, callback);
+        } else {
+            throw "Invalid intent";
+         }
+    }

@@ -1,0 +1,33 @@
+literal  Topic[
+    soemthing here,
+    something there,
+    green eggs everywhere
+]
+
+def DoThisThing (Topic Topic) {
+    My Phrase{Topic}
+    Antoher phrase
+    tyurn on my light
+
+} => setTopic
+
+def DoThisThingAlso (Literal Topic) {
+    My Phrase{Topic}
+    Somethign else I might say
+    pick up the groceries
+
+} => setTopic
+
+def DoThisThingRight (Literal Topic) {
+    My Phrase{Topic}
+    Pick up the value in my {Topic}
+    tyurn on my light
+
+} => setTopic
+
+def DoThisThingToo (Literal Topic) {
+    My Phrase{Topic}
+    Antoher phrase
+    tyurn on my light
+
+} => setTopic
