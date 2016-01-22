@@ -46,6 +46,7 @@
     "onto",
     "opposite",
     "outside",
+    "outta"
     "over",
     "past",
     "per",
@@ -269,5 +270,32 @@
       "whomever",
       "whose"
     ]
+  },
+  "degrees": {
+    "more",
+    "most",
+    "less",
+    "least",
+    "very",
+    "too".
+    "so"
+    "quite",
+    "best",
+    "worst",
+    "extremely",
+    "pretty",
+    "better",
+    "worse",
+    "rather"
+  },
+  "mods": {
+    "all",
+    "clear",
+    "down"
+    "just",
+    "right",
+    "straight",
+    "up"
+    "way"
   }
 }
