@@ -1,8 +1,11 @@
 S -> NP
 S -> NP VP
+S -> ADVP NP VP
 S -> S C S
 NP -> N
+NP -> AP N
 NP -> D N
+NP -> D AP N
 NP -> N PP
 NP -> D N PP
 NP -> N C N
@@ -10,30 +13,37 @@ NP -> NP C NP
 V -> Vpre 
 V -> Vpast
 VP -> V
-VP -> AUXhave Vper	
+VP -> V AP
+VP -> V ADVP
+VP -> ADVP V
+VP -> AUXhave Vper
 VP -> AUXbe Vpro
-VP -> AUXbepast Vpro
+VP -> AUXbe Vpro AP
+VP -> AUXbe Vpro ADVP
+VP -> AUXbe ADVP Vpro
 VP -> M Vpre
+VP -> M Vpre AP
+VP -> M Vpre ADVP
 VP -> M be Vpro
+VP -> M be Vpro AP
+VP -> M be Vpro ADVP
+VP -> M be ADVP Vpro
 VP -> M have Vper
 VP -> V PP
 VP -> AUXhave Vper PP
 VP -> AUXbe Vpro PP
-VP -> AUXbepast Vpro PP
 VP -> M be Vpro PP
 VP -> M have Vper PP
 VP -> M Vpre PP
 VP -> V NP
 VP -> AUXhave Vper NP
 VP -> AUXbe Vpro NP
-VP -> AUXbepast Vpro NP
 VP -> M be Vpro NP
 VP -> M have Vper NP
 VP -> M Vpre NP
 VP -> V NP PP
 VP -> AUXhave Vper NP PP
 VP -> AUXbe Vpro NP PP
-VP -> AUXbepast Vpro NP PP
 VP -> M be Vpro NP PP
 VP -> M have Vper NP PP
 VP -> M Vpre NP PP
@@ -42,26 +52,68 @@ VP -> Vpast C Vpast
 VP -> VP C VP
 AUXhave -> have
 AUXhave -> had
+AUXbe -> be
+AUXbe -> was
+AP -> A
+AP -> DEG A
+AP -> A PP
+AP -> A C A
+AP -> AP C AP
+ADVP -> ADV
+ADVP -> DEG ADV
+ADVP -> ADVP C ADVP
 PP -> P
 PP -> P NP
+PP -> P VP
+PP -> P PP
+PP -> P S
+PP -> MOD P NP
 PP -> P C P
 PP -> PP C PP
 
 S = Sentence
 N = Noun
 V = Verb (present or past tense)
+DET = Determiner for a noun
+
 Vpast = Verb (past tense)
 Vpre = Verb (present tense)
 Vpro = Verb (progressive aspect)
 Vper = Verb (perfect aspect)
 AUXhave = "have"/"has" (present perfect) or "had" (past perfect) (auxiliary verb, used with Vper (past participle) to create the perfect aspect)
-AUXbe = "be" (infinitive) or "am"/"are"/"is" (conjugated by person) (auxiliary verb, used with Vpro (present participle) to create the present progressive aspect)
-AUXbepast = "was"/"were" (auxiliary verb, used with Vpro to create the past progressive aspect)
-P = Preposition
-C = Conjunction
+AUXbe = "be" (infinitive) or "am"/"are"/"is" (conjugated by person) (both forms for the present progressive tense), or "was"/"were" (past progressive tense) (use in both tenses are auxiliary verbs, used with Vpro (present participle))
 M = Modal Verb (not inflected, used for future tense if with Vpre, future progressive if with M be Vpro or future perfect if with M have Vper)
 
+A = Adjective
+DEG = Degree word for an adjective/adverb
+
+ADV = Adverb
+DEG = Degree word for an adjective/adverb
+MOD = Mod word for an adverb
+
+P = Preposition
+C = Conjunction
 
 
 
 
+To Add:
+-plurals
+-pronouns
+
+Ignored:
+	-quantifiers
+	-present progressive
+	-didn't separate determiners (articles, etc) and degree words (comparison vs intensity)
+	-numerics
+
+	-AUX
+		-questions (wh-?)
+		-subject-aux inversion for questions
+		-do-insertion
+		-tag questions
+		-adjectives with AUX
+		-adverbs with AUX (includes the above alogn with ADV before the AUX)
+
+	-Prepositions
+		-Particles
