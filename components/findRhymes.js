@@ -16,14 +16,20 @@ var rhyme = require('rhyme-plus');
  * @return an array of paired sentences with the layout [[a,b],[c,d]]
  */
 function findRhymingSentences(sentenceInput, callback) {
+
+    //Checks for malicious input and crashes if an array of sentences isn't passed in
+    console.assert(sentenceInput instanceof Array, "Please enter a valid array of sentences");
+    console.assert(sentenceInput[0] instanceof String, "List doesn't contain strings");
+    //End check for malicious input
+    
     rhyme(function findRhymeList(r) {
-        var lastWords = findAllLastWords(sentenceInput)
+        var lastWords = findAllLastWords(sentenceInput);
         var rhymingList = r.findRhymes(lastWords);
-        var rhymingSentences = []
+        var rhymingSentences = [];
 
         for (var i = 0; i < rhymingList.length; i++) {
             var rhymingWords = rhymingList[i];
-            var rhymingSentencePair = [] //reset the list
+            var rhymingSentencePair = []; //reset the list
             for (var j = 0; j < rhymingWords.length; j++) {
                 for (var k = 0; k < sentenceInput.length; k++) {
                     if(sentenceInput[k].search(rhymingWords[j]) != -1) //The word is in the sentence
@@ -34,7 +40,7 @@ function findRhymingSentences(sentenceInput, callback) {
         }
 
         return callback(rhymingSentences)
-    })
+    });
 
 
     //Private function that finds the last word of a sentence
@@ -45,12 +51,12 @@ function findRhymingSentences(sentenceInput, callback) {
         }
 
         return lastWords;
-    }; //End findAllLastWords
-};
+    } //End findAllLastWords
+}
 
 
 /*This is test code, can be removed*/
-var testSentences = ["This is a test rake", "This is another bake", "Third saying", "This is a cat", "That is a hat"]
+var testSentences = ["This is a test rake", "This is another bake", "Third saying", "This is a cat", "That is a hat"];
 findRhymingSentences(testSentences, function(rhymes) {
     console.log(rhymes);
 });
