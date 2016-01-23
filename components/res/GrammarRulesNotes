@@ -1,15 +1,161 @@
-S -> NP
-S -> NP VP
-S -> ADVP NP VP
+Sentence -> NounPhraseNominative
+Sentence -> VerbPhrase
+Sentence -> NounPhraseNominative VerbPhrase
+Sentence -> AdverbPhrase NounPhraseNominative VerbPhrase
+Sentence -> Sentence Conjunction Sentence
+Sentence -> Sentence ConjunctionSpecial Sentence
+Conjunction -> (conjunction selection from defined list)
+ConjunctionSpecial -> (special conjunction selection from defined list)
+Determiner -> DeterminerSingular 
+Determiner -> DeterminerPlural
+DeterminerSingular -> (singular determiner selection from defined list)
+DeterminerPlural -> (plural determiner selection from defined list)
+Noun -> (noun selection from Services)
+NounPhrase -> Noun
+NounPhrase -> AdjectivePhrase  Noun
+NounPhrase -> Determiner Noun
+NounPhrase -> Determiner AdjectivePhrase  Noun
+NounPhrase -> Noun PrepositionalPhrase
+NounPhrase -> Determiner Noun PrepositionalPhrase
+NounPhrase -> Noun Conjunction Noun
+NounPhrase -> NounPhrase Conjunction PrepositionalPhrase
+PronounNominative - > (nominative pronoun selection from defined list)
+PronounAccusative -> (accusative pronoun selection from defined list)
+ProunounPossessive -> (possessive pronoun selection from defined list)
+PronounDeterminer -> (determiner pronoun selection from defined list)
+NounPhraseNominativePronoun  -> PronounNominative
+NounPhraseNominativePronoun  -> PronounNominative Conjunction PronounNominative
+NounPhraseNominativePronoun  -> NounPhraseNominative Conjunction NounPhraseNominative
+NounPhraseNominativePronoun  -> PronounDeterminer
+NounPhraseNominativePronoun  -> PronounDeterminer Conjunction PronounDeterminer
+NounPhraseAccusativePronoun  -> PronounAccusative
+NounPhraseAccusativePronoun  -> PronounAccusative PrepositionalPhrase
+NounPhraseAccusativePronoun  -> PronounAccusative Conjunction PronounAccusative
+NounPhraseAccusativePronoun  -> NounPhraseAccusative Conjunction NounPhraseAccusative
+NounPhraseAccusativePronoun  -> PronounPossessive
+NounPhraseAccusativePronoun  -> PronounPossessive PrepositionalPhrase
+NounPhraseAccusativePronoun  -> PronounPossessive Conjunction PronounPossessive
+NounPhraseNominative -> NounPhrase
+NounPhraseNominative -> NounPhraseNominativePronoun
+NounPhraseAccusative -> NounPhrase
+NounPhraseAccusative -> NounPhraseNominativePronoun
+VerbPresent -> (present tense verb selection from services)
+VerbPast -> (past tense verb selection from services)
+VerbProgressive -> (progressive aspect verb selection from services)
+VerbPerfect -> (perfect aspect verb selection from services)
+Verb -> VerbPresent 
+Verb -> VerbPast
+VerbPhrase -> Verb
+VerbPhrase -> Verb AdjectivePhrase
+VerbPhrase -> Verb AdverbPhrase
+VerbPhrase -> AdverbPhrase Verb
+VerbPhrase -> AuxiliaryVerbHave VerbPerfect
+VerbPhrase -> AuxiliaryVerbBe VerbProgressive
+VerbPhrase -> AuxiliaryVerbBe VerbProgressive AdjectivePhrase
+VerbPhrase -> AuxiliaryVerbBe VerbProgressive AdverbPhrase
+VerbPhrase -> AuxiliaryVerbBe AdverbPhrase VerbProgressive
+ModalVerb -> (modal verb selection from defined list)
+VerbPhrase -> ModalVerb VerbPresent
+VerbPhrase -> ModalVerb VerbPresent AdjectivePhrase
+VerbPhrase -> ModalVerb VerbPresent AdverbPhrase
+VerbPhrase -> ModalVerb be VerbProgressive
+VerbPhrase -> ModalVerb be VerbProgressive AdjectivePhrase
+VerbPhrase -> ModalVerb be VerbProgressive AdverbPhrase
+VerbPhrase -> ModalVerb be AdverbPhrase VerbProgressive
+VerbPhrase -> ModalVerb have VerbPerfect
+VerbPhrase -> Verb PrepositionalPhrase
+VerbPhrase -> AuxiliaryVerbHave VerbPerfect AdjectivePhrase
+VerbPhrase -> AuxiliaryVerbHave VerbPerfect PrepositionalPhrase
+VerbPhrase -> AuxiliaryVerbBe VerbProgressive PrepositionalPhrase
+VerbPhrase -> ModalVerb be VerbProgressive PrepositionalPhrase
+VerbPhrase -> ModalVerb have VerbPerfect PrepositionalPhrase
+VerbPhrase -> ModalVerb VerbPresent PrepositionalPhrase
+VerbPhrase -> Verb NounPhraseAccusative
+VerbPhrase -> AuxiliaryVerbHave VerbPerfect NounPhraseAccusative
+VerbPhrase -> AuxiliaryVerbBe VerbProgressive NounPhraseAccusative
+VerbPhrase -> ModalVerb be VerbProgressive NounPhraseAccusative
+VerbPhrase -> ModalVerb have VerbPerfect NounPhraseAccusative
+VerbPhrase -> ModalVerb VerbPresent NounPhraseAccusative
+VerbPhrase -> Verb NounPhraseAcusative PrepositionalPhrase
+VerbPhrase -> AuxiliaryVerbHave VerbPerfect NounPhraseAccusative PrepositionalPhrase
+VerbPhrase -> AuxiliaryVerbBe VerbProgressive NounPhraseAccusative PrepositionalPhrase
+VerbPhrase -> ModalVerb be VerbProgressive NounPhraseAccusative PrepositionalPhrase
+VerbPhrase -> ModalVerb have VerbPerfect NounPhraseAccusative PrepositionalPhrase
+VerbPhrase -> ModalVerb VerbPresent NounPhraseAccusative PrepositionalPhrase
+VerbPhrase -> VerbPresent Conjunction VerbPerfect
+VerbPhrase -> VerbPast Conjunction VerbPast
+VerbPhrase -> VerbPhrase Conjunction VerbPhrase
+AuxiliaryVerbHave -> have
+AuxiliaryVerbHave -> had
+AuxiliaryVerbBe -> be
+AuxiliaryVerbBe -> was
+Adjective -> (adjective selection from services)
+AdjectivePhrase  -> Adjective
+AdjectivePhrase  -> Degree Adjective
+AdjectivePhrase  -> Adjective PrepositionalPhrase
+AdjectivePhrase  -> Adjective Conjunction Adjective
+AdjectivePhrase  -> AdjectivePhrase Conjunction AdjectivePhrase
+Adverb -> (adverb selection from services)
+Degree -> (degree word selection from defined list)
+AdverbPhrase -> Adverb
+AdverbPhrase -> Degree Adverb
+AdverbPhrase -> AdverbPhrase Conjunction AdverbPhrase
+Preposition -> (preposition selection from services)
+Modifier -> (mod word selection from defined list)
+PrepositionalPhrase -> Preposition
+PrepositionalPhrase -> Preposition NounPhraseAccusative
+PrepositionalPhrase -> Preposition VerbPhrase
+PrepositionalPhrase -> Preposition PrepositionalPhrase
+PrepositionalPhrase -> Preposition Sentence
+PrepositionalPhrase -> Modifier Preposition NounPhraseAccusative
+PrepositionalPhrase -> Preposition Conjunction Preposition
+PrepositionalPhrase -> PrepositionalPhrase Conjunction PrepositionalPhrase
+
+S -> NPnom
+S -> VP
+S -> NPnom VP
+S -> ADVP NPnom VP
 S -> S C S
+S -> S Cspe S
+C -> (conjunction selection from defined list)
+Cspe -> (special conjunction selection from defined list)
+DET -> DETsin 
+DET -> DETplu
+DETsin -> (singular determiner selection from defined list)
+DETplu -> (plural determiner selection from defined list)
+N -> (noun selection from Services)
 NP -> N
 NP -> AP N
-NP -> D N
-NP -> D AP N
+NP -> DET N
+NP -> DET AP N
 NP -> N PP
-NP -> D N PP
+NP -> DET N PP
 NP -> N C N
 NP -> NP C NP
+PROnom - > (nominative pronoun selection from defined list)
+PROacc -> (accusative pronoun selection from defined list)
+PROpos -> (possessive pronoun selection from defined list)
+PROdet -> (determiner pronoun selection from defined list)
+NPnompro -> PROnom
+NPnompro -> PROnom C PROnom
+NPnompro -> NPnom C NPnom
+NPnompro -> PROdet
+NPnompro -> PROdet C PROdet
+NPaccpro -> PROacc
+NPaccpro -> PROacc PP
+NPaccpro -> PROacc C PROacc
+NPaccpro -> NPacc C NPacc
+NPaccpro -> PROpos
+NPaccpro -> PROpos PP
+NPaccpro -> PROpos C PROpos
+NPnom -> NP
+NPnom -> NPnompro
+NPacc -> NP
+NPacc -> NPaccpro
+Vpre -> (present tense verb selection from services)
+Vpast -> (past tense verb selection from services)
+Vpro -> (progressive aspect verb selection from services)
+Vper -> (perfect aspect verb selection from services)
 V -> Vpre 
 V -> Vpast
 VP -> V
@@ -21,6 +167,7 @@ VP -> AUXbe Vpro
 VP -> AUXbe Vpro AP
 VP -> AUXbe Vpro ADVP
 VP -> AUXbe ADVP Vpro
+M -> (modal verb selection from defined list)
 VP -> M Vpre
 VP -> M Vpre AP
 VP -> M Vpre ADVP
@@ -30,23 +177,24 @@ VP -> M be Vpro ADVP
 VP -> M be ADVP Vpro
 VP -> M have Vper
 VP -> V PP
+VP -> AUXhave Vper AP
 VP -> AUXhave Vper PP
 VP -> AUXbe Vpro PP
 VP -> M be Vpro PP
 VP -> M have Vper PP
 VP -> M Vpre PP
-VP -> V NP
-VP -> AUXhave Vper NP
-VP -> AUXbe Vpro NP
-VP -> M be Vpro NP
-VP -> M have Vper NP
-VP -> M Vpre NP
-VP -> V NP PP
-VP -> AUXhave Vper NP PP
-VP -> AUXbe Vpro NP PP
-VP -> M be Vpro NP PP
-VP -> M have Vper NP PP
-VP -> M Vpre NP PP
+VP -> V NPacc
+VP -> AUXhave Vper NPacc
+VP -> AUXbe Vpro NPacc
+VP -> M be Vpro NPacc
+VP -> M have Vper NPacc
+VP -> M Vpre NPacc
+VP -> V NPacc PP
+VP -> AUXhave Vper NPacc PP
+VP -> AUXbe Vpro NPacc PP
+VP -> M be Vpro NPacc PP
+VP -> M have Vper NPacc PP
+VP -> M Vpre NPacc PP
 VP -> Vpre C Vpre
 VP -> Vpast C Vpast
 VP -> VP C VP
@@ -54,56 +202,64 @@ AUXhave -> have
 AUXhave -> had
 AUXbe -> be
 AUXbe -> was
+A -> (adjective selection from services)
 AP -> A
 AP -> DEG A
 AP -> A PP
 AP -> A C A
 AP -> AP C AP
+ADV -> (adverb selection from services)
+DEG -> (degree word selection from defined list)
 ADVP -> ADV
 ADVP -> DEG ADV
 ADVP -> ADVP C ADVP
+P -> (preposition selection from services)
+MOD -> (mod word selection from defined list)
 PP -> P
-PP -> P NP
+PP -> P NPacc
 PP -> P VP
 PP -> P PP
 PP -> P S
-PP -> MOD P NP
+PP -> MOD P NPacc
 PP -> P C P
 PP -> PP C PP
 
 S = Sentence
-N = Noun
-V = Verb (present or past tense)
-DET = Determiner for a noun
 
+N = Noun
+DET = Allows the option of a determiner for a noun that could be for either a singular or plural noun
+DETsin = Determiner (singular)
+***DETplu = Determiner (plural, nouns following it must be inflected properly)
+NPnom -> Allows the option of a noun phrase with either nominative pronouns or no pronouns
+NPacc -> Allows the option of a noun phrase with with either nominative pronouns or no pronouns
+NPnompro -> Noun phrase that uses nominative pronouns
+NPaccpro -> Noun phrase that uses accusative pronouns
+PROnom = Pronoun (nominative case, such as "I"/"You"/"He"/"She")
+PROacc -> Pronoun (accusative case, such as "Me"/"You"/"Him"/"Her")
+PROdet = Pronoun (possessive determiners, used only in the nominative case, such as "My"/"Your"/"His"/"Her")
+PROpos -> Pronoun (possessive pronouns, used only in the accusative case, such as "Mine"/"Yours"/"His"/"Hers")
+
+V = Verb (present or past tense)
+M = Modal Verb (not inflected, used for future tense if with Vpre, future progressive if with M be Vpro or future perfect if with M have Vper)
 Vpast = Verb (past tense)
 Vpre = Verb (present tense)
 Vpro = Verb (progressive aspect)
 Vper = Verb (perfect aspect)
 AUXhave = "have"/"has" (present perfect) or "had" (past perfect) (auxiliary verb, used with Vper (past participle) to create the perfect aspect)
-AUXbe = "be" (infinitive) or "am"/"are"/"is" (conjugated by person) (both forms for the present progressive tense), or "was"/"were" (past progressive tense) (use in both tenses are auxiliary verbs, used with Vpro (present participle))
-M = Modal Verb (not inflected, used for future tense if with Vpre, future progressive if with M be Vpro or future perfect if with M have Vper)
+***AUXbe = "be" (infinitive) or "am"/"are"/"is" (conjugated by person) (both forms for the present progressive tense), or "was"/"were" (past progressive tense) (use in both tenses are auxiliary verbs, used with Vpro (present participle))
 
 A = Adjective
-DEG = Degree word for an adjective/adverb
-
 ADV = Adverb
 DEG = Degree word for an adjective/adverb
 MOD = Mod word for an adverb
-
 P = Preposition
 C = Conjunction
+***Cspe = Special conjunction (contrived loose term for conjunctions that can only join two clauses and not simply two words like FANBOYS which can do both)
 
-
-
-
-To Add:
--plurals
--pronouns
 
 Ignored:
-	-quantifiers
-	-present progressive
+	-quantifiers (grouped with determiners)
+	-perfect progressive
 	-didn't separate determiners (articles, etc) and degree words (comparison vs intensity)
 	-numerics
 
