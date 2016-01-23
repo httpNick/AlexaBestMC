@@ -82,6 +82,7 @@
 		"DeterminerPlural"
 	],
 	"DeterminerSingular": [
+		"a",
 		"the",
 		"this",
 		"that",	
@@ -111,21 +112,21 @@
 	],
 	"PronounNominative": [
 		"I",
-    "you",
-    "he",
-    "she",
-    "it",
-    "we",
-    "they"
+		"you",
+		"he",
+		"she",
+		"it",
+		"we",
+		"they"
 	],
 	"PronounAccusative": [
 		"me",
-    "you",
-    "him",
-    "her",
-    "it",
-    "us",
-    "them"
+		"you",
+		"him",
+		"her",
+		"it",
+		"us",
+		"them"
 	],
 	"ProunounPossessive": [
 		"mine",
