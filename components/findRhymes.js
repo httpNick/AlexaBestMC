@@ -17,11 +17,10 @@ var rhyme = require('rhyme-plus');
  */
 function findRhymingSentences(sentenceInput, callback) {
 
-    //Checks for malicious input and crashes if an array of sentences isn't passed in
+    //Checks for malicious input and crashes if an array of sentences isnt passed in
     console.assert(sentenceInput instanceof Array, "Please enter a valid array of sentences");
-    console.assert(sentenceInput[0] instanceof String, "List doesn't contain strings");
-    //End check for malicious input
-    
+    //End of check for malicious input
+
     rhyme(function findRhymeList(r) {
         var lastWords = findAllLastWords(sentenceInput);
         var rhymingList = r.findRhymes(lastWords);
