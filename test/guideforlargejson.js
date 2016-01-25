@@ -1,5 +1,6 @@
-var grammar = require('../components/res/GrammarRulesConfig.json'),
-  gg = require('grammar-graph');
+var nlp = require('nlp_compromise');
+
+console.log(nlp.verb('run').conjugate());
 
 
-var guide = new gg(grammar).createGuide('Sentence');
+

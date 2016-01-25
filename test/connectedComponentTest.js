@@ -8,17 +8,24 @@ var mainTest = (topic, cb) => {
         if (err) {
             cb(err)
         } else {
-            words.getPartsOfSpeech(res, (posDict) => {
-                posDict.topic = [ topic ];
-                sentencebuilder.generateSentences(posDict, 2, (results) => {
-                    cb(null, results);
-                });
-            })
+            if (res) {
+                words.getPartsOfSpeech(res, (posDict) => {
+                    posDict.topic = [topic];
+                    sentencebuilder.generateSentences(posDict, 5, (results) => {
+                        cb(null, results);
+                    });
+                })
+            } else {
+                cb(new Error("No related words found."), null);
+            }
         }
     });
 };
 
-mainTest('door', (err, res) => {
-   if (err) console.log(err);
-    console.dir(res);
+mainTest('street', (err, res) => {
+   if (err) {
+       console.log(err);
+   } else {
+       console.dir(res);
+   }
 });
