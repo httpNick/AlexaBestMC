@@ -12,7 +12,7 @@ var generateSentencePool = (grammar) => {
   var guide = new gg(grammar).createGuide('grammar')
   , recog = new gg(grammar).createRecognizer('grammar')
   , currSentence = '';
-var num = 0;
+  //var num = 0;
   while (!recog.isComplete(currSentence)) {
     var choice =  guide.choices()[
         Math.floor(Math.random()*guide.choices().length)
@@ -26,10 +26,10 @@ var num = 0;
       Math.floor(Math.random()*guide.constructs().length)
     ];
     //console.log("CURR: " + currSentence);
-    num++;
+    //num++;
   }
-//console.log("NUM: " + num);
-console.log(currSentence);
+  //console.log("NUM: " + num);
+
   return currSentence;
 }
 
@@ -48,7 +48,9 @@ var parser = JSONStream.parse()
 );
 
 /*
-PronounDeterminer can only come before Noun or adajectivephrase
+PronounDeterminer can only come before Noun or adjectivephrase
 Get rid of Preposition PrepositionalPhrase to reduce nonsensical combination of prepositions
-Remove recursive rule sdue to how the grammar graph works
+Remove recursive rules due to how the grammar graph works
+Separated Degree words into DegreeAdjective and DegreeAdverb
+Removed some words that were prone to nonsense
 */

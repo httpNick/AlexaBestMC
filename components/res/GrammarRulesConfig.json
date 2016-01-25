@@ -25,7 +25,6 @@
 		"although",
 		"even though",
 		"while",
-		"Conjunctions Condition",
 		"if",
 		"only if",
 		"unless",
@@ -252,14 +251,15 @@
 	],
 	"AdjectivePhrase": [
 		"Adjective",
-		"Degree Adjective",
+		"DegreeAdjective Adjective",
 		"Adjective PrepositionalPhrase",
+		"Adjective Adjective",
 		"Adjective Conjunction Adjective"
 	],
 	"Adverb": [
 		"-----(adverb selection from services)-----"
 	],
-	"Degree": [
+	"DegreeAdjective": [
 		"more",
 		"most",
 		"less",
@@ -267,18 +267,29 @@
 		"very",
 		"too",
 		"so",
+		"not so",
 		"quite",
-		"best",
-		"worst",
 		"extremely",
 		"pretty",
 		"better",
 		"worse",
 		"rather"
 	],
+	"DegreeAdverb": [
+		"more",
+		"most",
+		"not so",
+		"very",
+		"too",
+		"so",
+		"quite",
+		"extremely",
+		"pretty",
+		"rather"
+	],
 	"AdverbPhrase": [
 		"Adverb",
-		"Degree Adverb"
+		"DegreeAdverb Adverb"
 	],
 	"Preposition": [
 		"aboard",
