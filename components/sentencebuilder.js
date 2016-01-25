@@ -4,7 +4,7 @@ JSONStream = require('JSONStream');
 fs = require('fs');
 es = require('event-stream');
 nlp = require('nlp_compromise');
-completeSentenceChoice = 'TestSentence';
+completeSentenceChoice = 'Sentence';
 
 module.exports = {
 
@@ -17,7 +17,7 @@ module.exports = {
   generateSentences : (words, numberOfSentences, cb) => {
 
     fs.createReadStream(
-      __dirname + '/res/grammarconfig.json'
+      __dirname + '/res/GrammarRulesConfig.json'
     ).pipe(
       JSONStream.parse()
     ).pipe(
@@ -36,11 +36,16 @@ var constructSentences = (words, grammar, numberOfSentences) => {
   var constructedSentences = [];
 
   grammar.Noun = words.nouns;
-  grammar.Verb = pastTenseConversion(words.verbs);
+  grammar.Verb = words.verbs;
   grammar.Adjective = words.adjectives;
   grammar.Adverb = words.adverbs;
   grammar.Rest = words.Rest;
   grammar.TopicWord = words.topic;
+  var conjugatedVerbs = conjugateVerbs(words.verbs);
+  grammar.VerbPast = conjugatedVerbs.past;
+  grammar.VerbPerfect = conjugatedVerbs.perfect;
+  grammar.VerbPresent = conjugatedVerbs.present;
+
 
   var recognizer = new gg(grammar).createRecognizer(completeSentenceChoice);
 
@@ -64,17 +69,26 @@ var constructSentences = (words, grammar, numberOfSentences) => {
     }
 
     constructedSentences.push(
-      nlp.sentence(currSentence).to_past()
+      nlp.sentence(currSentence).to_past().str
     );
   }
 
   return constructedSentences;
 };
 
-var pastTenseConversion = (verbs) => {
+var conjugateVerbs = (verbs) => {
+  var conjugatedVerbs = {
+    past : [],
+    perfect: [],
+    present: []
+  },
+    currVerbConjugated = {};
   for (var i = 0; i < verbs.length; i++) {
-    verbs[i] = nlp.verb(verbs[i]).to_past();
+    currVerbConjugated = nlp.verb(verbs[i]).conjugate();
+    conjugatedVerbs.past.push(currVerbConjugated.past);
+    conjugatedVerbs.perfect.push(currVerbConjugated.perfect);
+    conjugatedVerbs.present.push(currVerbConjugated.present);
+    /*todo What should VerbProgressive be?*/
   }
-  return verbs;
+  return conjugatedVerbs;
 };
-
