@@ -9,21 +9,26 @@ var rhyme = require('rhyme-plus')
 
 var generateSentencePool = (grammar) => {
 
-  var guide = new gg(grammar).createGuide('Sentence')
-  , recog = new gg(grammar).createRecognizer('Sentence')
+  var guide = new gg(grammar).createGuide('grammar')
+  , recog = new gg(grammar).createRecognizer('grammar')
   , currSentence = '';
-
+  //var num = 0;
   while (!recog.isComplete(currSentence)) {
-    guide.choose(
-      guide.choices()[
+    var choice =  guide.choices()[
         Math.floor(Math.random()*guide.choices().length)
-      ]
+      ];
+      //console.log("CHOICE: " + choice);
+    guide.choose(
+     choice
     );
-
+    //console.log("CONSTRUCTS: " + guide.constructs());
     currSentence = guide.constructs()[
       Math.floor(Math.random()*guide.constructs().length)
     ];
+    //console.log("CURR: " + currSentence);
+    //num++;
   }
+  //console.log("NUM: " + num);
 
   return currSentence;
 }
@@ -35,9 +40,17 @@ var parser = JSONStream.parse()
   return x;
 })
 , rStream = fs.createReadStream(
-  __dirname + '/res/sentenceRules.json'
+  __dirname + '/../components/res/GrammarRulesConfig.json'
 ).pipe(
   parser
 ).pipe(
   sentenceGenerator
 );
+
+/*
+PronounDeterminer can only come before Noun or adjectivephrase
+Get rid of Preposition PrepositionalPhrase to reduce nonsensical combination of prepositions
+Remove recursive rules due to how the grammar graph works
+Separated Degree words into DegreeAdjective and DegreeAdverb
+Removed some words that were prone to nonsense
+*/

@@ -1,11 +1,14 @@
 {
 	"grammar": [
-		"Sentence"
+		"Sentence",
+		"Sentence ConjunctionSpecial Sentence"
 	],
 	"Sentence": [
 		"NounPhraseNominative",
 		"VerbPhrase",
 		"NounPhraseNominative VerbPhrase",
+		"NounPhrasePronounDeterminer NounPhrase",
+		"NounPhrasePronounDeterminer AdjectivePhrase",
 		"AdverbPhrase NounPhraseNominative VerbPhrase"
 	],
 	"Conjunction": [
@@ -22,7 +25,6 @@
 		"although",
 		"even though",
 		"while",
-		"Conjunctions Condition",
 		"if",
 		"only if",
 		"unless",
@@ -128,7 +130,7 @@
 		"us",
 		"them"
 	],
-	"ProunounPossessive": [
+	"PronounPossessive": [
 		"mine",
 		"yours",
 		"his",
@@ -147,9 +149,7 @@
 	],
 	"NounPhraseNominativePronoun": [
 		"PronounNominative",
-		"PronounNominative Conjunction PronounNominative",
-		"PronounDeterminer",
-		"PronounDeterminer Conjunction PronounDeterminer"
+		"PronounNominative Conjunction PronounNominative"
 	],
 	"NounPhraseAccusativePronoun": [
 		"PronounAccusative",
@@ -166,6 +166,10 @@
 	"NounPhraseAccusative": [
 		"NounPhrase",
 		"NounPhraseAccusativePronoun"
+	],
+	"NounPhrasePronounDeterminer": [
+		"PronounDeterminer",
+		"PronounDeterminer Conjunction PronounDeterminer"
 	],
 	"Verb": [
 		"VerbPresent",
@@ -247,14 +251,15 @@
 	],
 	"AdjectivePhrase": [
 		"Adjective",
-		"Degree Adjective",
+		"DegreeAdjective Adjective",
 		"Adjective PrepositionalPhrase",
+		"Adjective Adjective",
 		"Adjective Conjunction Adjective"
 	],
 	"Adverb": [
 		"-----(adverb selection from services)-----"
 	],
-	"Degree": [
+	"DegreeAdjective": [
 		"more",
 		"most",
 		"less",
@@ -262,18 +267,29 @@
 		"very",
 		"too",
 		"so",
+		"not so",
 		"quite",
-		"best",
-		"worst",
 		"extremely",
 		"pretty",
 		"better",
 		"worse",
 		"rather"
 	],
+	"DegreeAdverb": [
+		"more",
+		"most",
+		"not so",
+		"very",
+		"too",
+		"so",
+		"quite",
+		"extremely",
+		"pretty",
+		"rather"
+	],
 	"AdverbPhrase": [
 		"Adverb",
-		"Degree Adverb"
+		"DegreeAdverb Adverb"
 	],
 	"Preposition": [
 		"aboard",
@@ -362,7 +378,7 @@
 		"Preposition",
 		"Preposition NounPhraseAccusative",
 		"Preposition VerbPhrase",
-		"Preposition PrepositionalPhrase",
+		"Preposition",
 		"Preposition Sentence",
 		"Modifier Preposition NounPhraseAccusative",
 		"Preposition Conjunction Preposition"
