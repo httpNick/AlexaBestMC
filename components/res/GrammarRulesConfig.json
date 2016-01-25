@@ -1,11 +1,12 @@
 {
+	"grammar": [
+		"Sentence"
+	],
 	"Sentence": [
 		"NounPhraseNominative",
 		"VerbPhrase",
 		"NounPhraseNominative VerbPhrase",
-		"AdverbPhrase NounPhraseNominative VerbPhrase",
-		"Sentence Conjunction Sentence",
-		"Sentence ConjunctionSpecial Sentence"
+		"AdverbPhrase NounPhraseNominative VerbPhrase"
 	],
 	"Conjunction": [
 		"for",
@@ -74,8 +75,7 @@
 		"Determiner AdjectivePhrase Noun",
 		"Noun PrepositionalPhrase",
 		"Determiner Noun PrepositionalPhrase",
-		"Noun Conjunction Noun",
-		"NounPhrase Conjunction PrepositionalPhrase"
+		"Noun Conjunction Noun"
 	],
 	"Determiner": [
 		"DeterminerSingular",
@@ -148,7 +148,6 @@
 	"NounPhraseNominativePronoun": [
 		"PronounNominative",
 		"PronounNominative Conjunction PronounNominative",
-		"NounPhraseNominative Conjunction NounPhraseNominative",
 		"PronounDeterminer",
 		"PronounDeterminer Conjunction PronounDeterminer"
 	],
@@ -156,7 +155,6 @@
 		"PronounAccusative",
 		"PronounAccusative PrepositionalPhrase",
 		"PronounAccusative Conjunction PronounAccusative",
-		"NounPhraseAccusative Conjunction NounPhraseAccusative",
 		"PronounPossessive",
 		"PronounPossessive PrepositionalPhrase",
 		"PronounPossessive Conjunction PronounPossessive"
@@ -167,7 +165,7 @@
 	],
 	"NounPhraseAccusative": [
 		"NounPhrase",
-		"NounPhraseNominativePronoun"
+		"NounPhraseAccusativePronoun"
 	],
 	"Verb": [
 		"VerbPresent",
@@ -223,8 +221,7 @@
 		"ModalVerb have VerbPerfect NounPhraseAccusative PrepositionalPhrase",
 		"ModalVerb VerbPresent NounPhraseAccusative PrepositionalPhrase",
 		"VerbPresent Conjunction VerbPerfect",
-		"VerbPast Conjunction VerbPast",
-		"VerbPhrase Conjunction VerbPhrase"
+		"VerbPast Conjunction VerbPast"
 	],
 	"AuxiliaryVerbHave": [
 		"have",
@@ -252,8 +249,7 @@
 		"Adjective",
 		"Degree Adjective",
 		"Adjective PrepositionalPhrase",
-		"Adjective Conjunction Adjective",
-		"AdjectivePhrase Conjunction AdjectivePhrase"
+		"Adjective Conjunction Adjective"
 	],
 	"Adverb": [
 		"-----(adverb selection from services)-----"
@@ -277,8 +273,7 @@
 	],
 	"AdverbPhrase": [
 		"Adverb",
-		"Degree Adverb",
-		"AdverbPhrase Conjunction AdverbPhrase"
+		"Degree Adverb"
 	],
 	"Preposition": [
 		"aboard",
@@ -370,7 +365,6 @@
 		"Preposition PrepositionalPhrase",
 		"Preposition Sentence",
 		"Modifier Preposition NounPhraseAccusative",
-		"Preposition Conjunction Preposition",
-		"PrepositionalPhrase Conjunction PrepositionalPhrase"
+		"Preposition Conjunction Preposition"
 	]
 }
