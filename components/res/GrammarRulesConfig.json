@@ -1,11 +1,14 @@
 {
 	"grammar": [
-		"Sentence"
+		"Sentence",
+		"Sentence ConjunctionSpecial Sentence"
 	],
 	"Sentence": [
 		"NounPhraseNominative",
 		"VerbPhrase",
 		"NounPhraseNominative VerbPhrase",
+		"NounPhrasePronounDeterminer NounPhrase",
+		"NounPhrasePronounDeterminer AdjectivePhrase",
 		"AdverbPhrase NounPhraseNominative VerbPhrase"
 	],
 	"Conjunction": [
@@ -128,7 +131,7 @@
 		"us",
 		"them"
 	],
-	"ProunounPossessive": [
+	"PronounPossessive": [
 		"mine",
 		"yours",
 		"his",
@@ -147,9 +150,7 @@
 	],
 	"NounPhraseNominativePronoun": [
 		"PronounNominative",
-		"PronounNominative Conjunction PronounNominative",
-		"PronounDeterminer",
-		"PronounDeterminer Conjunction PronounDeterminer"
+		"PronounNominative Conjunction PronounNominative"
 	],
 	"NounPhraseAccusativePronoun": [
 		"PronounAccusative",
@@ -166,6 +167,10 @@
 	"NounPhraseAccusative": [
 		"NounPhrase",
 		"NounPhraseAccusativePronoun"
+	],
+	"NounPhrasePronounDeterminer": [
+		"PronounDeterminer",
+		"PronounDeterminer Conjunction PronounDeterminer"
 	],
 	"Verb": [
 		"VerbPresent",
@@ -362,7 +367,7 @@
 		"Preposition",
 		"Preposition NounPhraseAccusative",
 		"Preposition VerbPhrase",
-		"Preposition PrepositionalPhrase",
+		"Preposition",
 		"Preposition Sentence",
 		"Modifier Preposition NounPhraseAccusative",
 		"Preposition Conjunction Preposition"
