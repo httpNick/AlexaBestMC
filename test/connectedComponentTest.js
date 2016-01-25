@@ -18,7 +18,7 @@ var mainTest = (topic, cb) => {
     });
 };
 
-mainTest('apple', (err, res) => {
+mainTest('door', (err, res) => {
    if (err) console.log(err);
     console.dir(res);
 });
