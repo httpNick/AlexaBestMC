@@ -29,6 +29,7 @@ exports.getRelatedWords = function(topic, callback) {
 };
 
 exports.getRelatedWordsFromWordnik = (topic, cb) => {
+    console.log('got here')
     var options = {
         url: setWordNikSearchTopic(topic),
         method: 'GET',
@@ -45,7 +46,7 @@ exports.getRelatedWordsFromWordnik = (topic, cb) => {
     });
 };
 
-var setWordNikSearchTopic = () => {
+var setWordNikSearchTopic = (topic) => {
     return "http://api.wordnik.com:80/v4/word.json/"+ topic +"/relatedWords?useCanonical=false&limitPerRelationshipType=10&api_key=" + keychain.wordnik;
 };
 
