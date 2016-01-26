@@ -4,6 +4,7 @@ var WordPOS = require('wordpos');
 var randomWords = require('random-words');
 var wordPos = new WordPOS();
 var keychain = require('../config.keys.json');
+var wordnikparse = require('../components/wordnikresponseparse');
 
 exports.getRelatedWords = function(topic, callback) {
   var urlPath = '/associations/?entry=' + topic;
@@ -29,7 +30,6 @@ exports.getRelatedWords = function(topic, callback) {
 };
 
 exports.getRelatedWordsFromWordnik = (topic, cb) => {
-    console.log('got here')
     var options = {
         url: setWordNikSearchTopic(topic),
         method: 'GET',
@@ -41,13 +41,21 @@ exports.getRelatedWordsFromWordnik = (topic, cb) => {
         if (err) {
             cb(err, null);
         } else {
-            cb(null, JSON.parse(body));
+            cb(
+                null,
+                wordnikparse.extractRelationshipTypesFromWordnik(
+                    JSON.parse(body)
+                )
+            );
         }
     });
 };
 
 var setWordNikSearchTopic = (topic) => {
-    return "http://api.wordnik.com:80/v4/word.json/"+ topic +"/relatedWords?useCanonical=false&limitPerRelationshipType=10&api_key=" + keychain.wordnik;
+    return "http://api.wordnik.com:80/v4/word.json/"
+        + topic +
+        "/relatedWords?useCanonical=false&limitPerRelationshipType=10&api_key="
+        + keychain.wordnik;
 };
 
 var getPartsOfSpeech = function(words, callback) {
