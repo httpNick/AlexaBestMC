@@ -45,6 +45,7 @@ var constructSentences = (words, grammar, numberOfSentences) => {
   grammar.VerbPast = conjugatedVerbs.past;
   grammar.VerbPerfect = conjugatedVerbs.perfect;
   grammar.VerbPresent = conjugatedVerbs.present;
+  grammar.VerbProgressive = conjugatedVerbs.progressive;
 
 
   var recognizer = new gg(grammar).createRecognizer(completeSentenceChoice);
@@ -80,7 +81,8 @@ var conjugateVerbs = (verbs) => {
   var conjugatedVerbs = {
     past : [],
     perfect: [],
-    present: []
+    present: [],
+    progressive: []
   },
     currVerbConjugated = {};
   for (var i = 0; i < verbs.length; i++) {
@@ -88,7 +90,7 @@ var conjugateVerbs = (verbs) => {
     conjugatedVerbs.past.push(currVerbConjugated.past);
     conjugatedVerbs.perfect.push(currVerbConjugated.perfect);
     conjugatedVerbs.present.push(currVerbConjugated.present);
-    /*todo What should VerbProgressive be?*/
+    conjugatedVerbs.progressive.push(currVerbConjugated.gerund);
   }
   return conjugatedVerbs;
 };
