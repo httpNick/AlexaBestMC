@@ -22,7 +22,7 @@ var mainTest = (topic, cb) => {
     });
 };
 
-mainTest('street', (err, res) => {
+mainTest('school', (err, res) => {
    if (err) {
        console.log(err);
    } else {

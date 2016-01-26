@@ -57,4 +57,8 @@ Removed some words that were prone to nonsense
 Fixed rules for PrepositionalPhrase so that the only verbs that prepositions can come before are progressive verbs
 Removed a ConjunctiveSpecial word
 Added another rule for Sentence to join three clauses
+
+Tweaked PrepositionalPhrase and AdverbPhrase placements in NounPhrase and VerbPhrase
+Moved some words in Conjunction to ConjunctionSpecial
+Moved PrepositionalPhrase out of NounPhrase to prevent it from coming before modal or auxilary verb if the NounPhrase is before a VerbPhrase
 */

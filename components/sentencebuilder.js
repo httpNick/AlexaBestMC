@@ -67,10 +67,13 @@ var constructSentences = (words, grammar, numberOfSentences) => {
         Math.floor(Math.random()*guide.constructs().length)
       ];
     }
-
+/*
     constructedSentences.push(
       nlp.sentence(currSentence).to_past().str
     );
+*/
+    constructedSentences.push(currSentence);
+
   }
 
   return constructedSentences;

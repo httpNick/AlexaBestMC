@@ -6,22 +6,23 @@
 	],
 	"Sentence": [
 		"NounPhraseNominative",
+		"NounPhraseNominative PrepositionalPhrase",
+		"NounPhrasePronounDeterminer NounPhrase",
+		"NounPhrasePronounDeterminer NounPhrase PrepositionalPhrase",
 		"VerbPhrase",
 		"NounPhraseNominative VerbPhrase",
-		"NounPhrasePronounDeterminer NounPhrase",
-		"NounPhrasePronounDeterminer AdjectivePhrase",
 		"AdverbPhrase NounPhraseNominative VerbPhrase"
 	],
 	"Conjunction": [
-		"for",
 		"and",
 		"nor",
-		"but",
 		"or",
-		"yet",
-		"so"
+		"yet"
 	],
 	"ConjunctionSpecial": [
+		"for",
+		"but",
+		"so",
 		"though",
 		"although",
 		"even though",
@@ -75,8 +76,8 @@
 		"AdjectivePhrase Noun",
 		"Determiner Noun",
 		"Determiner AdjectivePhrase Noun",
-		"Noun PrepositionalPhrase",
-		"Determiner Noun PrepositionalPhrase",
+		"Noun",
+		"Determiner Noun",
 		"Noun Conjunction Noun"
 	],
 	"Determiner": [
@@ -156,7 +157,6 @@
 		"PronounAccusative PrepositionalPhrase",
 		"PronounAccusative Conjunction PronounAccusative",
 		"PronounPossessive",
-		"PronounPossessive PrepositionalPhrase",
 		"PronounPossessive Conjunction PronounPossessive"
 	],
 	"NounPhraseNominative": [
@@ -191,7 +191,12 @@
 		"Verb",
 		"Verb AdjectivePhrase",
 		"Verb AdverbPhrase",
-		"AdverbPhrase Verb",
+		"AdverbPhrase Verb",		
+		"Verb PrepositionalPhrase",	
+		"Verb NounPhraseAccusative",
+		"Verb NounPhraseAccusative PrepositionalPhrase",
+		"VerbPresent Conjunction VerbPerfect",
+		"VerbPast Conjunction VerbPast",
 		"AuxiliaryVerbHave VerbPerfect",
 		"AuxiliaryVerbBe VerbProgressive",
 		"AuxiliaryVerbBe VerbProgressive AdjectivePhrase",
@@ -205,27 +210,27 @@
 		"ModalVerb be VerbProgressive AdverbPhrase",
 		"ModalVerb be AdverbPhrase VerbProgressive",
 		"ModalVerb have VerbPerfect",
-		"Verb PrepositionalPhrase",
 		"AuxiliaryVerbHave VerbPerfect AdjectivePhrase",
+		"AuxiliaryVerbHave VerbPerfect AdverbPhrase",
 		"AuxiliaryVerbHave VerbPerfect PrepositionalPhrase",
 		"AuxiliaryVerbBe VerbProgressive PrepositionalPhrase",
 		"ModalVerb be VerbProgressive PrepositionalPhrase",
 		"ModalVerb have VerbPerfect PrepositionalPhrase",
+		"ModalVerb have AdverbPhrase VerbPerfect",
 		"ModalVerb VerbPresent PrepositionalPhrase",
-		"Verb NounPhraseAccusative",
 		"AuxiliaryVerbHave VerbPerfect NounPhraseAccusative",
 		"AuxiliaryVerbBe VerbProgressive NounPhraseAccusative",
 		"ModalVerb be VerbProgressive NounPhraseAccusative",
 		"ModalVerb have VerbPerfect NounPhraseAccusative",
 		"ModalVerb VerbPresent NounPhraseAccusative",
-		"Verb NounPhraseAcusative PrepositionalPhrase",
+		"ModalVerb be AdverbPhrase VerbProgressive NounPhraseAccusative",
+		"ModalVerb have AdverbPhrase VerbPerfect NounPhraseAccusative",
+		"ModalVerb AdverbPhrase VerbPresent NounPhraseAccusative",
 		"AuxiliaryVerbHave VerbPerfect NounPhraseAccusative PrepositionalPhrase",
 		"AuxiliaryVerbBe VerbProgressive NounPhraseAccusative PrepositionalPhrase",
 		"ModalVerb be VerbProgressive NounPhraseAccusative PrepositionalPhrase",
 		"ModalVerb have VerbPerfect NounPhraseAccusative PrepositionalPhrase",
-		"ModalVerb VerbPresent NounPhraseAccusative PrepositionalPhrase",
-		"VerbPresent Conjunction VerbPerfect",
-		"VerbPast Conjunction VerbPast"
+		"ModalVerb VerbPresent NounPhraseAccusative PrepositionalPhrase"
 	],
 	"AuxiliaryVerbHave": [
 		"have",
@@ -256,9 +261,6 @@
 		"Adjective Adjective",
 		"Adjective Conjunction Adjective"
 	],
-	"Adverb": [
-		"-----(adverb selection from services)-----"
-	],
 	"DegreeAdjective": [
 		"more",
 		"most",
@@ -286,6 +288,24 @@
 		"extremely",
 		"pretty",
 		"rather"
+	],
+	"Adverb": [
+		"above",
+		"after",
+		"around",
+		"before",
+		"behind",
+		"below",
+		"beneath",
+		"beyond",
+		"inside",
+		"on",
+		"off",
+		"outside",
+		"over",
+		"underneath",
+		"up",
+		"within"
 	],
 	"AdverbPhrase": [
 		"Adverb",
@@ -347,7 +367,6 @@
 		"round",
 		"save",
 		"since",
-		"than",
 		"through",
 		"to",
 		"toward",
@@ -375,11 +394,9 @@
 		"way"
 	],
 	"PrepositionalPhrase": [
-		"Preposition",
 		"Preposition NounPhraseAccusative",
 		"Preposition VerbProgressive",
 		"Preposition VerbProgressive PrepositionalPhrase",
-		"Preposition",
 		"Preposition Sentence",
 		"Modifier Preposition NounPhraseAccusative",
 		"Preposition Conjunction Preposition"
