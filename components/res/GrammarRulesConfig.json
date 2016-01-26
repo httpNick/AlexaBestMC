@@ -1,7 +1,8 @@
 {
 	"grammar": [
 		"Sentence",
-		"Sentence ConjunctionSpecial Sentence"
+		"Sentence ConjunctionSpecial Sentence",
+		"Sentence ConjunctionSpecial Sentence ConjunctionSpecial Sentence"
 	],
 	"Sentence": [
 		"NounPhraseNominative",
@@ -34,7 +35,6 @@
 		"even if",
 		"in case",
 		"lest",
-		"than",
 		"rather than",
 		"whether",
 		"as much as",
@@ -377,7 +377,8 @@
 	"PrepositionalPhrase": [
 		"Preposition",
 		"Preposition NounPhraseAccusative",
-		"Preposition VerbPhrase",
+		"Preposition VerbProgressive",
+		"Preposition VerbProgressive PrepositionalPhrase",
 		"Preposition",
 		"Preposition Sentence",
 		"Modifier Preposition NounPhraseAccusative",
