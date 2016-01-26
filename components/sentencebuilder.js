@@ -37,8 +37,8 @@ var constructSentences = (words, grammar, numberOfSentences) => {
 
   grammar.Noun = words.nouns;
   grammar.Verb = words.verbs;
-  grammar.Adjective = words.adjectives;
-  grammar.Adverb = words.adverbs;
+  grammar.Adjective = grammar.Adjective.concat(words.adjectives);
+  grammar.Adverb = grammar.Adverb.concat(words.adverbs);
   grammar.Rest = words.Rest;
   grammar.TopicWord = words.topic;
   var conjugatedVerbs = conjugateVerbs(words.verbs);
@@ -91,7 +91,7 @@ var conjugateVerbs = (verbs) => {
   for (var i = 0; i < verbs.length; i++) {
     currVerbConjugated = nlp.verb(verbs[i]).conjugate();
     conjugatedVerbs.past.push(currVerbConjugated.past);
-    conjugatedVerbs.perfect.push(currVerbConjugated.perfect);
+    conjugatedVerbs.perfect.push(currVerbConjugated.perfect.split(' ')[1]); //exclude the modal verb at index zero
     conjugatedVerbs.present.push(currVerbConjugated.present);
     conjugatedVerbs.progressive.push(currVerbConjugated.gerund);
   }

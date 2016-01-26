@@ -13,9 +13,9 @@ var mainTest = (topic, cb) => {
                 words.getPartsOfSpeech(res, (posDict) => {
                     posDict.topic = [topic];
                     sentencebuilder.generateSentences(posDict, 10, (results) => {
-                        rhyme.findRhymingSentences(results, (rhymes) => {
-                          cb(null, rhymes);
-                        });
+                        //rhyme.findRhymingSentences(results, (rhymes) => {
+                          cb(null, results);
+                        //});
                     });
                 })
             } else {
