@@ -15,49 +15,42 @@ var rhyme = require('rhyme-plus');
  *
  * @return an array of paired sentences with the layout [[a,b],[c,d]]
  */
-function findRhymingSentences(sentenceInput, callback) {
+module.exports = {
 
-    //Checks for malicious input and crashes if an array of sentences isnt passed in
-    console.assert(sentenceInput instanceof Array, "Please enter a valid array of sentences");
-    //End of check for malicious input
+    findRhymingSentences : function(sentenceInput, callback) {
 
-    rhyme(function findRhymeList(r) {
-        var lastWords = findAllLastWords(sentenceInput);
-        var rhymingList = r.findRhymes(lastWords);
-        var rhymingSentences = [];
+        //Checks for malicious input and crashes if an array of sentences isnt passed in
+        console.assert(sentenceInput instanceof Array, "Please enter a valid array of sentences");
+        //End of check for malicious input
+        rhyme(function findRhymeList(r) {
+            var lastWords = findAllLastWords(sentenceInput);
+            var rhymingList = r.findRhymes(lastWords);
+            var rhymingSentences = [];
 
-        for (var i = 0; i < rhymingList.length; i++) {
-            var rhymingWords = rhymingList[i];
-            var rhymingSentencePair = []; //reset the list
-            for (var j = 0; j < rhymingWords.length; j++) {
-                for (var k = 0; k < sentenceInput.length; k++) {
-                    if(sentenceInput[k].search(rhymingWords[j]) != -1) //The word is in the sentence
-                        rhymingSentencePair.push(sentenceInput[k]);
+            for (var i = 0; i < rhymingList.length; i++) {
+                var rhymingWords = rhymingList[i];
+                var rhymingSentencePair = []; //reset the list
+                for (var j = 0; j < rhymingWords.length; j++) {
+                    for (var k = 0; k < sentenceInput.length; k++) {
+                        if (sentenceInput[k].search(rhymingWords[j]) != -1) //The word is in the sentence
+                            rhymingSentencePair.push(sentenceInput[k]);
+                    }
                 }
+                rhymingSentences.push(rhymingSentencePair);
             }
-            rhymingSentences.push(rhymingSentencePair);
-        }
 
-        return callback(rhymingSentences)
-    });
+            callback(rhymingSentences)
+        });
 
 
-    //Private function that finds the last word of a sentence
-    function findAllLastWords(sentenceList) {
-        var lastWords = [];
-        for(var i = 0; i < sentenceList.length; i++) {
-            lastWords[i] = (""+sentenceList[i]).replace(/[\s\-\.]+$/,'').split(/[\s-]/).pop();
-        }
+        //Private function that finds the last word of a sentence
+        function findAllLastWords(sentenceList) {
+            var lastWords = [];
+            for (var i = 0; i < sentenceList.length; i++) {
+                lastWords[i] = ("" + sentenceList[i]).replace(/[\s\-\.]+$/, '').split(/[\s-]/).pop();
+            }
 
-        return lastWords;
-    } //End findAllLastWords
-}
-
-
-/*This is test code, can be removed*/
-var testSentences = ["This is a test rake", "This is another bake", "Third saying", "This is a cat", "That is a hat"];
-findRhymingSentences(testSentences, function(rhymes) {
-    console.log(rhymes);
-});
-
-/*End test code*/
+            return lastWords;
+        } //End findAllLastWords
+    }
+};

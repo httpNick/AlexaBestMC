@@ -2,6 +2,7 @@ var sentencebuilder, partofspeechseparator, randomwords;
 sentencebuilder = require('../components/sentencebuilder');
 words = require('../services/words.js');
 randomwords = require('random-words');
+rhyme = require('../components/findRhymes');
 
 var mainTest = (topic, cb) => {
     words.getRelatedWords(topic, (err, res) => {
@@ -11,8 +12,10 @@ var mainTest = (topic, cb) => {
             if (res) {
                 words.getPartsOfSpeech(res, (posDict) => {
                     posDict.topic = [topic];
-                    sentencebuilder.generateSentences(posDict, 5, (results) => {
-                        cb(null, results);
+                    sentencebuilder.generateSentences(posDict, 10, (results) => {
+                        rhyme.findRhymingSentences(results, (rhymes) => {
+                          cb(null, rhymes);
+                        });
                     });
                 })
             } else {
