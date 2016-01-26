@@ -1,5 +1,3 @@
-var words = require('../services/words.js');
-
 module.exports = {
 
     extractRelationshipTypesFromWordnik : (res) => {
