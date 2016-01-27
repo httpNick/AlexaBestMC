@@ -8,13 +8,15 @@ var testTopic = 'apple';
 Promise.all([
 
     words.getRelatedWords(testTopic),
-    words.getRelatedWordsFromWordnik(testTopic)
+    words.getRelatedWordsFromWordnik(testTopic),
+    words.getRhymingWordsFromRhymeBrain(testTopic)
 
 ]).then(response => {
 
     /**
      * response[0] is the response for twinword
      * response[1] is the response for wordnik
+     * response[2] is the response of rhyming words from RhymeBrain.
      */
     if (response[0].associations_array && response[1]) {
 
@@ -30,7 +32,11 @@ Promise.all([
 
             posDict.topic = [testTopic];
             posDict.rhymingWords = response[1].rhyme;
-
+            if (response[2]) {
+                posDict.rhymingWords = posDict
+                    .rhymingWords
+                    .concat(response[2]);
+            }
             sentencebuilder.generateSentences(posDict, 10, (results) => {
 
                 console.log(results);
