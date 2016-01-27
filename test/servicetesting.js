@@ -59,6 +59,7 @@ module.exports.topicRequest("apple", (data) => {
 });
 */
 
+// Rhyming results provided by: http://rhymebrain.com
 var options = {
     url: "http://rhymebrain.com/talk?function=getRhymes&word=apple",
     method: 'GET',
