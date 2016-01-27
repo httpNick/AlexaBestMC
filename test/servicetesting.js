@@ -53,7 +53,21 @@ module.exports = {
     });
   }
 };
-
+/*
 module.exports.topicRequest("apple", (data) => {
    console.log(data);
 });
+*/
+
+var options = {
+    url: "http://rhymebrain.com/talk?function=getRhymes&word=apple",
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+};
+
+request(options, (err, response, body) => {
+   console.log(body);
+});
+
