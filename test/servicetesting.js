@@ -52,7 +52,7 @@ module.exports = {
       }
     });
   }
-}
+};
 
 module.exports.topicRequest("apple", (data) => {
    console.log(data);
