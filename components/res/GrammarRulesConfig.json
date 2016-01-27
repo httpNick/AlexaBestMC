@@ -7,7 +7,8 @@
 	"Sentence": [
 		"NounPhraseNominative",
 		"NounPhraseNominative PrepositionalPhrase",
-		"NounPhraseAccusative PrepositionalPhrase",
+		"PronounAccusative PrepositionalPhrase",
+		"PronounAccusative VerbPhrase",
 		"NounPhrasePronounDeterminer NounPhrase",
 		"NounPhrasePronounDeterminer NounPhrase PrepositionalPhrase",
 		"VerbPhrase",
@@ -15,14 +16,14 @@
 	],
 	"Conjunction": [
 		"and",
-		"nor",
+		"not",
 		"or",
-		"yet"
 	],
 	"ConjunctionSpecial": [
 		"for",
 		"but",
 		"so",
+		"yet",
 		"though",
 		"although",
 		"even though",
@@ -261,7 +262,6 @@
 	"AdjectivePhrase": [
 		"Adjective",
 		"DegreeAdjective Adjective",
-		"Adjective PrepositionalPhrase",
 		"Adjective Adjective",
 		"Adjective Conjunction Adjective"
 	],
