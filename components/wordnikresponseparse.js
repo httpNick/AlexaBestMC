@@ -16,37 +16,26 @@ module.exports = {
 
         for (var i = 0; i < res.length; i++) {
             if (res[i].relationshipType) {
-                switch (res[i].relationshipType) {
 
-                    case 'equivalent' :
+                    if (res[i].relationshipType === 'equivalent') {
                         relationships.equivalent = res[i].words;
-                        break;
-                    case 'hypernym' :
+                    } else if (res[i].relationshipType === 'hypernym') {
                         relationships.hypernym = res[i].words;
-                        break;
-                    case 'cross-reference':
+                    } else if (res[i].relationshipType === 'cross-reference') {
                         relationships.crossReference = res[i].words;
-                        break;
-                    case 'etymologically-related-term' :
+                    } else if (res[i].relationshipType === 'etymologically-related-term') {
                         relationships.etymologicallyRelatedTerm = res[i].words;
-                        break;
-                    case 'synonym' :
+                    } else if (res[i].relationshipType === 'synonym') {
                         relationships.synonym = res[i].words;
-                        break;
-                    case 'rhyme' :
+                    } else if (res[i].relationshipType === 'rhyme') {
                         relationships.rhyme = res[i].words;
-                        break;
-                    case 'unknown' :
+                    } else if (res[i].relationshipType === 'unknown') {
                         relationships.unknown = res[i].words;
-                        break;
-                    case 'same-context' :
+                    } else if (res[i].relationshipType === 'same-context') {
                         relationships.sameContext = res[i].words;
-                        break;
-                }
-
+                    }
             }
-            return relationships;
         }
+        return relationships;
     }
-
 };

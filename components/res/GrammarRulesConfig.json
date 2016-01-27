@@ -1,5 +1,5 @@
 {
-	"grammar": [
+	"Grammar": [
 		"Sentence",
 		"Sentence ConjunctionSpecial Sentence",
 		"Sentence ConjunctionSpecial Sentence ConjunctionSpecial Sentence"
