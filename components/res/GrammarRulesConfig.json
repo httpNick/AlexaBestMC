@@ -7,11 +7,11 @@
 	"Sentence": [
 		"NounPhraseNominative",
 		"NounPhraseNominative PrepositionalPhrase",
+		"NounPhraseAccusative PrepositionalPhrase",
 		"NounPhrasePronounDeterminer NounPhrase",
 		"NounPhrasePronounDeterminer NounPhrase PrepositionalPhrase",
 		"VerbPhrase",
 		"NounPhraseNominative VerbPhrase",
-		"AdverbPhrase NounPhraseNominative VerbPhrase"
 	],
 	"Conjunction": [
 		"and",
@@ -155,7 +155,6 @@
 	],
 	"NounPhraseAccusativePronoun": [
 		"PronounAccusative",
-		"PronounAccusative PrepositionalPhrase",
 		"PronounAccusative Conjunction PronounAccusative",
 		"PronounPossessive",
 		"PronounPossessive Conjunction PronounPossessive"
@@ -273,13 +272,10 @@
 		"least",
 		"very",
 		"too",
-		"so",
 		"not so",
 		"quite",
 		"extremely",
 		"pretty",
-		"better",
-		"worse",
 		"rather"
 	],
 	"DegreeAdverb": [
@@ -370,7 +366,6 @@
 		"over",
 		"past",
 		"per",
-		"plus",
 		"regarding",
 		"round",
 		"save",
@@ -393,7 +388,6 @@
 	],
 	"Modifier": [
 		"all",
-		"clear",
 		"down",
 		"just",
 		"right",
@@ -405,7 +399,6 @@
 		"Preposition NounPhraseAccusative",
 		"Preposition VerbProgressive",
 		"Preposition VerbProgressive PrepositionalPhrase",
-		"Preposition Sentence",
 		"Modifier Preposition NounPhraseAccusative",
 		"Preposition Conjunction PrepositionalPhrase"
 	]
