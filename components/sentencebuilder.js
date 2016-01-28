@@ -128,7 +128,9 @@ VerbProgressiveRhyming
             generateTwoSentences(grammar)
         );
         //reset topicword
+        grammar.TopicWord[0] = chooseANewTopic(grammar.Noun);
         // get rhymingwords for new topic
+
         // get pos types for new rhyming words
         // re-inject the grammar
     }
@@ -198,6 +200,12 @@ var generateTwoSentences = (grammar) => {
         constructedSentences.push(outputSentence);
     }
     return constructedSentences;
+};
+
+var chooseANewTopic = (relatedNouns) => {
+
+    var chosenIndex = Math.floor(Math.random()*relatedNouns.length);
+    return relatedNouns.splice(chosenIndex, 1);
 };
 
 var conjugateVerbs = (verbs) => {
