@@ -11,12 +11,12 @@
     "NounPhrasePronounDeterminer NounPhrase",
     "NounPhrasePronounDeterminer NounPhrase PrepositionalPhrase",
     "VerbPhrase",
-    "NounPhraseNominative VerbPhrase",
+    "NounPhraseNominative VerbPhrase"
   ],
   "Conjunction": [
     "and",
     "not",
-    "or",
+    "or"
   ],
   "ConjunctionSpecial": [
     "for",

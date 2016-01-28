@@ -67,7 +67,7 @@ var constructSentences = (words, grammar, numberOfSentences) => {
     grammar.Adverb = grammar.Adverb.concat(words.adverbs);
     if (grammar.Rest) grammar.Rest = words.Rest;
     grammar.TopicWord = words.topic;
-    var conjugatedVerbs = conjugateVerbs(words.verbs);
+    var conjugatedVerbs = conjugateVerbs(grammar.Verb);
     grammar.VerbPast = conjugatedVerbs.past;
     grammar.VerbPerfect = conjugatedVerbs.perfect;
     grammar.VerbPresent = conjugatedVerbs.present;
@@ -75,13 +75,14 @@ var constructSentences = (words, grammar, numberOfSentences) => {
     grammar.NounRhyming = words.NounRhyming;
     grammar.AdjectiveRhyming = words.AdjectiveRhyming;
     grammar.AdverbRhyming = words.AdverbRhyming;
+    /*
     var conjugatedRhymeVerbs = conjugateVerbs(words.VerbRhyming);
     //grammar.LocativeAdverbRhyming
     grammar.VerbPastRhyming = conjugatedRhymeVerbs.past;
     grammar.VerbPerfectRhyming = conjugatedRhymeVerbs.perfect;
     grammar.VerbPresentRhyming = conjugatedRhymeVerbs.present;
     grammar.VerbProgressiveRhyming = conjugatedRhymeVerbs.progressive;
-
+*/
     //clear it before each use
     wordTypeDictionary = {};
 
@@ -101,6 +102,7 @@ var constructSentences = (words, grammar, numberOfSentences) => {
   addWordsToDictionary(wordTypeDictionary, grammar.DeterminerSingular, wordTypes.DeterminerSingular);
   addWordsToDictionary(wordTypeDictionary, grammar.AuxiliaryVerbBe, wordTypes.AuxiliaryVerbBe);
 
+/*
   addWordsToDictionary(wordTypeDictionary, grammar.NounRhyming, wordTypes.NounRhyming);
   addWordsToDictionary(wordTypeDictionary, grammar.AdjectiveRhyming, wordTypes.AdjectiveRhyming);
   addWordsToDictionary(wordTypeDictionary, grammar.AdverbRhyming, wordTypes.AdverbRhyming);
@@ -110,7 +112,7 @@ var constructSentences = (words, grammar, numberOfSentences) => {
   addWordsToDictionary(wordTypeDictionary, grammar.VerbPresentRhyming, wordTypes.VerbPresentRhyming);
   addWordsToDictionary(wordTypeDictionary, grammar.VerbProgressiveRhyming, wordTypes.VerbProgressiveRhyming);
   addWordsToDictionary(wordTypeDictionary, grammar.ModalVerb, wordTypes.ModalVerb);
-
+*/
 
 /*
 NounRhyming
@@ -121,7 +123,7 @@ VerbPastRhyming
 VerbPerfectRhyming
 VerbPresentRhyming
 VerbProgressiveRhyming
-*/
+
     var sentencesToBeSentToVerses = [];
     for (var i = 0; i < 8; i++) {
         //concat two sentences to the final list of sentences that will total 16.
@@ -136,7 +138,11 @@ VerbProgressiveRhyming
         // re-inject the grammar
     }
     return sentencesToBeSentToVerses;
+    */
+
+  return generateTwoSentences(grammar);
 };
+
 
 var generateTwoSentences = (grammar) => {
     var constructedSentences = [];
@@ -146,7 +152,7 @@ var generateTwoSentences = (grammar) => {
             completeSentenceChoice
         );
 
-    while (constructedSentences.length < 2) {
+    while (constructedSentences.length < 15) {
         var currSentence = '';
         var outputSentence = '';
         var guide = new gg(grammar).createGuide(completeSentenceChoice);
@@ -168,7 +174,7 @@ var generateTwoSentences = (grammar) => {
                 if(types.indexOf(wordTypes.DeterminerSingular) > -1 || types.indexOf(wordTypes.DeterminerPlural) > -1) {
                     previousDeterminer = choice;
                 }
-                if(types.indexOf(wordtypes.ModalVerb) > -1) {
+                if(types.indexOf(wordTypes.ModalVerb) > -1) {
                     modalPresent = true;
                 } 
 
