@@ -91,7 +91,7 @@
 		"the",
 		"this",
 		"that",	
-		"any",	
+		"any",
 		"each",
 		"either",
 		"neither",
@@ -242,7 +242,8 @@
 		"had"
 	],
 	"AuxiliaryVerbBe": [
-		"be"
+		"be",
+		"was"
 	],
 	"ModalVerb": [
 		"can",
