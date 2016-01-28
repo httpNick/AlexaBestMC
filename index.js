@@ -86,10 +86,8 @@ var onIntent = function(intentRequest, session, callback) {
     // Dispatch to your skill's intent handlers
     if ("RapAbout" === intentName) {
         setTopicInSession(intent, session, callback);
-    } else if ("WhatsMyTopic" === intentName) {
-        getTopicFromSession(intent, session, callback);
     } else if ("AMAZON.HelpIntent" === intentName) {
-        getWelcomeResponse(callback);
+        getHelpResponse(callback);
     } else {
         throw "Invalid intent";
     }
@@ -112,12 +110,25 @@ function getWelcomeResponse(callback) {
     // If we wanted to initialize the session to have some attributes we could add those here.
     var sessionAttributes = {};
     var cardTitle = "Welcome";
-    var speechOutput = "Welcome please tell me a word to create rap verses for by saying, " +
-      "rap about bagels";
+    var speechOutput = "You can give me a one word topic and I’ll rap about it. What should I freestyle about?";
     // If the user either does not reply to the welcome message or says something that is not
     // understood, they will be prompted again with this text.
     var repromptText = "Please tell me what to rap about by saying, " +
         "rap about bagels";
+    var shouldEndSession = false;
+
+    callback(sessionAttributes,
+        buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+}
+
+function getHelpResponse(callback) {
+    // If we wanted to initialize the session to have some attributes we could add those here.
+    var sessionAttributes = {};
+    var cardTitle = "Help";
+    var speechOutput = "Here are some things you can say: " +
+        "freestyle about Topic, " +
+        "rap about Topic ";
+
     var shouldEndSession = false;
 
     callback(sessionAttributes,

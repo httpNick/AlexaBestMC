@@ -61,4 +61,12 @@ Added another rule for Sentence to join three clauses
 Tweaked PrepositionalPhrase and AdverbPhrase placements in NounPhrase and VerbPhrase
 Moved some words in Conjunction to ConjunctionSpecial
 Moved PrepositionalPhrase out of NounPhrase to prevent it from coming before modal or auxilary verb if the NounPhrase is before a VerbPhrase
+
+Split locative adverbs out into their own rule
+Gave Noun, Verb, Adjective, and Adverb default values
+Removed AdverbPhrase from being at the beginning
+
+DeterminerPlural: The noun following this declines by number
+VerbPresent: Conjugates by person
+AuxiliaryVerbBe: Conjugates by person (i.e. "am", "are", "is") and for present and past tense ("was"/"were")
 */

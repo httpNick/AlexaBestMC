@@ -3,7 +3,7 @@ sentencebuilder = require('../components/sentencebuilder');
 words = require('../services/words.js');
 randomwords = require('random-words');
 rhyme = require('../components/findRhymes');
-var testTopic = 'apple';
+var testTopic = 'school';
 
 Promise.all([
 
