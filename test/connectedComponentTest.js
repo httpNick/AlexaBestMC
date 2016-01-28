@@ -1,5 +1,6 @@
 var sentencebuilder, partofspeechseparator, randomwords, words;
 sentencebuilder = require('../components/sentencebuilder');
+versebuilder = require('../components/versebuilder');
 words = require('../services/words.js');
 randomwords = require('random-words');
 rhyme = require('../components/findRhymes');
@@ -46,6 +47,9 @@ var mainTest = () => {
                 }
                 sentencebuilder.generateSentences(posDict, 16, (results) => {
                     console.log(results);
+                    versebuilder.generateVerses(results, (song) => {
+                        console.log(song);
+                    });
                 });
             });
         }
