@@ -1,0 +1,33 @@
+SentenceWithTopic : [
+    NounPhrase TopicWord
+]
+
+SentenceWithRelatedRhymingWord : [
+    NounPhrase NounRhymingWord
+]
+
+apple, cackle
+[... apple, ... cackle]
+fruit
+[... fruit, ... shoot]
+
+some sentence topicword
+some sentnece rhymeswithnoun[0]
+some sentence rhymeswithtopicword
+some sentence rhymeswithnoun[0]
+
+some sentnece rhymeswithnoun[1]
+some sentnece rhymeswithnoun[2]
+some sentnece rhymeswithnoun[1]
+some sentnece rhymeswithnoun[2]
+
+some sentnece rhymeswithnoun[3]
+some sentnece rhymeswithnoun[4]
+some sentnece rhymeswithnoun[3]
+some sentnece rhymeswithnoun[4]
+
+some sentnece rhymeswithnoun[5]
+some sentnece rhymeswithnoun[6]
+some sentnece rhymeswithnoun[5]
+some sentnece rhymeswithnoun[6]
+

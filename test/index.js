@@ -1,21 +1,21 @@
 var mainHandler = require('../index');
 
 var intentRequest = {
-  "intent": {
-    "slots": {
-      "Color": {
-        "name": "Color",
-        "value": "blue"
-      },
-      "Topic": {
-          "name": "Topic",
-          "value": "Programming"
-      }
+    "intent": {
+        "slots": {
+            "Color": {
+                "name": "Color",
+                "value": "blue"
+            },
+            "Topic": {
+                "name": "Topic",
+                "value": "Programming"
+            }
+        },
+        "name": "RapAbout"
     },
-    "name": "RapAbout"
-  },
-  "type": "IntentRequest",
-  "requestId": "request5678"
+    "type": "IntentRequest",
+    "requestId": "request5678"
 };
 
 var session = {
