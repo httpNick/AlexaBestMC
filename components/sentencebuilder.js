@@ -4,7 +4,7 @@ JSONStream = require('JSONStream');
 fs = require('fs');
 es = require('event-stream');
 nlp = require('nlp_compromise');
-completeSentenceChoice = 'Sentence';
+completeSentenceChoice = 'Grammar';
 
 module.exports = {
 
@@ -47,32 +47,72 @@ var constructSentences = (words, grammar, numberOfSentences) => {
   grammar.VerbPresent = conjugatedVerbs.present;
   grammar.VerbProgressive = conjugatedVerbs.progressive;
 
+  var wordTypeDictionary = {};
+  var wordTypes = {
+    Noun: "Noun",
+    PronounNominative: "PronounNominative",
+    PronounAccusative: "PronounAccusative",
+    PronounPossessive: "PronounPossessive",
+    Verb: "Verb",
+    VerbPast: "VerbPast",
+    VerbPerfect: "VerbPerfect",
+    VerbProgressive: "VerbProgressive",
+    Adjective: "Adjective",
+    Adverb: "Adverb",
+    LocativeAdverb: "LocativeAdverb"
+  };
+  addWordsToDictionary(wordTypeDictionary, grammar.Noun, wordTypes.Noun);
+  addWordsToDictionary(wordTypeDictionary, grammar.PronounNominative, wordTypes.PronounNominative);
+  addWordsToDictionary(wordTypeDictionary, grammar.PronounAccusative, wordTypes.PronounAccusative);
+  addWordsToDictionary(wordTypeDictionary, grammar.PronounPossessive, wordTypes.PronounPossessive);
+  addWordsToDictionary(wordTypeDictionary, grammar.Verb, wordTypes.Verb);
+  addWordsToDictionary(wordTypeDictionary, grammar.VerbPast, wordTypes.VerbPast);
+  addWordsToDictionary(wordTypeDictionary, grammar.VerbPerfect, wordTypes.VerbPerfect);
+  addWordsToDictionary(wordTypeDictionary, grammar.VerbProgressive, wordTypes.VerbProgressive);
+  addWordsToDictionary(wordTypeDictionary, grammar.Adjective, wordTypes.Adjective);
+  addWordsToDictionary(wordTypeDictionary, grammar.Adverb, wordTypes.Adverb);
+  addWordsToDictionary(wordTypeDictionary, grammar.LocativeAdverb, wordTypes.LocativeAdverb);
+
+  console.log(wordTypeDictionary);
 
   var recognizer = new gg(grammar).createRecognizer(completeSentenceChoice);
 
 
   while (constructedSentences.length < numberOfSentences) {
-
     var currSentence = '';
     var guide = new gg(grammar).createGuide(completeSentenceChoice);
 
+    //handle various inflection rules
+    var previousWord = '';
+
     while (!recognizer.isComplete(currSentence)) {
+      /*
+      console.log("CONS " + guide.construction() + '\n');
+      console.log("STRUCTS " + guide.constructs() + '\n');
+      console.log("CHOCIES " + guide.choices() + '\n');
+      */
+      var choice = guide.choices()[Math.floor(Math.random()*guide.choices().length)];
+      /*
+      if(splitCurrSentence.length >= 2) {
+        var typeofCurrentChoice = splitCurrSentence.pop();
+        var previousWord = splitCurrSentence.pop();
 
-      guide.choose(
-        guide.choices()[
-          Math.floor(Math.random()*guide.choices().length)
-        ]
-      );
-
-      currSentence = guide.constructs()[
-        Math.floor(Math.random()*guide.constructs().length)
-      ];
-    }
-/*
-    constructedSentences.push(
-      nlp.sentence(currSentence).to_past().str
-    );
+        switch(typeofCurrentChoice) {
+          case 'Noun':
+            choice = inflectNounByNumber(previousWord, choice);
+            break;
+        }
+      }     
 */
+      
+
+
+      guide.choose(choice);
+
+      //this doesn't actually select another path, but rather ensures that the graph goes to the end of a possible path
+      currSentence = guide.constructs()[Math.floor(Math.random()*guide.constructs().length)];
+    }
+
     constructedSentences.push(currSentence);
 
   }
@@ -96,4 +136,14 @@ var conjugateVerbs = (verbs) => {
     conjugatedVerbs.progressive.push(currVerbConjugated.gerund);
   }
   return conjugatedVerbs;
+};
+
+var addWordsToDictionary = function(dictionary, wordsList, type) {
+  wordsList.forEach(function(element) {
+    if(dictionary.hasOwnProperty(element)) {
+      dictionary[element].push(type);
+    } else {
+      dictionary[element] = [type];
+    }
+  });
 };
