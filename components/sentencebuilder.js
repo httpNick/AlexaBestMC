@@ -35,17 +35,18 @@ var constructSentences = (words, grammar, numberOfSentences) => {
 
   var constructedSentences = [];
 
+  grammar.RhymingWords = words.rhymingWords;
   grammar.Noun = words.nouns;
   grammar.Verb = words.verbs;
   grammar.Adjective = words.adjectives;
   grammar.Adverb = words.adverbs;
-  grammar.Rest = words.Rest;
+  if (grammar.Rest) grammar.Rest = words.Rest;
   grammar.TopicWord = words.topic;
   var conjugatedVerbs = conjugateVerbs(words.verbs);
   grammar.VerbPast = conjugatedVerbs.past;
   grammar.VerbPerfect = conjugatedVerbs.perfect;
   grammar.VerbPresent = conjugatedVerbs.present;
-
+  grammar.VerbProgressive = conjugatedVerbs.progressive;
 
   var recognizer = new gg(grammar).createRecognizer(completeSentenceChoice);
 
@@ -67,10 +68,7 @@ var constructSentences = (words, grammar, numberOfSentences) => {
         Math.floor(Math.random()*guide.constructs().length)
       ];
     }
-
-    constructedSentences.push(
-      nlp.sentence(currSentence).to_past().str
-    );
+    constructedSentences.push(currSentence);
   }
 
   return constructedSentences;
@@ -80,7 +78,8 @@ var conjugateVerbs = (verbs) => {
   var conjugatedVerbs = {
     past : [],
     perfect: [],
-    present: []
+    present: [],
+    progressive: []
   },
     currVerbConjugated = {};
   for (var i = 0; i < verbs.length; i++) {
@@ -88,7 +87,7 @@ var conjugateVerbs = (verbs) => {
     conjugatedVerbs.past.push(currVerbConjugated.past);
     conjugatedVerbs.perfect.push(currVerbConjugated.perfect);
     conjugatedVerbs.present.push(currVerbConjugated.present);
-    /*todo What should VerbProgressive be?*/
+    conjugatedVerbs.progressive.push(currVerbConjugated.gerund);
   }
   return conjugatedVerbs;
 };

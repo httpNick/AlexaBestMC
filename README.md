@@ -7,3 +7,5 @@ If you make changes and have access to the lambda function follow these steps to
 * Edit Lambda function on AWS and upload new zip folder.
 
 High level diagram of logic: http://www.gliffy.com/go/publish/9718515
+
+*Ensure you have the config.keys.json file (file is in hipchat) in the root of the project to be able to run service requests.*

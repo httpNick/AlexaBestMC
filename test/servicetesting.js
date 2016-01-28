@@ -1,5 +1,6 @@
 var wordsService = require('../services/words.js');
 var request = require('request');
+var keychain = require('../config.keys.json');
 
 function wordsService_getRelatedWords() {
   wordsService.getRelatedWords('apple', function(err, result) {
@@ -13,7 +14,7 @@ function wordsService_getRelatedWords() {
 
 function wordnikTest() {
   var options = {
-    url: 'http://api.wordnik.com:80/v4/word.json/hello/relatedWords?useCanonical=false&limitPerRelationshipType=10&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5',
+    url: 'http://api.wordnik.com:80/v4/word.json/hello/relatedWords?useCanonical=false&limitPerRelationshipType=10&api_key=' + keychain.wordnik,
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -31,7 +32,7 @@ function wordnikTest() {
 
 
 var setSearchTopic = (topic) => {
-  return "http://api.wordnik.com:80/v4/word.json/"+ topic +"/relatedWords?useCanonical=false&limitPerRelationshipType=10&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5";
+  return "http://api.wordnik.com:80/v4/word.json/"+ topic +"/relatedWords?useCanonical=false&limitPerRelationshipType=10&api_key=" + keychain.wordnik;
 };
 
 module.exports = {
@@ -51,4 +52,23 @@ module.exports = {
       }
     });
   }
-}
+};
+/*
+module.exports.topicRequest("apple", (data) => {
+   console.log(data);
+});
+*/
+
+// Rhyming results provided by: http://rhymebrain.com
+var options = {
+    url: "http://rhymebrain.com/talk?function=getRhymes&word=apple",
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+};
+
+request(options, (err, response, body) => {
+   console.log(body);
+});
+
