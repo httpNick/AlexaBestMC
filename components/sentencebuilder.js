@@ -35,11 +35,12 @@ var constructSentences = (words, grammar, numberOfSentences) => {
 
   var constructedSentences = [];
 
+  grammar.RhymingWords = words.rhymingWords;
   grammar.Noun = words.nouns;
   grammar.Verb = words.verbs;
-  grammar.Adjective = grammar.Adjective.concat(words.adjectives);
-  grammar.Adverb = grammar.Adverb.concat(words.adverbs);
-  grammar.Rest = words.Rest;
+  grammar.Adjective = words.adjectives;
+  grammar.Adverb = words.adverbs;
+  if (grammar.Rest) grammar.Rest = words.Rest;
   grammar.TopicWord = words.topic;
   var conjugatedVerbs = conjugateVerbs(words.verbs);
   grammar.VerbPast = conjugatedVerbs.past;
@@ -114,7 +115,6 @@ var constructSentences = (words, grammar, numberOfSentences) => {
     }
 
     constructedSentences.push(currSentence);
-
   }
 
   return constructedSentences;

@@ -6,7 +6,7 @@ var wordPos = new WordPOS();
 var keychain = require('../config.keys.json');
 var wordnikparse = require('../components/wordnikresponseparse');
 
-exports.getRelatedWords = function(topic, callback) {
+exports.getRelatedWords = function(topic) {
   var urlPath = '/associations/?entry=' + topic;
 
   var options = {
@@ -18,18 +18,19 @@ exports.getRelatedWords = function(topic, callback) {
     }
   };
 
-  request(options, function(err, response, body) {
-    if(err) {
-      callback(err);
-    }
+  return new Promise( (resolve, reject) => {
+      request(options, function(err, response, body) {
+          if(err) {
+              reject(err);
+          }
 
-    var result = JSON.parse(body);
-
-    callback(null, result.associations_array);
-  });
+          var result = JSON.parse(body);
+          resolve(result);
+        });
+    });
 };
 
-exports.getRelatedWordsFromWordnik = (topic, cb) => {
+exports.getRelatedWordsFromWordnik = (topic) => {
     var options = {
         url: setWordNikSearchTopic(topic),
         method: 'GET',
@@ -37,18 +38,41 @@ exports.getRelatedWordsFromWordnik = (topic, cb) => {
             'Content-Type': 'application/json'
         }
     };
-    request(options, (err, response, body) => {
-        if (err) {
-            cb(err, null);
-        } else {
-            cb(
-                null,
-                wordnikparse.extractRelationshipTypesFromWordnik(
-                    JSON.parse(body)
-                )
-            );
-        }
+    return new Promise( (resolve, reject) => {
+        request(options, (err, response, body) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(
+                    wordnikparse.extractRelationshipTypesFromWordnik(
+                        JSON.parse(body)
+                    )
+                );
+            }
+        });
     });
+};
+
+exports.getRhymingWordsFromRhymeBrain = (topic) => {
+    var options = {
+        url: setRhymeBrainTopic(topic),
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+    return new Promise( (resolve, reject) => {
+        request(options, (err, response, body) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(
+                    toListOfWords(JSON.parse(body))
+                );
+            }
+        });
+    });
+
 };
 
 var setWordNikSearchTopic = (topic) => {
@@ -58,9 +82,14 @@ var setWordNikSearchTopic = (topic) => {
         + keychain.wordnik;
 };
 
+var setRhymeBrainTopic = (topic) => {
+    return "http://rhymebrain.com/talk?function=getRhymes&word="
+        + topic;
+};
+
 var getPartsOfSpeech = function(words, callback) {
   wordPos.getPOS(words, function(partsOfSpeech) {
-    callback(partsOfSpeech);
+      callback(partsOfSpeech);
   });
 };
 exports.getPartsOfSpeech = getPartsOfSpeech;
@@ -73,6 +102,13 @@ exports.getRandomWordsByPos = function(callback) {
   getPartsOfSpeech(words, callback);
 };
 
+var toListOfWords = (res) => {
+    var allWords = [];
+    res.forEach((responseObject) => {
+        allWords.push(responseObject.word);
+    });
+    return allWords;
+};
 /*
 exports.getPartsOfSpeech = function(word, callback) {
   var options = {
