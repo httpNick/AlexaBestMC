@@ -59,7 +59,6 @@ var mainTest = () => {
  * Get rhyming words for each and spread into different parts of speech.
  */
 var chooseSevenOtherTopicsAndGetTheRhymingWords = (relatedNouns) => {
-    var finalResultOfRhymeDictionaries = [];
     var randomChoices = [];
     var randomNouns = [];
     if (relatedNouns.length > 7) {
@@ -89,22 +88,32 @@ var chooseSevenOtherTopicsAndGetTheRhymingWords = (relatedNouns) => {
                 words.getRhymingWordsFromRhymeBrain(randomNouns[6])
             ]).then(
                 (response) => {
-                        var aTopicWithRhymingPos = {
-                            NounRhyming: [],
-                            AdjectiveRhyming: [],
-                            AdverbRhyming: [],
-                            VerbRhyming: []
-                        };
-                        for (var i = 0; i < response.length; i++) {
-                            words.getPartsOfSpeech(response[i], (anotherOne) => {
-                                aTopicWithRhymingPos.NounRhyming = anotherOne.nouns;
-                                aTopicWithRhymingPos.AdjectiveRhyming = anotherOne.adjectives;
-                                aTopicWithRhymingPos.AdverbRhyming = anotherOne.adverbs;
-                                aTopicWithRhymingPos.VerbRhyming = anotherOne.verbs;
-                            });
-                            finalResultOfRhymeDictionaries.push(aTopicWithRhymingPos);
-                        }
-                        resolve(finalResultOfRhymeDictionaries);
+                        var finalResultOfRhymeDictionaries = [];
+                            Promise.all([
+                                words.getPartsOfSpeech(response[0]),
+                                words.getPartsOfSpeech(response[1]),
+                                words.getPartsOfSpeech(response[2]),
+                                words.getPartsOfSpeech(response[3]),
+                                words.getPartsOfSpeech(response[4]),
+                                words.getPartsOfSpeech(response[5]),
+                                words.getPartsOfSpeech(response[6])
+                            ]).then( (finalResult) =>
+                                {
+                                    for (var i = 0; i < 7; i++) {
+                                        finalResultOfRhymeDictionaries.push(
+                                            {
+                                                NounRhyming : finalResult[i].nouns,
+                                                AdjectiveRhyming : finalResult[i].adjectives,
+                                                AdverbRhyming : finalResult[i].adverbs,
+                                                VerbRhyming : finalResult[i].verbs,
+                                                TopicWord : [randomNouns[i]]
+                                            }
+                                        );
+                                    }
+                                    resolve(finalResultOfRhymeDictionaries);
+                                }
+                            );
+                        //console.log(finalResultOfRhymeDictionaries[0].NounRhyming.length);
                 });
         } else /*if it reaches here, there are less than 7 related nouns.*/{
             // Make a request for each related topic
@@ -115,8 +124,10 @@ var chooseSevenOtherTopicsAndGetTheRhymingWords = (relatedNouns) => {
 chooseSevenOtherTopicsAndGetTheRhymingWords(
     [
         'apple', 'street', 'table', 'cat',
-        'hat', 'chair', 'city', 'dog'
+        'hat', 'chair', 'city'
     ]
 ).then((result) => {
-    console.log(result.length);
+    for(var i = 0; i < result.length; i++) {
+        console.log(result[i].TopicWord);
+    }
 });

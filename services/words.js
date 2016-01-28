@@ -87,9 +87,11 @@ var setRhymeBrainTopic = (topic) => {
         + topic;
 };
 
-var getPartsOfSpeech = function(words, callback) {
-  wordPos.getPOS(words, function(partsOfSpeech) {
-      callback(partsOfSpeech);
+var getPartsOfSpeech = function(words) {
+  return new Promise( (resolve, reject) => {
+    wordPos.getPOS(words, function(partsOfSpeech) {
+        resolve(partsOfSpeech);
+    })
   });
 };
 exports.getPartsOfSpeech = getPartsOfSpeech;
