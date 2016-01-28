@@ -1,5 +1,6 @@
-var sentencebuilder, partofspeechseparator, randomwords;
+var sentencebuilder, versebuilder, partofspeechseparator, randomwords;
 sentencebuilder = require('../components/sentencebuilder');
+versebuilder = require('../components/versebuilder');
 words = require('../services/words.js');
 randomwords = require('random-words');
 rhyme = require('../components/findRhymes');
@@ -40,8 +41,16 @@ Promise.all([
             sentencebuilder.generateSentences(posDict, 10, (results) => {
 
                 console.log(results);
-
+                versebuilder.generateVerses(results, (song) => {
+                    console.log("\n");
+                    console.log("Song Below");
+                    console.log("\n");
+                    console.log(song);
+                 });
             });
+            
+            //console.log([["hello", "There"],["Nick", "Dunkan"],["Constant","Pham"],["Paul","Nguyen"]]);
+            
         });
     }
 
