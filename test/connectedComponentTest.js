@@ -31,16 +31,30 @@ Promise.all([
         words.getPartsOfSpeech(Array.from(relatedWords), (posDict) => {
 
             posDict.topic = [testTopic];
-            posDict.rhymingWords = response[1].rhyme;
+            //posDict.rhymingWords = response[1].rhyme;
+            words.getPartsOfSpeech(response[1].rhyme.concat(response[2]), (rhymePosDict) => {
+                /*
+                 NounRhyming
+                 AdjectiveRhyming
+                 AdverbRhyming
+                 LocativeAdverbRhyming
+                 VerbPastRhyming
+                 VerbPerfectRhyming
+                 VerbPresentRhyming
+                 VerbProgressiveRhyming
+                 */
+                posDict.NounRhyming = rhymePosDict.nouns;
+                posDict.AdjectiveRhyming = rhymePosDict.adjectives;
+                posDict.AdverbRhyming = rhymePosDict.adverbs;
+                posDict.VerbRhyming = rhymePosDict.verbs;
+            });
             if (response[2]) {
                 posDict.rhymingWords = posDict
                     .rhymingWords
                     .concat(response[2]);
             }
-            sentencebuilder.generateSentences(posDict, 10, (results) => {
-
+            sentencebuilder.generateSentences(posDict, 16, (results) => {
                 console.log(results);
-
             });
         });
     }
