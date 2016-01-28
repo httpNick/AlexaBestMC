@@ -2,20 +2,22 @@
  * Created by ianb on 1/25/2016.
  */
 exports.convertVersesToOutput = function(songVerses, callback) {
-        var audioName = 'fly-guy';
-        var audioPath = '/audio/' + audioName + '/' + 0 + '.mp3';
+        var audioEndpoints = require('../services/audioEndpoints').audioEndpoints;
+        var randomAudioIndex = Math.floor((Math.random() * audioEndpoints.beats.length) + 1) - 1;
+        var audioName = audioEndpoints.beats[randomAudioIndex].title;
+        var audioPath = audioEndpoints.baseUrl + audioName + '/' + audioName + '-' + 0 + '.mp3';
         var outputText = '';
         var outputSSML = '<speak>';
 
         outputSSML += '<audio src="'+audioPath+'" />';
-        for(var verseIndex = 1; verseIndex <= songVerses.length; verseIndex ++){
+        for(var verseIndex = 0; verseIndex < songVerses.length; verseIndex ++){
             var verse = songVerses[verseIndex];
-            for(var lineIndex = 1; lineIndex <= verse.length; lineIndex ++){
+            for(var lineIndex = 0; lineIndex < verse.length; lineIndex ++){
                 line = verse[lineIndex];
                 outputSSML += '<p>' + line + '</p>';
                 outputText += line;
             }
-            audioPath = '/audio/' + audioName + '/' + verseIndex + '.mp3';
+            audioPath = audioEndpoints.baseUrl + audioName + '/' + audioName + '-' + (verseIndex + 1) + '.mp3';
             outputSSML += '<audio src="'+audioPath+'" />';
 
         }
@@ -27,5 +29,5 @@ exports.convertVersesToOutput = function(songVerses, callback) {
             "ssml":outputSSML
         };
 
-        callback(outputSpeech);
+        callback(outputs);
     }
