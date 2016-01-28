@@ -3,7 +3,7 @@ module.exports = {
 
   generateVerses : (Sentences, cb) => {
 
-    cb(buildVerses(Sentences));
+    cb(buildVersesV2(Sentences));
 
   }
 };
@@ -21,6 +21,20 @@ function buildVerses(listOfSentencesThatRhyme){
       verse[y] = listOfSentencesThatRhyme[count];
       count++;
     }
+  }
+  return song;
+};
+// ex [[a,b],[c,d],[e,f],[g,h],[i,j],[k,l],[m,n],[o,p],[q,r],[s,t]] => [[],[],[],[]]
+function buildVersesV2(tupleOfSentencesThatRhyme){
+  //combine four times
+  var song = [];
+  for(var x = 0; x < 8; x+=2){
+    var sentence1 = tupleOfSentencesThatRhyme[x][0];
+    var sentence2 = tupleOfSentencesThatRhyme[x][1];
+    var sentence3 = tupleOfSentencesThatRhyme[x + 1][0];
+    var sentence4 = tupleOfSentencesThatRhyme[x + 1][1];
+    var verse = [sentence1, sentence3, sentence2, sentence4];
+    song.push(verse);
   }
   return song;
 };
