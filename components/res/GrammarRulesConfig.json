@@ -7,25 +7,27 @@
 	"Sentence": [
 		"NounPhraseNominative",
 		"NounPhraseNominative PrepositionalPhrase",
+		"PronounAccusative PrepositionalPhrase",
+		"PronounAccusative VerbPhrase",
 		"NounPhrasePronounDeterminer NounPhrase",
 		"NounPhrasePronounDeterminer NounPhrase PrepositionalPhrase",
 		"VerbPhrase",
 		"NounPhraseNominative VerbPhrase",
-		"AdverbPhrase NounPhraseNominative VerbPhrase"
 	],
 	"Conjunction": [
 		"and",
-		"nor",
+		"not",
 		"or",
-		"yet"
 	],
 	"ConjunctionSpecial": [
 		"for",
 		"but",
 		"so",
+		"yet",
 		"though",
 		"although",
 		"even though",
+		"except",
 		"while",
 		"if",
 		"only if",
@@ -70,7 +72,7 @@
 		"whichever"
 	],
 	"Noun": [
-		"-----(noun selection from services)-----"
+		"heart"
 	],
 	"NounPhrase": [
 		"AdjectivePhrase Noun",
@@ -154,7 +156,6 @@
 	],
 	"NounPhraseAccusativePronoun": [
 		"PronounAccusative",
-		"PronounAccusative PrepositionalPhrase",
 		"PronounAccusative Conjunction PronounAccusative",
 		"PronounPossessive",
 		"PronounPossessive Conjunction PronounPossessive"
@@ -176,10 +177,10 @@
 		"VerbPast"
 	],
 	"VerbPresent": [
-		"-----(present tense verb selection from services)-----"
+		"love"
 	],
 	"VerbPast": [
-		"-----(past tense verb selection from services)-----"
+		"loved"
 	],
 	"VerbProgressive": [
 		"-----(progressive aspect verb selection from services)-----"
@@ -191,26 +192,30 @@
 		"Verb",
 		"Verb AdjectivePhrase",
 		"Verb AdverbPhrase",
+		"Verb LocativeAdverb",
 		"AdverbPhrase Verb",		
 		"Verb PrepositionalPhrase",	
 		"Verb NounPhraseAccusative",
 		"Verb NounPhraseAccusative PrepositionalPhrase",
-		"VerbPresent Conjunction VerbPerfect",
 		"VerbPast Conjunction VerbPast",
 		"AuxiliaryVerbHave VerbPerfect",
 		"AuxiliaryVerbBe VerbProgressive",
 		"AuxiliaryVerbBe VerbProgressive AdjectivePhrase",
 		"AuxiliaryVerbBe VerbProgressive AdverbPhrase",
+		"AuxiliaryVerbBe VerbProgressive LocativeAdverb",
 		"AuxiliaryVerbBe AdverbPhrase VerbProgressive",
 		"ModalVerb VerbPresent",
 		"ModalVerb VerbPresent AdjectivePhrase",
 		"ModalVerb VerbPresent AdverbPhrase",
+		"ModalVerb VerbPresent LocativeAdverb",
 		"ModalVerb be VerbProgressive",
 		"ModalVerb be VerbProgressive AdjectivePhrase",
 		"ModalVerb be VerbProgressive AdverbPhrase",
+		"ModalVerb be VerbProgressive LocativeAdverb",
 		"ModalVerb be AdverbPhrase VerbProgressive",
 		"ModalVerb have VerbPerfect",
 		"AuxiliaryVerbHave VerbPerfect AdjectivePhrase",
+		"AuxiliaryVerbHave VerbPerfect AdverbPhrase",
 		"AuxiliaryVerbHave VerbPerfect AdverbPhrase",
 		"AuxiliaryVerbHave VerbPerfect PrepositionalPhrase",
 		"AuxiliaryVerbBe VerbProgressive PrepositionalPhrase",
@@ -252,12 +257,11 @@
 		"would"
 	],
 	"Adjective": [
-		"-----(adjective selection from services)-----"
+		"beautiful"
 	],
 	"AdjectivePhrase": [
 		"Adjective",
 		"DegreeAdjective Adjective",
-		"Adjective PrepositionalPhrase",
 		"Adjective Adjective",
 		"Adjective Conjunction Adjective"
 	],
@@ -268,13 +272,10 @@
 		"least",
 		"very",
 		"too",
-		"so",
 		"not so",
 		"quite",
 		"extremely",
 		"pretty",
-		"better",
-		"worse",
 		"rather"
 	],
 	"DegreeAdverb": [
@@ -289,7 +290,7 @@
 		"pretty",
 		"rather"
 	],
-	"Adverb": [
+	"LocativeAdverb": [
 		"above",
 		"after",
 		"around",
@@ -310,6 +311,9 @@
 	"AdverbPhrase": [
 		"Adverb",
 		"DegreeAdverb Adverb"
+	],
+	"Adverb": [
+		"beautifully"
 	],
 	"Preposition": [
 		"aboard",
@@ -340,7 +344,7 @@
 		"despite",
 		"down",
 		"during",
-		"except",
+		"except for",
 		"excepting",
 		"excluding",
 		"following",
@@ -362,7 +366,6 @@
 		"over",
 		"past",
 		"per",
-		"plus",
 		"regarding",
 		"round",
 		"save",
@@ -385,7 +388,6 @@
 	],
 	"Modifier": [
 		"all",
-		"clear",
 		"down",
 		"just",
 		"right",
@@ -397,8 +399,7 @@
 		"Preposition NounPhraseAccusative",
 		"Preposition VerbProgressive",
 		"Preposition VerbProgressive PrepositionalPhrase",
-		"Preposition Sentence",
 		"Modifier Preposition NounPhraseAccusative",
-		"Preposition Conjunction Preposition"
+		"Preposition Conjunction PrepositionalPhrase"
 	]
 }
