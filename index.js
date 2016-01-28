@@ -8,6 +8,7 @@
  */
 
 var rhymes = require('rhyme-plus');
+var verseConverter = require('./components/verseConverter');
 var wordsService = require('./services/words');
 
 var $ = module.exports;
@@ -134,6 +135,8 @@ function setTopicInSession(intent, session, callback) {
     var sessionAttributes = {};
     var shouldEndSession = false;
     var speechOutput = "";
+    var verses = [];
+    var outputs = {};
 
     if(rapTopicSlot) {
         console.log("Topic slot exists");
@@ -215,15 +218,39 @@ function setTopicInSession(intent, session, callback) {
 
                         sessionAttributes = createRapTopic(rapTopic);
 
-                        speechOutput = "Lay me down a sick beat while I rap about " + rapTopic + 
-                                        getTopicVerb() + " from the " + getTopicNoun() + " now we're " + getTopicNoun() + ". " +
-                                        getTopicVerb() + " from the " + getTopicNoun() + " now my whole team " + getVerb() + " " + getTopicNoun() + ". " +
-                                        getVerb() + " from the " + getTopicAdjective() + " " + getTopicNoun() + " and now we're " + getNoun() + ". ";
+                        verses = [
+                            [
+                                "Lay me down a sick beat while I rap about " + rapTopic,
+                                getTopicVerb() + " from the " + getTopicNoun() + " now we're " + getTopicNoun() + ". ",
+                                getTopicVerb() + " from the " + getTopicNoun() + " now my whole team " + getVerb() + " " + getTopicNoun() + ". ",
+                                getVerb() + " from the " + getTopicAdjective() + " " + getTopicNoun() + " and now we're " + getNoun() + ". "
+                            ],
+                            [
+                                "This is Alexa's second verse",
+                                "Relating words left and rhyming words right",
+                                "Each line as good as the first",
+                                "Rapping through the day and through the night"
+                            ],
+                            [
+                                "A third first line goes here",
+                                "on subject, on topic, on point",
+                                "rapping every day every month and year",
+                                "rapping all around like Chewbacca's bandoleer"
+                            ],
+                            [
+                                "Wrap it up rapping with verse number four",
+                                "Making rhymes, making money, making lines, making green",
+                                "Going yellow, going red like on a semaphore",
+                                "Gotta stop now but you can always ask for more"
+                            ]
+                        ];
+
+                        outputs = verseConverter.convertVersesToOutput(verses, function(output){return output})
 
                         repromptText = "Yo give me another word so I can spit some rhymes.";
 
                         callback(sessionAttributes,
-                             buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+                             buildSpeechletSSMLResponse(cardTitle, outputs, repromptText, shouldEndSession));
                     });
                 });
             });
@@ -285,6 +312,27 @@ function buildSpeechletResponse(title, output, repromptText, shouldEndSession) {
             type: "Simple",
             title: "SessionSpeechlet - " + title,
             content: "SessionSpeechlet - " + output
+        },
+        reprompt: {
+            outputSpeech: {
+                type: "PlainText",
+                text: repromptText
+            }
+        },
+        shouldEndSession: shouldEndSession
+    };
+}
+
+function buildSpeechletSSMLResponse(title, output, repromptText, shouldEndSession) {
+    return {
+        outputSpeech: {
+            type: "PlainText",
+            text: output.ssml
+        },
+        card: {
+            type: "Simple",
+            title: "SessionSpeechlet - " + title,
+            content: "SessionSpeechlet - " + output.text
         },
         reprompt: {
             outputSpeech: {
