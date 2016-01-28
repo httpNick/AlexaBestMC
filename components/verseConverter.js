@@ -12,17 +12,19 @@ exports.convertVersesToOutput = function(songVerses, callback) {
         outputSSML += '<audio src="'+audioPath+'" />';
         for(var verseIndex = 0; verseIndex < songVerses.length; verseIndex ++){
             var verse = songVerses[verseIndex];
+            outputSSML += '<p>';
             for(var lineIndex = 0; lineIndex < verse.length; lineIndex ++){
                 line = verse[lineIndex];
-                outputSSML += '<p>' + line + '</p>';
+                outputSSML += line + '<break time="5ms" />';
                 outputText += line;
             }
             audioPath = audioEndpoints.baseUrl + audioName + '/' + audioName + '-' + (verseIndex + 1) + '.mp3';
-            outputSSML += '<audio src="'+audioPath+'" />';
+            outputSSML += '</p>';
+            outputSSML += '<audio src=\"'+audioPath+'\" />';
 
         }
 
-        outputSSML += '</speak>'
+    outputSSML += '</speak>'
 
         var outputs = {
             "text":outputText,
