@@ -46,7 +46,15 @@ var wordTypes = {
   LocativeAdverb: "LocativeAdverb",
   DeterminerSingular: "DeterminerSingular",
   DeterminerPlural: "DeterminerPlural",
-  AuxiliaryVerbBe: "AuxiliaryVerbBe"
+  AuxiliaryVerbBe: "AuxiliaryVerbBe",
+  NounRhyming: "NounRhyming",
+  AdjectiveRhyming: "AdjectiveRhyming",
+  AdverbRhyming: "AdverbRhyming",
+  LocativeAdverbRhyming: "LocativeAdverbRhyming",
+  VerbPastRhyming: "VerbPastRhyming",
+  VerbPerfectRhyming: "VerbPerfectRhyming",
+  VerbPresentRhyming: "VerbPresentRhyming",
+  VerbProgressiveRhyming: "VerbProgressiveRhyming"
 };
 var wordTypeDictionary = {};
 
@@ -65,7 +73,16 @@ var constructSentences = (words, grammar, numberOfSentences) => {
   grammar.VerbPerfect = conjugatedVerbs.perfect;
   grammar.VerbPresent = conjugatedVerbs.present;
   grammar.VerbProgressive = conjugatedVerbs.progressive;
-
+/*
+grammar.NounRhyming = 
+  grammar.AdjectiveRhyming =
+  grammar.AdverbRhyming =
+  grammar.LocativeAdverbRhyming
+  grammar.VerbPastRhyming =
+  grammar.VerbPerfectRhyming =
+  grammar.VerbPresentRhyming =
+  grammar.VerbProgressiveRhyming =
+*/
   //clear it before each use
   wordTypeDictionary = {};
 
@@ -84,9 +101,27 @@ var constructSentences = (words, grammar, numberOfSentences) => {
   addWordsToDictionary(wordTypeDictionary, grammar.DeterminerPlural, wordTypes.DeterminerPlural);
   addWordsToDictionary(wordTypeDictionary, grammar.DeterminerSingular, wordTypes.DeterminerSingular);
   addWordsToDictionary(wordTypeDictionary, grammar.AuxiliaryVerbBe, wordTypes.AuxiliaryVerbBe);
+  /*
+  addWordsToDictionary(wordTypeDictionary, grammar.NounRhyming, wordTypes.NounRhyming);
+  addWordsToDictionary(wordTypeDictionary, grammar.AdjectiveRhyming, wordTypes.AdjectiveRhyming);
+  addWordsToDictionary(wordTypeDictionary, grammar.AdverbRhyming, wordTypes.AdverbRhyming);
+  addWordsToDictionary(wordTypeDictionary, grammar.LocativeAdverbRhyming, wordTypes.LocativeAdverbRhyming);
+  addWordsToDictionary(wordTypeDictionary, grammar.VerbPastRhyming, wordTypes.VerbPastRhyming);
+  addWordsToDictionary(wordTypeDictionary, grammar.VerbPerfectRhyming, wordTypes.VerbPerfectRhyming);
+  addWordsToDictionary(wordTypeDictionary, grammar.VerbPresentRhyming, wordTypes.VerbPresentRhyming);
+  addWordsToDictionary(wordTypeDictionary, grammar.VerbProgressiveRhyming, wordTypes.VerbProgressiveRhyming);
 
 
-  //console.log(wordTypeDictionary);
+/*
+NounRhyming
+AdjectiveRhyming
+AdverbRhyming
+LocativeAdverbRhyming
+VerbPastRhyming
+VerbPerfectRhyming
+VerbPresentRhyming
+VerbProgressiveRhyming
+*/
 
   var recognizer = new gg(grammar).createRecognizer(completeSentenceChoice);
 
@@ -100,31 +135,13 @@ var constructSentences = (words, grammar, numberOfSentences) => {
     var previousDeterminer = '';
 
     while (!recognizer.isComplete(currSentence)) {
-      /*
-      console.log("CONS " + guide.construction() + '\n');
-      console.log("STRUCTS " + guide.constructs() + '\n');
-      console.log("CHOCIES " + guide.choices() + '\n');
-      */
       var choice = guide.choices()[Math.floor(Math.random()*guide.choices().length)];
-      /*
-      if(splitCurrSentence.length >= 2) {
-        var typeofCurrentChoice = splitCurrSentence.pop();
-        var previousWord = splitCurrSentence.pop();
 
-        switch(typeofCurrentChoice) {
-          case 'Noun':
-            choice = inflectNounByNumber(previousWord, choice);
-            break;
-        }
-      }     
-*/
-      
       //progress through the graph, call choose() prior to inflection since it may not be a valid choice afterward
       guide.choose(choice);
 
       if(wordTypeDictionary.hasOwnProperty(choice) && wordTypeDictionary.hasOwnProperty(previousWord)) {
         var types = wordTypeDictionary[choice];
-        console.log(types);
         if(types.indexOf(wordTypes.DeterminerSingular) > -1 || types.indexOf(wordTypes.DeterminerPlural) > -1) {
           previousDeterminer = choice;
         }
@@ -147,8 +164,20 @@ var constructSentences = (words, grammar, numberOfSentences) => {
 
       previousWord = choice;
     }
-    outputSentence += currSentence.split(' ').pop();
-    console.log(currSentence);
+
+    //make sure to get the last word of the generated sentence
+    var lastWord = currSentence.split(' ').pop(); 
+
+/*
+    //just go with the first type if it has more than one
+    var typeOfLastWord = wordTypeDictionary[lastWord][0];
+    typeOfLastWord += 'Rhyming';
+
+    //the last word in the sentence will be one that rhymes but is the same part of speech as the one it replaces
+    lastWord = grammar[typeOfLastWord][Math.floor(Math.random()*grammar[typeOfLastWord].length)]
+*/
+
+    outputSentence += lastWord;
     constructedSentences.push(outputSentence);
   }
 
