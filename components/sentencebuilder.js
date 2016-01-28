@@ -92,3 +92,8 @@ var conjugateVerbs = (verbs) => {
   }
   return conjugatedVerbs;
 };
+
+function buildVerses(listOfSentencesThatRhyme){
+  
+  return listOfSentencesThatRhyme;
+};
