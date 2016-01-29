@@ -69,4 +69,9 @@ Removed AdverbPhrase from being at the beginning
 DeterminerPlural: The noun following this declines by number
 VerbPresent: Conjugates by person
 AuxiliaryVerbBe: Conjugates by person (i.e. "am", "are", "is") and for present and past tense ("was"/"were")
+
+Removed NounPhraseNominative from beign standalone
+Removed some hardcoded words
+Small grammar tweaks
+Accounted for modal verbs in conjugating present tense verbs by person
 */
