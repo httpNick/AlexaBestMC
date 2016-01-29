@@ -9,7 +9,7 @@ var intentRequest = {
             },
             "Topic": {
                 "name": "Topic",
-                "value": "Programming"
+                "value": "apple"
             }
         },
         "name": "RapAbout"
@@ -31,10 +31,11 @@ var session = {
 };
 
 mainHandler._onIntent(intentRequest, session, function(sessionAttributes, speechletResponse) {
-  console.log('=================================================');
+    /*console.log('=================================================');
   console.log('----------SPEECHLET RESPONSE----------');
   console.log(speechletResponse);
   console.log('=================================================');
   console.log("SUCCESS - No syntax errors");
+  */
 })
 
