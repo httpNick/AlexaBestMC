@@ -199,9 +199,19 @@ function setTopicInSession(intent, session, callback) {
                                         posDict.RelatedWordRhymes = result;
                                         sentencebuilder.generateSentences(posDict, 16, (results) => {
                                             console.log(results);
-                                            var verses = versebuilder.generateverses(results);
-                                            verseConverter.convertVersesToOutput(verses, (output) => {
-                                                outputs = output;
+                                            var verses = [[]];
+                                            versebuilder.generateVerses(results, function(resultVerses){
+                                                console.log(resultVerses);
+                                                verses = resultVerses;
+                                            });
+                                            verseConverter.convertVersesToOutput(verses, (outputs) => {
+
+                                                sessionAttributes = createRapTopic(rapTopic);
+
+                                                repromptText = "Yo give me another word so I can spit some rhymes.";
+
+                                                callback(sessionAttributes,
+                                                    buildSpeechletSSMLResponse(cardTitle, outputs, repromptText, shouldEndSession));
                                             });
                                         });
                                     });
@@ -211,13 +221,6 @@ function setTopicInSession(intent, session, callback) {
 
             });
 
-
-            sessionAttributes = createRapTopic(rapTopic);
-
-            repromptText = "Yo give me another word so I can spit some rhymes.";
-
-            callback(sessionAttributes,
-                 buildSpeechletSSMLResponse(cardTitle, outputs, repromptText, shouldEndSession));
         } else {
             speechOutput = "I'm not sure what you want me to rap about. Please try again";
             repromptText = "I'm not sure what you want me to rap about. You can tell me what to " +
