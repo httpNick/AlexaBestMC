@@ -210,7 +210,7 @@ function setTopicInSession(intent, session, callback) {
                                                 console.log(resultVerses[1]);
                                                 */
                                                 verses = resultVerses;
-                                                var speechOutput = 'I am about to lay down a sick rhyme about ' + rapTopic + " here we go, ";
+                                                var speechOutput = 'I am about to lay down a sick rhyme about ' + rapTopic + ", here we go, ";
                                                 for (var i = 0; i < resultVerses.length; i++) {
                                                     for(var j =0; j < resultVerses[i].length; j++) {
                                                         for (var x = 0; x < resultVerses[i][j].length; x++) {
