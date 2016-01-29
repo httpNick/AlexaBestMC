@@ -14,7 +14,6 @@ var mainTest = () => {
         words.getRhymingWordsFromRhymeBrain(testTopic)
 
     ]).then(response => {
-
         /**
          * response[0] is the response for twinword
          * response[1] is the response for wordnik
@@ -30,25 +29,24 @@ var mainTest = () => {
                     .concat(response[1].unknown)
             );
 
-            words.getPartsOfSpeech(Array.from(relatedWords), (posDict) => {
-
+            words.getPartsOfSpeech(Array.from(relatedWords)).then((posDict) => {
                 posDict.topic = [testTopic];
-                //posDict.rhymingWords = response[1].rhyme;
-                words.getPartsOfSpeech(response[1].rhyme.concat(response[2]), (rhymePosDict) => {
-                    posDict.NounRhyming = rhymePosDict.nouns;
-                    posDict.AdjectiveRhyming = rhymePosDict.adjectives;
-                    posDict.AdverbRhyming = rhymePosDict.adverbs;
-                    posDict.VerbRhyming = rhymePosDict.verbs;
-                });
-                if (response[2]) {
-                    posDict.rhymingWords = posDict
-                        .rhymingWords
-                        .concat(response[2]);
-                }
-                sentencebuilder.generateSentences(posDict, 16, (results) => {
-                    console.log(results);
-                    versebuilder.generateVerses(results, (song) => {
-                        console.log(song);
+                posDict.rhymingWords = response[1].rhyme;
+                words.getPartsOfSpeech(response[1].rhyme.concat(response[2]))
+                    .then((rhymePosDict) => {
+                        posDict.NounRhyming = rhymePosDict.nouns;
+                        posDict.AdjectiveRhyming = rhymePosDict.adjectives;
+                        posDict.AdverbRhyming = rhymePosDict.adverbs;
+                        posDict.VerbRhyming = rhymePosDict.verbs;
+                        if (response[2]) {
+                            posDict.rhymingWords = posDict.rhymingWords.concat(response[2]);
+                        }
+                chooseSevenOtherTopicsAndGetTheRhymingWords(posDict.nouns)
+                    .then((result) => {
+                        posDict.RelatedWordRhymes = result;
+                        sentencebuilder.generateSentences(posDict, 16, (results) => {
+                            console.log(results);
+                        });
                     });
                 });
             });
@@ -125,13 +123,4 @@ var chooseSevenOtherTopicsAndGetTheRhymingWords = (relatedNouns) => {
     });
 };
 
-chooseSevenOtherTopicsAndGetTheRhymingWords(
-    [
-        'apple', 'street', 'table', 'cat',
-        'hat', 'chair', 'city'
-    ]
-).then((result) => {
-    for(var i = 0; i < result.length; i++) {
-        console.log(result[i].TopicWord);
-    }
-});
+mainTest();
