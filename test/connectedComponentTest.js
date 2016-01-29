@@ -4,7 +4,7 @@ versebuilder = require('../components/versebuilder');
 words = require('../services/words.js');
 randomwords = require('random-words');
 rhyme = require('../components/findRhymes');
-var testTopic = 'school';
+var testTopic = 'music';
 
 Promise.all([
 

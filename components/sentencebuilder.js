@@ -39,6 +39,7 @@ var wordTypes = {
   PronounPossessive: "PronounPossessive",
   Verb: "Verb",
   VerbPast: "VerbPast",
+  VerbPresent: "VerbPresent",
   VerbPerfect: "VerbPerfect",
   VerbProgressive: "VerbProgressive",
   Adjective: "Adjective",
@@ -62,8 +63,9 @@ var wordTypeDictionary = {};
 var constructSentences = (words, grammar, numberOfSentences) => {
 
     grammar.RhymingWords = words.rhymingWords;
-    grammar.Noun = grammar.Noun.concat(words.nouns);
-    grammar.Verb = grammar.Verb.concat(words.verbs);
+    grammar.Noun = words.nouns;
+    grammar.Verb = words.verbs;
+    console.log(grammar.Verb);
     grammar.Adjective = grammar.Adjective.concat(words.adjectives);
     grammar.Adverb = grammar.Adverb.concat(words.adverbs);
     if (grammar.Rest) grammar.Rest = words.Rest;
@@ -76,7 +78,7 @@ var constructSentences = (words, grammar, numberOfSentences) => {
     grammar.NounRhyming = words.NounRhyming;
     grammar.AdjectiveRhyming = words.AdjectiveRhyming;
     grammar.AdverbRhyming = words.AdverbRhyming;
-  
+
     /*
     var conjugatedRhymeVerbs = conjugateVerbs(words.VerbRhyming);
     //grammar.LocativeAdverbRhyming
