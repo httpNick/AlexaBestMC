@@ -1,45 +1,26 @@
 {
   "Grammar": [
     "Sentence",
-    "Sentence ConjunctionSpecial SentenceSubordinateClauseValid"
+    "Sentence ConjunctionSpecial Sentence"
   ],
-  "Sentence": [    
-  	"NounPhraseNominative",
+  "Sentence": [
+    "NounPhraseNominative",
     "NounPhrasePronounDeterminer NounPhrase",
     "VerbPhraseStart",
-    "SentenceSubordinateClauseValid",
-    "SentenceSubordinateClauseValid",
-    "SentenceSubordinateClauseValid"
-  ],
-  "SentenceSubordinateClauseValid": [
-    "NounPhraseNominative VerbPhrase",
-    "NounPhraseNominative VerbPhrase",
-    "PronounNominative Verb Determiner NounPhrase",
-    "PronounNominative AuxiliaryVerbBe VerbProgressive Determiner Noun",
-    "PronounNominative AuxiliaryVerbHave VerbPerfect Determiner Noun",
-    "PronounNominative ModalVerb VerbPresent Determiner Noun",
-    "NounPhrase Verb Determiner NounPhrase",
-    "NounPhrase AuxiliaryVerbBe VerbProgressive Determiner Noun",
-    "NounPhrase AuxiliaryVerbHave VerbPerfect Determiner Noun",
-    "NounPhrase ModalVerb VerbPresent Determiner Noun",
-    "PronounNominative Verb Determiner AdjectivePhrase NounPhrase",
-    "PronounNominative AuxiliaryVerbBe VerbProgressive Determiner AdjectivePhrase Noun",
-    "PronounNominative AuxiliaryVerbHave VerbPerfect Determiner AdjectivePhrase Noun",
-    "PronounNominative ModalVerb VerbPresent Determiner AdjectivePhrase Noun",
-    "NounPhrase Verb Determiner NounPhrase",
-    "NounPhrase AuxiliaryVerbBe VerbProgressive Determiner AdjectivePhrase Noun",
-    "NounPhrase AuxiliaryVerbHave VerbPerfect Determiner AdjectivePhrase Noun",
-    "NounPhrase ModalVerb VerbPresent Determiner AdjectivePhrase Noun"
+    "NounPhraseNominative VerbPhrase"
   ],
   "Conjunction": [
     "and",
+    "not",
     "or"
   ],
   "ConjunctionSpecial": [
     "for",
     "but",
     "yet",
+    "during",
     "while",
+    "until",
     "after",
     "before",
     "once",
@@ -66,7 +47,7 @@
     "a",
     "the",
     "this",
-    "that", 
+    "that",
     "any",
     "each",
     "other"
@@ -155,28 +136,32 @@
   ],
   "VerbPhrase": [
     "Verb",
+    "Verb AdjectivePhrase",
     "Verb AdverbPhrase",
     "Verb LocativeAdverb",
-    "AdverbPhrase Verb",    
-    "Verb PrepositionalPhrase", 
+    "AdverbPhrase Verb",
+    "Verb PrepositionalPhrase",
     "Verb NounPhraseAccusative",
     "Verb NounPhraseAccusative PrepositionalPhrase",
     "VerbPast Conjunction VerbPast",
     "AuxiliaryVerbHave VerbPerfect",
     "AuxiliaryVerbBe VerbProgressive",
-    "AuxiliaryVerbBe AdjectivePhrase",
+    "AuxiliaryVerbBe VerbProgressive AdjectivePhrase",
     "AuxiliaryVerbBe VerbProgressive AdverbPhrase",
     "AuxiliaryVerbBe VerbProgressive LocativeAdverb",
     "AuxiliaryVerbBe AdverbPhrase VerbProgressive",
     "ModalVerb VerbPresent",
+    "ModalVerb VerbPresent AdjectivePhrase",
     "ModalVerb VerbPresent AdverbPhrase",
     "ModalVerb VerbPresent LocativeAdverb",
     "ModalVerb be VerbProgressive",
-    "ModalVerb be AdjectivePhrase",
+    "ModalVerb be VerbProgressive AdjectivePhrase",
     "ModalVerb be VerbProgressive AdverbPhrase",
     "ModalVerb be VerbProgressive LocativeAdverb",
     "ModalVerb be AdverbPhrase VerbProgressive",
     "ModalVerb have VerbPerfect",
+    "AuxiliaryVerbHave VerbPerfect AdjectivePhrase",
+    "AuxiliaryVerbHave VerbPerfect AdverbPhrase",
     "AuxiliaryVerbHave VerbPerfect AdverbPhrase",
     "AuxiliaryVerbBe VerbProgressive PrepositionalPhrase",
     "ModalVerb be VerbProgressive PrepositionalPhrase",
@@ -189,15 +174,15 @@
     "ModalVerb VerbPresent NounPhraseAccusative",
     "ModalVerb be AdverbPhrase VerbProgressive NounPhraseAccusative",
     "ModalVerb have AdverbPhrase VerbPerfect NounPhraseAccusative",
-    "ModalVerb AdverbPhrase VerbPresent NounPhraseAccusative"
+    "ModalVerb AdverbPhrase VerbPresent NounPhraseAccusative",
   ],
   "VerbPhraseStart": [
-  	"Verb",
+    "Verb",
     "Verb AdjectivePhrase",
     "Verb AdverbPhrase",
     "Verb LocativeAdverb",
-    "AdverbPhrase Verb",    
-    "Verb PrepositionalPhrase", 
+    "AdverbPhrase Verb",
+    "Verb PrepositionalPhrase",
     "Verb NounPhraseAccusative",
     "Verb NounPhraseAccusative PrepositionalPhrase",
     "VerbPast Conjunction VerbPast"
@@ -224,6 +209,7 @@
   "AdjectivePhrase": [
     "Adjective",
     "DegreeAdjective Adjective",
+    "Adjective",
     "Adjective Conjunction Adjective"
   ],
   "DegreeAdjective": [
@@ -231,12 +217,16 @@
     "most",
     "less",
     "least",
-    "very"
+    "very",
+    "too",
+    "quite"
   ],
   "DegreeAdverb": [
     "more",
     "most",
-    "very"
+    "very",
+    "too",
+    "rather"
   ],
   "LocativeAdverb": [
     "above",
@@ -248,8 +238,12 @@
     "beneath",
     "beyond",
     "inside",
+    "on",
+    "off",
     "outside",
+    "over",
     "underneath",
+    "up",
     "within"
   ],
   "AdverbPhrase": [
@@ -288,9 +282,10 @@
   ],
   "Modifier": [
     "all",
+    "down",
     "just",
     "right",
-    "straight"
+    "straight",
   ],
   "PrepositionalPhrase": [
     "Preposition NounPhraseAccusative",

@@ -187,6 +187,7 @@ function setTopicInSession(intent, session, callback) {
                     });
 
                     words.getPartsOfSpeech(listWithNoDupes).then(function(posDict) {
+                        console.log('got the parts of speech.')
                         posDict.topic = [rapTopic];
                         posDict.rhymingWords = response[1].rhyme;
                         words.getPartsOfSpeech(response[1].rhyme.concat(response[2]))
@@ -200,13 +201,13 @@ function setTopicInSession(intent, session, callback) {
                                 }
 
                                         sentencebuilder.generateSentences(posDict, 8, function(results) {
-
+                                            console.log('generated all sentences');
                                             var entryText = "I am about to lay down a sick rhyme about " + rapTopic + ", here we go now";
 
                                             versebuilder.generateVerses(results, function(resultVerses){
-
+                                                console.log('generated verses');
                                                 verseConverter.convertVersesToOutput(resultVerses, entryText, function(outputs) {
-
+                                                console.log('converted verses');
                                                 sessionAttributes = createRapTopic(rapTopic);
 
                                                 repromptText = "Yo give me another word so I can spit some rhymes.";
@@ -363,7 +364,8 @@ function buildSpeechletSSMLResponse(title, outputs, repromptText, shouldEndSessi
     return {
         outputSpeech: {
             type: "SSML",
-            text: outputs.ssml
+            text: outputs.ssml,
+            ssml: outputs.ssml
         },
         card: {
             type: "Simple",
