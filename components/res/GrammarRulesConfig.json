@@ -3,11 +3,32 @@
     "Sentence",
     "Sentence ConjunctionSpecial Sentence"
   ],
-  "Sentence": [
-    "NounPhraseNominative",
+  "Sentence": [    
+  	"NounPhraseNominative",
     "NounPhrasePronounDeterminer NounPhrase",
     "VerbPhraseStart",
-    "NounPhraseNominative VerbPhrase"
+    "NounPhraseNominative VerbPhrase",
+    "PronounNominative Verb Determiner NounPhrase",
+    "PronounNominative AuxiliaryVerbBe VerbProgressive Determiner Noun",
+    "PronounNominative AuxiliaryVerbHave VerbPerfect Determiner Noun",
+    "PronounNominative ModalVerb VerbPresent Determiner Noun",
+    "NounPhrase Verb Determiner NounPhrase",
+    "NounPhrase AuxiliaryVerbBe VerbProgressive Determiner Noun",
+    "NounPhrase AuxiliaryVerbHave VerbPerfect Determiner Noun",
+    "NounPhrase ModalVerb VerbPresent Determiner Noun",
+    "PronounNominative Verb Determiner AdjectivePhrase NounPhrase",
+    "PronounNominative AuxiliaryVerbBe VerbProgressive Determiner AdjectivePhrase Noun",
+    "PronounNominative AuxiliaryVerbHave VerbPerfect Determiner AdjectivePhrase Noun",
+    "PronounNominative ModalVerb VerbPresent Determiner AdjectivePhrase Noun",
+    "NounPhrase Verb Determiner NounPhrase",
+    "NounPhrase AuxiliaryVerbBe VerbProgressive Determiner AdjectivePhrase Noun",
+    "NounPhrase AuxiliaryVerbHave VerbPerfect Determiner AdjectivePhrase Noun",
+    "NounPhrase ModalVerb VerbPresent Determiner AdjectivePhrase Noun",
+    "PronounNominative Verb PrepositionalPhrase",
+    "PronounNominative AuxiliaryVerbBe VerbProgressive PrepositionalPhrase",
+    "NounPhrase Verb PrepositionalPhrase",
+    "NounPhrase AuxiliaryVerbBe VerbProgressive PrepositionalPhrase",
+    "NounPhrase ModalVerb VerbPresent PrepositionalPhrase"
   ],
   "Conjunction": [
     "and",
@@ -18,7 +39,6 @@
     "for",
     "but",
     "yet",
-    "during",
     "while",
     "until",
     "after",
