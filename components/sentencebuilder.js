@@ -207,7 +207,7 @@ var generateTwoSentences = (grammar) => {
 
             if(wordTypeDictionary.hasOwnProperty(choice) && wordTypeDictionary.hasOwnProperty(previousChoice)) {
                 var types = wordTypeDictionary[choice];
-
+                  console.log(types);
                 if(types.indexOf(wordTypes.DeterminerSingular) > -1 || types.indexOf(wordTypes.DeterminerPlural) > -1) {
                     previousDeterminer = choice;
                 }

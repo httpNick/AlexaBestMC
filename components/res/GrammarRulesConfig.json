@@ -18,9 +18,7 @@
   "ConjunctionSpecial": [
     "for",
     "but",
-    "so",
     "yet",
-    "though",
     "although",
     "except",
     "while",
@@ -28,24 +26,16 @@
     "unless",
     "until",
     "even if",
-    "whether",
-    "whereas",
-    "how",
     "after",
     "before",
     "by the time",
     "now that",
     "once",
     "since",
-    "till",
-    "until",
     "when",
     "because",
     "since",
-    "why",
-    "that",
-    "what",
-    "whatever"
+    "that"
   ],
   "Noun": [
     "heart"
@@ -69,18 +59,15 @@
     "that", 
     "any",
     "each",
-    "either",
     "other"
   ],
   "DeterminerPlural": [
     "the",
     "these",
     "those",
-    "both",
     "many",
     "most",
     "other",
-    "several",
     "some"
   ],
   "PronounNominative": [
@@ -251,9 +238,7 @@
     "very",
     "too",
     "quite",
-    "extremely",
-    "pretty",
-    "rather"
+    "pretty"
   ],
   "DegreeAdverb": [
     "more",
@@ -291,14 +276,8 @@
     "beautifully"
   ],
   "Preposition": [
-    "about",
     "above",
-    "across",
     "after",
-    "against",
-    "along",
-    "amid",
-    "among",
     "around",
     "as",
     "at",
@@ -307,14 +286,10 @@
     "below",
     "beneath",
     "beside",
-    "besides",
     "between",
     "beyond",
     "by",
     "down",
-    "during",
-    "excluding",
-    "following",
     "for",
     "from",
     "in",
@@ -325,25 +300,16 @@
     "of",
     "off",
     "on",
-    "onto",
     "outside",
     "outta",
     "over",
     "past",
-    "per",
-    "regarding",
-    "round",
-    "save",
     "since",
     "through",
     "to",
     "under",
-    "underneath",
-    "unlike",
-    "until",
     "up",
     "upon",
-    "versus",
     "with",
     "within",
     "without"
@@ -358,7 +324,6 @@
   ],
   "PrepositionalPhrase": [
     "Preposition NounPhraseAccusative",
-    "Preposition VerbProgressive",
     "Modifier Preposition NounPhraseAccusative"
   ]
 }
