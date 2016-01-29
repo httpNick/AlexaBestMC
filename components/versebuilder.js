@@ -14,10 +14,10 @@ function buildVerses(listOfSentencesThatRhyme){
   //always have 16 sentences
   var song = [];
   var count = 0;
-  for(var x = 0;x < 4;x++){
+  for(var x = 0;x < 2;x++){
     var verse = [];
     song[x] = verse;
-    for(var y = 0; y < 4; y++){
+    for(var y = 0; y < 2; y++){
       verse[y] = listOfSentencesThatRhyme[count];
       count++;
     }

@@ -125,10 +125,19 @@ VerbProgressiveRhyming
 <<<<<<< HEAD
 */
   var sentencesToBeSentToVerses = [];
-  //concat two sentences to the final list of sentences that will total 16.
-  sentencesToBeSentToVerses.push(
-      generateTwoSentences(grammar)
-  );
+    //concat two sentences to the final list of sentences that will total 16.
+    sentencesToBeSentToVerses.push(
+        generateTwoSentences(grammar)
+    );
+    sentencesToBeSentToVerses.push(
+        generateTwoSentences(grammar)
+    );
+    sentencesToBeSentToVerses.push(
+        generateTwoSentences(grammar)
+    );
+    sentencesToBeSentToVerses.push(
+        generateTwoSentences(grammar)
+    );
     /*
   for (var i = 0; i < 7; i++) {
       //reset topicword
@@ -190,7 +199,7 @@ var generateTwoSentences = function(grammar) {
             completeSentenceChoice
         );
 
-    while (constructedSentences.length < 4) {
+    while (constructedSentences.length < 2) {
         var currSentence = '';
         var outputSentence = '';
         var guide = new gg(grammar).createGuide(completeSentenceChoice);
@@ -264,7 +273,7 @@ var generateTwoSentences = function(grammar) {
     return constructedSentences;
 };
 
-var conjugateVerbs = (verbs) => {
+var conjugateVerbs = function(verbs) {
   var conjugatedVerbs = {
     past : [],
     perfect: [],
