@@ -161,8 +161,8 @@ VerbProgressiveRhyming
       grammar.VerbProgressiveRhyming = [];
       grammar.VerbProgressiveRhyming = conjugatedNewRhymeVerbs.progressive;
       addWordsToDictionary(wordTypeDictionary, grammar.VerbProgressiveRhyming, wordTypes.VerbProgressiveRhyming);
-console.log(words.RelatedWordRhymes[i].TopicWord);
-console.log(generateTwoSentences(grammar));
+//console.log(words.RelatedWordRhymes[i].TopicWord);
+//console.log(generateTwoSentences(grammar));
       sentencesToBeSentToVerses.push(
           generateTwoSentences(grammar)
       );
@@ -194,17 +194,18 @@ var generateTwoSentences = (grammar) => {
         var guide = new gg(grammar).createGuide(completeSentenceChoice);
 
         //for handling various inflection rules
-        var previousWord = '';
+        var previousChoice = '';
         var previousDeterminer = '';
         var modalPresent = false;
 
         while (!recognizer.isComplete(currSentence)) {
             var choice = guide.choices()[Math.floor(Math.random()*guide.choices().length)];
+            var currentWord = choice;
 
             //progress through the graph, call choose() prior to inflection since it may not be a valid choice afterward
             guide.choose(choice);
 
-            if(wordTypeDictionary.hasOwnProperty(choice) && wordTypeDictionary.hasOwnProperty(previousWord)) {
+            if(wordTypeDictionary.hasOwnProperty(choice) && wordTypeDictionary.hasOwnProperty(previousChoice)) {
                 var types = wordTypeDictionary[choice];
 
                 if(types.indexOf(wordTypes.DeterminerSingular) > -1 || types.indexOf(wordTypes.DeterminerPlural) > -1) {
@@ -215,48 +216,46 @@ var generateTwoSentences = (grammar) => {
                 } 
 
                 if((types.indexOf(wordTypes.Noun) > -1 || types.indexOf(wordTypes.NounRhyming) > -1) && previousDeterminer.length > 0) {
-                    choice = declineNounByNumber(choice, previousDeterminer);
+                    currentWord = declineNounByNumber(choice, previousDeterminer);
                 }
                 else if(types.indexOf(wordTypes.VerbPresent) > -1 || types.indexOf(wordTypes.VerbPresentRhyming) > -1) {
-                    choice = conjugateVerbPresentByPerson(choice, previousWord, modalPresent);
+                    currentWord = conjugateVerbPresentByPerson(choice, previousChoice, modalPresent);
                     if(modalPresent) {
                       modalPresent = false;
                     }
                 }
                 else if(types.indexOf(wordTypes.AuxiliaryVerbBe) > -1) {
-                    choice = conjugateAuxiliaryVerbBeByPerson(choice, previousWord);
+                    currentWord = conjugateAuxiliaryVerbBeByPerson(choice, previousChoice);
                 }
             }
 
             //build the sentence being generated one word at a time
-            outputSentence += choice + ' ';
+            outputSentence += currentWord + ' ';
 
             //this doesn't actually select another path, but rather ensures that the graph goes to the end of a possible path
             currSentence = guide.constructs()[Math.floor(Math.random()*guide.constructs().length)];
 
-            previousWord = choice;
+            previousChoice = choice;
         }
 
         //the last word in the sentence will be one that rhymes but is the same part of speech as the one it replaces
 
         //make sure to get the last word of the generated sentence
         currSentenceArray = currSentence.split(' ');
-        var lastWord = currSentenceArray.pop();
-        var finalWord = lastWord;
+        var lastChoice = currSentenceArray.pop();
+        var finalWord = lastChoice;
 
         //just go with the first type if it has more than one
-        var typeOfLastWord = wordTypeDictionary[lastWord][0];
+        var typeOfLastWord = wordTypeDictionary[lastChoice][0];
         typeOfLastWord += 'Rhyming';       
 
-        //if there's a list of words in the same part of speech that rhyme, then pick a rnadom one from that list
+        //if there's a list of words in the same part of speech that rhyme, then pick a random one from that list
         if(grammar.hasOwnProperty(typeOfLastWord) && grammar[typeOfLastWord].length > 0) {
           finalWord = grammar[typeOfLastWord][Math.floor(Math.random()*grammar[typeOfLastWord].length)];
-          console.log(typeOfLastWord + ' ----- ' + 'RHYMES');
+          //console.log(typeOfLastWord + ' ----- ' + 'RHYMES');
         }
-        
-        currSentenceArray.push(finalWord);
 
-        outputSentence += currSentenceArray.join(' ');
+        outputSentence += finalWord;
 
         constructedSentences.push(outputSentence);
     }
@@ -303,27 +302,29 @@ var declineNounByNumber = (word, previousDeterminer) => {
 
 var conjugateVerbPresentByPerson = (word, previousWord, modalPresent) => {
   var nonThirdPersonPronouns = ['I', 'you', 'we', 'they'];
+  console.log(word);
   if(nonThirdPersonPronouns.indexOf(previousWord) > -1 || modalPresent) {
-    if(word == 'be') {
-      console.log("CONJUGATE VP REST: " + word);  
-      console.log("CONJUGATED - " + conjugate('you', word));
+    if(word === 'be') {
+      //console.log("CONJUGATE VP REST: " + word);  
+      //console.log("CONJUGATED - " + conjugate('you', word));
       return conjugate('you', word);
     } 
     if(word[word.length - 1] === 's') {
-      console.log("CONJUGATE VP REST: " + word);  
-      console.log("CONJUGATED - " + word.substring(0, word.length - 1));
+      //console.log("CONJUGATE VP REST: " + word);  
+      //console.log("CONJUGATED - " + word.substring(0, word.length - 1));
+      console.log(word.substring(0, word.length - 1));
       return word.substring(0, word.length - 1); //truncate the s manually since the module doesn't unless it's an easy and common one -.-
     }
   }
   else {
-    if(word == 'be') {
-      console.log("CONJUGATE VP 3rd P: " + word);
-      console.log("CONJUGATED - " + conjugate('it', word));
+    if(word === 'be') {
+      //console.log("CONJUGATE VP 3rd P: " + word);
+      //console.log("CONJUGATED - " + conjugate('it', word));
       return conjugate('it', word);
     } 
     if(word[word.length - 1] !== 's') {
-      console.log("CONJUGATE VP 3rd P: " + word);
-      console.log("CONJUGATED - " + word + 's');
+      //console.log("CONJUGATE VP 3rd P: " + word);
+      //console.log("CONJUGATED - " + word + 's');
       return word + 's'; //add the s manually since the module only deals with common and easy words -.-
     }
   }
@@ -333,7 +334,7 @@ var conjugateAuxiliaryVerbBeByPerson = (word, previousWord) => {
   if(wordTypeDictionary[previousWord].indexOf(wordTypes.PronounNominative) > -1) {
     var werePronouns = ['you', 'we', 'they'];
     if(word === 'be') {
-      console.log("CONJUGATE BE: " + word);
+     // console.log("CONJUGATE BE: " + word);
       return conjugate(previousWord, word);
     } 
     else if(word === 'was' && werePronouns.indexOf(previousWord) > -1) {
