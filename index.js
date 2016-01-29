@@ -14,7 +14,6 @@ sentencebuilder = require('./components/sentencebuilder');
 versebuilder = require('./components/versebuilder');
 words = require('./services/words.js');
 randomwords = require('random-words');
-rhyme = require('./components/findRhymes');
 
 var $ = module.exports;
 
@@ -167,7 +166,7 @@ function setTopicInSession(intent, session, callback) {
                 words.getRelatedWordsFromWordnik(rapTopic),
                 words.getRhymingWordsFromRhymeBrain(rapTopic)
 
-            ]).then(response => {
+            ]).then(function(response) {
                 /**
                  * response[0] is the response for twinword
                  * response[1] is the response for wordnik
@@ -182,11 +181,11 @@ function setTopicInSession(intent, session, callback) {
                             .concat(response[1].unknown)
                     );
 
-                    words.getPartsOfSpeech(Array.from(relatedWords)).then((posDict) => {
+                    words.getPartsOfSpeech(Array.from(relatedWords)).then(function(posDict) {
                         posDict.topic = [rapTopic];
                         posDict.rhymingWords = response[1].rhyme;
                         words.getPartsOfSpeech(response[1].rhyme.concat(response[2]))
-                            .then((rhymePosDict) => {
+                            .then(function(rhymePosDict) {
                                 posDict.NounRhyming = rhymePosDict.nouns;
                                 posDict.AdjectiveRhyming = rhymePosDict.adjectives;
                                 posDict.AdverbRhyming = rhymePosDict.adverbs;
@@ -195,16 +194,16 @@ function setTopicInSession(intent, session, callback) {
                                     posDict.rhymingWords = posDict.rhymingWords.concat(response[2]);
                                 }
                                 chooseSevenOtherTopicsAndGetTheRhymingWords(posDict.nouns)
-                                    .then((result) => {
+                                    .then(function(result) {
                                         posDict.RelatedWordRhymes = result;
-                                        sentencebuilder.generateSentences(posDict, 16, (results) => {
+                                        sentencebuilder.generateSentences(posDict, 16, function(results) {
                                             console.log(results);
                                             var verses = [[]];
                                             versebuilder.generateVerses(results, function(resultVerses){
                                                 console.log(resultVerses);
                                                 verses = resultVerses;
                                             });
-                                            verseConverter.convertVersesToOutput(verses, (outputs) => {
+                                            verseConverter.convertVersesToOutput(verses, function(outputs) {
 
                                                 sessionAttributes = createRapTopic(rapTopic);
 
@@ -258,7 +257,7 @@ function chooseSevenOtherTopicsAndGetTheRhymingWords(relatedNouns){
     }  else {
         randomNouns = relatedNouns;
     }
-    return new Promise((resolve, reject) => {
+    return new Promise(function(resolve, reject) {
         if (randomNouns.length === 7) {
             Promise.all([
                 words.getRhymingWordsFromRhymeBrain(randomNouns[0]),
@@ -269,7 +268,7 @@ function chooseSevenOtherTopicsAndGetTheRhymingWords(relatedNouns){
                 words.getRhymingWordsFromRhymeBrain(randomNouns[5]),
                 words.getRhymingWordsFromRhymeBrain(randomNouns[6])
             ]).then(
-                (response) => {
+                function(response) {
                     var finalResultOfRhymeDictionaries = [];
                     Promise.all([
                         words.getPartsOfSpeech(response[0]),
@@ -279,7 +278,7 @@ function chooseSevenOtherTopicsAndGetTheRhymingWords(relatedNouns){
                         words.getPartsOfSpeech(response[4]),
                         words.getPartsOfSpeech(response[5]),
                         words.getPartsOfSpeech(response[6])
-                    ]).then( (finalResult) =>
+                    ]).then( function(finalResult)
                         {
                             for (var i = 0; i < 7; i++) {
                                 finalResultOfRhymeDictionaries.push(
