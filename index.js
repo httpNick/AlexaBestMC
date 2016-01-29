@@ -183,7 +183,7 @@ function setTopicInSession(intent, session, callback) {
                     );
 
                     words.getPartsOfSpeech(Array.from(relatedWords)).then((posDict) => {
-                        posDict.topic = [testTopic];
+                        posDict.topic = [rapTopic];
                         posDict.rhymingWords = response[1].rhyme;
                         words.getPartsOfSpeech(response[1].rhyme.concat(response[2]))
                             .then((rhymePosDict) => {
@@ -199,6 +199,20 @@ function setTopicInSession(intent, session, callback) {
                                         posDict.RelatedWordRhymes = result;
                                         sentencebuilder.generateSentences(posDict, 16, (results) => {
                                             console.log(results);
+                                            var verses = [[]];
+                                            versebuilder.generateVerses(results, function(resultVerses){
+                                                console.log(resultVerses);
+                                                verses = resultVerses;
+                                            });
+                                            verseConverter.convertVersesToOutput(verses, (outputs) => {
+
+                                                sessionAttributes = createRapTopic(rapTopic);
+
+                                                repromptText = "Yo give me another word so I can spit some rhymes.";
+
+                                                callback(sessionAttributes,
+                                                    buildSpeechletSSMLResponse(cardTitle, outputs, repromptText, shouldEndSession));
+                                            });
                                         });
                                     });
                             });
@@ -207,45 +221,6 @@ function setTopicInSession(intent, session, callback) {
 
             });
 
-
-            sessionAttributes = createRapTopic(rapTopic);
-
-            verses = [
-                [
-                    "Lay me down a sick beat while I rap about a topic",
-                    "I'll take any subject and return an Object",
-                    "From the bottom of the barrel yeah I lock it and I clock it ",
-                    "From the bottom to the top unless you think you can top it"
-                ],
-                [
-                    "Relating words left and rhyming words right",
-                    "This second verse will be as fly as the first",
-                    "Rapping through the day and on through the night",
-                    "Alexa's got the fire to set this place alight"
-
-                ],
-                [
-                    "A third first line will go right here",
-                    "on subject on topic on load on point",
-                    "rapping like this every day month and year",
-                    "wrapping all around like Chewbacca's bandoleer"
-                ],
-                [
-                    "Wrap it up rapping with verse number four",
-                    "Making rhymes making money making lines making green",
-                    "Going yellow going red like a traffic semaphore",
-                    "Gotta stop now but you can always ask for more"
-                ]
-            ];
-
-            verseConverter.convertVersesToOutput(verses, (output) => {
-                outputs = output;
-            });
-
-            repromptText = "Yo give me another word so I can spit some rhymes.";
-
-            callback(sessionAttributes,
-                 buildSpeechletSSMLResponse(cardTitle, outputs, repromptText, shouldEndSession));
         } else {
             speechOutput = "I'm not sure what you want me to rap about. Please try again";
             repromptText = "I'm not sure what you want me to rap about. You can tell me what to " +
