@@ -163,10 +163,9 @@ VerbProgressiveRhyming
       addWordsToDictionary(wordTypeDictionary, grammar.VerbProgressiveRhyming, wordTypes.VerbProgressiveRhyming);
 console.log(words.RelatedWordRhymes[i].TopicWord);
 console.log(generateTwoSentences(grammar));
-     /* sentencesToBeSentToVerses.push(
+      sentencesToBeSentToVerses.push(
           generateTwoSentences(grammar)
       );
-*/
   }
   return sentencesToBeSentToVerses;
 };
