@@ -291,10 +291,13 @@ var addWordsToDictionary = (dictionary, wordsList, type) => {
 };
 
 var declineNounByNumber = (word, previousDeterminer) => {
+  console.log(previousDeterminer + "       " + word);
   if((word[word.length - 1] === 's') && (wordTypeDictionary[previousDeterminer].indexOf(wordTypes.DeterminerSingular) > -1)) {
+    console.log("SINGULAR: " + word);
     return word.substring(0, word.length - 1);
   } 
   else if ((word[word.length - 1] !== 's') && wordTypeDictionary[previousDeterminer].indexOf(wordTypes.DeterminerPlural) > -1) {
+    console.log("PLURAL: " + word);
     return word + 's';
   }
   return word;

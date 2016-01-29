@@ -4,9 +4,8 @@
     "Sentence ConjunctionSpecial Sentence"
   ],
   "Sentence": [
-    "NounPhraseNominative PrepositionalPhrase",
+    "NounPhraseNominative",
     "NounPhrasePronounDeterminer NounPhrase",
-    "NounPhrasePronounDeterminer NounPhrase PrepositionalPhrase",
     "VerbPhraseStart",
     "NounPhraseNominative VerbPhrase"
   ],
@@ -19,22 +18,14 @@
     "for",
     "but",
     "yet",
-    "although",
-    "except",
+    "during",
     "while",
-    "if",
-    "unless",
     "until",
-    "even if",
     "after",
     "before",
-    "by the time",
-    "now that",
     "once",
-    "since",
     "when",
     "because",
-    "since",
     "that"
   ],
   "Noun": [
@@ -172,10 +163,8 @@
     "AuxiliaryVerbHave VerbPerfect AdjectivePhrase",
     "AuxiliaryVerbHave VerbPerfect AdverbPhrase",
     "AuxiliaryVerbHave VerbPerfect AdverbPhrase",
-    "AuxiliaryVerbHave VerbPerfect PrepositionalPhrase",
     "AuxiliaryVerbBe VerbProgressive PrepositionalPhrase",
     "ModalVerb be VerbProgressive PrepositionalPhrase",
-    "ModalVerb have VerbPerfect PrepositionalPhrase",
     "ModalVerb have AdverbPhrase VerbPerfect",
     "ModalVerb VerbPresent PrepositionalPhrase",
     "AuxiliaryVerbHave VerbPerfect NounPhraseAccusative",
@@ -186,11 +175,6 @@
     "ModalVerb be AdverbPhrase VerbProgressive NounPhraseAccusative",
     "ModalVerb have AdverbPhrase VerbPerfect NounPhraseAccusative",
     "ModalVerb AdverbPhrase VerbPresent NounPhraseAccusative",
-    "AuxiliaryVerbHave VerbPerfect NounPhraseAccusative PrepositionalPhrase",
-    "AuxiliaryVerbBe VerbProgressive NounPhraseAccusative PrepositionalPhrase",
-    "ModalVerb be VerbProgressive NounPhraseAccusative PrepositionalPhrase",
-    "ModalVerb have VerbPerfect NounPhraseAccusative PrepositionalPhrase",
-    "ModalVerb VerbPresent NounPhraseAccusative PrepositionalPhrase"
   ],
   "VerbPhraseStart": [
   	"Verb",
@@ -214,9 +198,7 @@
   "ModalVerb": [
     "can",
     "could",
-    "may",
     "might",
-    "must",
     "should",
     "will",
     "would"
@@ -227,7 +209,7 @@
   "AdjectivePhrase": [
     "Adjective",
     "DegreeAdjective Adjective",
-    "Adjective Adjective",
+    "Adjective",
     "Adjective Conjunction Adjective"
   ],
   "DegreeAdjective": [
@@ -237,17 +219,13 @@
     "least",
     "very",
     "too",
-    "quite",
-    "pretty"
+    "quite"
   ],
   "DegreeAdverb": [
     "more",
     "most",
     "very",
     "too",
-    "so",
-    "extremely",
-    "pretty",
     "rather"
   ],
   "LocativeAdverb": [
@@ -278,40 +256,28 @@
   "Preposition": [
     "above",
     "after",
-    "around",
-    "as",
     "at",
     "before",
     "behind",
     "below",
-    "beneath",
     "beside",
     "between",
     "beyond",
     "by",
-    "down",
-    "for",
     "from",
     "in",
     "inside",
     "into",
-    "like",
     "near",
     "of",
-    "off",
-    "on",
     "outside",
     "outta",
     "over",
-    "past",
     "since",
     "through",
     "to",
     "under",
-    "up",
-    "upon",
     "with",
-    "within",
     "without"
   ],
   "Modifier": [
@@ -320,7 +286,6 @@
     "just",
     "right",
     "straight",
-    "up"
   ],
   "PrepositionalPhrase": [
     "Preposition NounPhraseAccusative",
