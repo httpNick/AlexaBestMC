@@ -1,12 +1,18 @@
 {
   "Grammar": [
     "Sentence",
-    "Sentence ConjunctionSpecial Sentence"
+    "Sentence ConjunctionSpecial SentenceSubordinateClauseValid"
   ],
   "Sentence": [    
   	"NounPhraseNominative",
     "NounPhrasePronounDeterminer NounPhrase",
     "VerbPhraseStart",
+    "SentenceSubordinateClauseValid",
+    "SentenceSubordinateClauseValid",
+    "SentenceSubordinateClauseValid"
+  ],
+  "SentenceSubordinateClauseValid": [
+    "NounPhraseNominative VerbPhrase",
     "NounPhraseNominative VerbPhrase",
     "PronounNominative Verb Determiner NounPhrase",
     "PronounNominative AuxiliaryVerbBe VerbProgressive Determiner Noun",
@@ -23,16 +29,10 @@
     "NounPhrase Verb Determiner NounPhrase",
     "NounPhrase AuxiliaryVerbBe VerbProgressive Determiner AdjectivePhrase Noun",
     "NounPhrase AuxiliaryVerbHave VerbPerfect Determiner AdjectivePhrase Noun",
-    "NounPhrase ModalVerb VerbPresent Determiner AdjectivePhrase Noun",
-    "PronounNominative Verb PrepositionalPhrase",
-    "PronounNominative AuxiliaryVerbBe VerbProgressive PrepositionalPhrase",
-    "NounPhrase Verb PrepositionalPhrase",
-    "NounPhrase AuxiliaryVerbBe VerbProgressive PrepositionalPhrase",
-    "NounPhrase ModalVerb VerbPresent PrepositionalPhrase"
+    "NounPhrase ModalVerb VerbPresent Determiner AdjectivePhrase Noun"
   ],
   "Conjunction": [
     "and",
-    "not",
     "or"
   ],
   "ConjunctionSpecial": [
@@ -40,7 +40,6 @@
     "but",
     "yet",
     "while",
-    "until",
     "after",
     "before",
     "once",
@@ -156,7 +155,6 @@
   ],
   "VerbPhrase": [
     "Verb",
-    "Verb AdjectivePhrase",
     "Verb AdverbPhrase",
     "Verb LocativeAdverb",
     "AdverbPhrase Verb",    
@@ -166,22 +164,19 @@
     "VerbPast Conjunction VerbPast",
     "AuxiliaryVerbHave VerbPerfect",
     "AuxiliaryVerbBe VerbProgressive",
-    "AuxiliaryVerbBe VerbProgressive AdjectivePhrase",
+    "AuxiliaryVerbBe AdjectivePhrase",
     "AuxiliaryVerbBe VerbProgressive AdverbPhrase",
     "AuxiliaryVerbBe VerbProgressive LocativeAdverb",
     "AuxiliaryVerbBe AdverbPhrase VerbProgressive",
     "ModalVerb VerbPresent",
-    "ModalVerb VerbPresent AdjectivePhrase",
     "ModalVerb VerbPresent AdverbPhrase",
     "ModalVerb VerbPresent LocativeAdverb",
     "ModalVerb be VerbProgressive",
-    "ModalVerb be VerbProgressive AdjectivePhrase",
+    "ModalVerb be AdjectivePhrase",
     "ModalVerb be VerbProgressive AdverbPhrase",
     "ModalVerb be VerbProgressive LocativeAdverb",
     "ModalVerb be AdverbPhrase VerbProgressive",
     "ModalVerb have VerbPerfect",
-    "AuxiliaryVerbHave VerbPerfect AdjectivePhrase",
-    "AuxiliaryVerbHave VerbPerfect AdverbPhrase",
     "AuxiliaryVerbHave VerbPerfect AdverbPhrase",
     "AuxiliaryVerbBe VerbProgressive PrepositionalPhrase",
     "ModalVerb be VerbProgressive PrepositionalPhrase",
@@ -194,7 +189,7 @@
     "ModalVerb VerbPresent NounPhraseAccusative",
     "ModalVerb be AdverbPhrase VerbProgressive NounPhraseAccusative",
     "ModalVerb have AdverbPhrase VerbPerfect NounPhraseAccusative",
-    "ModalVerb AdverbPhrase VerbPresent NounPhraseAccusative",
+    "ModalVerb AdverbPhrase VerbPresent NounPhraseAccusative"
   ],
   "VerbPhraseStart": [
   	"Verb",
@@ -229,7 +224,6 @@
   "AdjectivePhrase": [
     "Adjective",
     "DegreeAdjective Adjective",
-    "Adjective",
     "Adjective Conjunction Adjective"
   ],
   "DegreeAdjective": [
@@ -237,16 +231,12 @@
     "most",
     "less",
     "least",
-    "very",
-    "too",
-    "quite"
+    "very"
   ],
   "DegreeAdverb": [
     "more",
     "most",
-    "very",
-    "too",
-    "rather"
+    "very"
   ],
   "LocativeAdverb": [
     "above",
@@ -258,12 +248,8 @@
     "beneath",
     "beyond",
     "inside",
-    "on",
-    "off",
     "outside",
-    "over",
     "underneath",
-    "up",
     "within"
   ],
   "AdverbPhrase": [
@@ -302,10 +288,9 @@
   ],
   "Modifier": [
     "all",
-    "down",
     "just",
     "right",
-    "straight",
+    "straight"
   ],
   "PrepositionalPhrase": [
     "Preposition NounPhraseAccusative",

@@ -218,7 +218,7 @@ var generateTwoSentences = function(grammar) {
 
             if(wordTypeDictionary.hasOwnProperty(choice) && wordTypeDictionary.hasOwnProperty(previousChoice)) {
                 var types = wordTypeDictionary[choice];
-                  console.log(types);
+                  //console.log(types);
                 if(types.indexOf(wordTypes.DeterminerSingular) > -1 || types.indexOf(wordTypes.DeterminerPlural) > -1) {
                     previousDeterminer = choice;
                 }
@@ -302,7 +302,7 @@ var addWordsToDictionary = function(dictionary, wordsList, type) {
 };
 
 var declineNounByNumber = function(word, previousDeterminer) {
-  console.log(previousDeterminer + "       " + word);
+  //console.log(previousDeterminer + "       " + word);
   if((word[word.length - 1] === 's') && (wordTypeDictionary[previousDeterminer].indexOf(wordTypes.DeterminerSingular) > -1)) {
     console.log("SINGULAR: " + word);
     return word.substring(0, word.length - 1);
@@ -325,7 +325,7 @@ var conjugateVerbPresentByPerson = function(word, previousWord, modalPresent) {
     if(word[word.length - 1] === 's') {
       //console.log("CONJUGATE VP REST: " + word);
       //console.log("CONJUGATED - " + word.substring(0, word.length - 1));
-      console.log(word.substring(0, word.length - 1));
+      //console.log(word.substring(0, word.length - 1));
       return word.substring(0, word.length - 1); //truncate the s manually since the module doesn't unless it's an easy and common one -.-
     }
   }
