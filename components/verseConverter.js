@@ -9,18 +9,18 @@ exports.convertVersesToOutput = function(songVerses, callback) {
         var outputText = '';
         var outputSSML = '<speak>';
 
-        outputSSML += '<audio src="'+audioPath+'" />';
+        outputSSML += "<audio src='"+audioPath+"' />";
         for(var verseIndex = 0; verseIndex < songVerses.length; verseIndex ++){
             var verse = songVerses[verseIndex];
             outputSSML += '<p>';
             for(var lineIndex = 0; lineIndex < verse.length; lineIndex ++){
                 line = verse[lineIndex];
                 outputSSML += line + '<break time="5ms" />';
-                outputText += line;
+                outputText += line + ' ';
             }
             audioPath = audioEndpoints.baseUrl + audioName + '/' + audioName + '-' + (verseIndex + 1) + '.mp3';
             outputSSML += '</p>';
-            outputSSML += '<audio src=\"'+audioPath+'\" />';
+            outputSSML += "<audio src='"+audioPath+"' />";
 
         }
 

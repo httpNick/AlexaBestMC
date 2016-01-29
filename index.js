@@ -9,7 +9,12 @@
 
 var rhymes = require('rhyme-plus');
 var verseConverter = require('./components/verseConverter');
-var wordsService = require('./services/words');
+var sentencebuilder, versebuilder, randomwords, words;
+sentencebuilder = require('./components/sentencebuilder');
+versebuilder = require('./components/versebuilder');
+words = require('./services/words.js');
+randomwords = require('random-words');
+rhyme = require('./components/findRhymes');
 
 var $ = module.exports;
 
@@ -155,116 +160,92 @@ function setTopicInSession(intent, session, callback) {
         var rapTopic = rapTopicSlot.value;
 
         if(rapTopic) {
-            wordsService.getRelatedWords(rapTopic, function(err, words) {
-                console.log("Related Words: " + words);
-                wordsService.getPartsOfSpeech(words, function(pos) {
-                    var topicNouns = ['missing nouns'];
-                    var topicVerbs = ['missing verbs'];
-                    var topicAdjectives = ['missing adjectives'];
-                    var topicAdverbs = ['missing adverbs'];
-                    var topicRest = ['missing rest'];
 
-                    if(pos) {
-                        topicNouns = pos.nouns;
-                        topicVerbs = pos.verbs;
-                        topicAdjectives = pos.adjectives;
-                        topicAdverbs = pos.adverbs;
-                        topicRest = pos.rest;
-                    }
+            Promise.all([
 
-                    wordsService.getRandomWordsByPos(function(randomWordsPos) {
-                        var randomNouns = ['missing nouns'];
-                        var randomVerbs = ['missing verbs'];
-                        var randomAdjectives = ['missing adjecetives'];
-                        var randomAdverbs = ['missing adverbs'];
-                        var randomRest = ['missing rest'];
+                words.getRelatedWords(rapTopic),
+                words.getRelatedWordsFromWordnik(rapTopic),
+                words.getRhymingWordsFromRhymeBrain(rapTopic)
 
-                        if(randomWordsPos) {
-                            randomNouns = randomWordsPos.nouns;
-                            randomVerbs = randomWordsPos.verbs;
-                            randomAdjectives = randomWordsPos.adjectives;
-                            randomAdverbs = randomWordsPos.adverbs;
-                            randomRest = randomWordsPos.rest;
-                        }
+            ]).then(response => {
+                /**
+                 * response[0] is the response for twinword
+                 * response[1] is the response for wordnik
+                 * response[2] is the response of rhyming words from RhymeBrain.
+                 */
+                if (response[0].associations_array && response[1]) {
+                    // Using a set to ensure no duplicates.
+                    var relatedWords = new Set(
+                        response[0].associations_array
+                            .concat(response[1].sameContext)
+                            .concat(response[1].synonym)
+                            .concat(response[1].unknown)
+                    );
 
-                        var getNoun = function() {
-                            return getRandomValueFromCollection(randomNouns, 0);
-                        };
-                        var getVerb = function() {
-                            return getRandomValueFromCollection(randomVerbs, 0);
-                        };
-                        var getAdjective = function() {
-                            return getRandomValueFromCollection(randomAdjectives, 0);
-                        };
-                        var getAdverb = function() {
-                            return getRandomValueFromCollection(randomAdverbs, 0);
-                        };
-                        var getMisc = function() {
-                            return getRandomValueFromCollection(randomRest, 0);
-                        };
-                        /*
-                        var getPronoun = function() {
-                            return getRandomValueFromCollection(randomPronouns, 0);
-                        };
-                        var getAuxVerb = function() {
-                            return getRandomValueFromCollection(randomAuxVerbs, 0);
-                        };
-                        */
-
-                        var getTopicNoun = function() {
-                            return getRandomValueFromCollection(topicNouns, 0);
-                        };
-                        var getTopicVerb = function() {
-                            return getRandomValueFromCollection(topicVerbs, 0);
-                        };
-                        var getTopicAdjective = function() {
-                            return getRandomValueFromCollection(topicAdjectives, 0);
-                        };
-                        var getTopicAdverb = function() {
-                            return getRandomValueFromCollection(topicAdverbs, 0);
-                        };
-                        var getMisc = function() {
-                            return getRandomValueFromCollection(topicRest, 0);
-                        };                        
-
-                        sessionAttributes = createRapTopic(rapTopic);
-
-                        verses = [
-                            [
-                                "Lay me down a sick beat while I rap about " + rapTopic,
-                                getTopicVerb() + " from the " + getTopicNoun() + " now we're " + getTopicNoun() + ". ",
-                                getTopicVerb() + " from the " + getTopicNoun() + " now my whole team " + getVerb() + " " + getTopicNoun() + ". ",
-                                getVerb() + " from the " + getTopicAdjective() + " " + getTopicNoun() + " and now we're " + getNoun() + ". "
-                            ],
-                            [
-                                "This is Alexa's second verse",
-                                "Relating words left and rhyming words right",
-                                "Each line as good as the first",
-                                "Rapping through the day and through the night"
-                            ],
-                            [
-                                "A third first line goes here",
-                                "on subject, on topic, on point",
-                                "rapping every day every month and year",
-                                "rapping all around like Chewbacca's bandoleer"
-                            ],
-                            [
-                                "Wrap it up rapping with verse number four",
-                                "Making rhymes, making money, making lines, making green",
-                                "Going yellow, going red like on a semaphore",
-                                "Gotta stop now but you can always ask for more"
-                            ]
-                        ];
-
-                        outputs = verseConverter.convertVersesToOutput(verses, function(output){return output})
-
-                        repromptText = "Yo give me another word so I can spit some rhymes.";
-
-                        callback(sessionAttributes,
-                             buildSpeechletSSMLResponse(cardTitle, outputs, repromptText, shouldEndSession));
+                    words.getPartsOfSpeech(Array.from(relatedWords)).then((posDict) => {
+                        posDict.topic = [testTopic];
+                        posDict.rhymingWords = response[1].rhyme;
+                        words.getPartsOfSpeech(response[1].rhyme.concat(response[2]))
+                            .then((rhymePosDict) => {
+                                posDict.NounRhyming = rhymePosDict.nouns;
+                                posDict.AdjectiveRhyming = rhymePosDict.adjectives;
+                                posDict.AdverbRhyming = rhymePosDict.adverbs;
+                                posDict.VerbRhyming = rhymePosDict.verbs;
+                                if (response[2]) {
+                                    posDict.rhymingWords = posDict.rhymingWords.concat(response[2]);
+                                }
+                                chooseSevenOtherTopicsAndGetTheRhymingWords(posDict.nouns)
+                                    .then((result) => {
+                                        posDict.RelatedWordRhymes = result;
+                                        sentencebuilder.generateSentences(posDict, 16, (results) => {
+                                            console.log(results);
+                                        });
+                                    });
+                            });
                     });
-                });
+                }
+
             });
+
+
+            sessionAttributes = createRapTopic(rapTopic);
+
+            verses = [
+                [
+                    "Lay me down a sick beat while I rap about a topic",
+                    "I'll take any subject and return an Object",
+                    "From the bottom of the barrel yeah I lock it and I clock it ",
+                    "From the bottom to the top unless you think you can top it"
+                ],
+                [
+                    "Relating words left and rhyming words right",
+                    "This second verse will be as fly as the first",
+                    "Rapping through the day and on through the night",
+                    "Alexa's got the fire to set this place alight"
+
+                ],
+                [
+                    "A third first line will go right here",
+                    "on subject on topic on load on point",
+                    "rapping like this every day month and year",
+                    "wrapping all around like Chewbacca's bandoleer"
+                ],
+                [
+                    "Wrap it up rapping with verse number four",
+                    "Making rhymes making money making lines making green",
+                    "Going yellow going red like a traffic semaphore",
+                    "Gotta stop now but you can always ask for more"
+                ]
+            ];
+
+            verseConverter.convertVersesToOutput(verses, (output) => {
+                outputs = output;
+            });
+
+            repromptText = "Yo give me another word so I can spit some rhymes.";
+
+            callback(sessionAttributes,
+                 buildSpeechletSSMLResponse(cardTitle, outputs, repromptText, shouldEndSession));
         } else {
             speechOutput = "I'm not sure what you want me to rap about. Please try again";
             repromptText = "I'm not sure what you want me to rap about. You can tell me what to " +
@@ -278,6 +259,74 @@ function setTopicInSession(intent, session, callback) {
                      buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
     }
 }
+
+
+/**
+ * Finds up to 7 nouns related to the original topic.
+ * Get rhyming words for each and spread into different parts of speech.
+ */
+function chooseSevenOtherTopicsAndGetTheRhymingWords(relatedNouns){
+    var randomChoices = [];
+    var randomNouns = [];
+    if (relatedNouns.length > 7) {
+        for(var i = 0; i < 7; i++) {
+            var pushed = false;
+            while (!pushed) {
+                var randomChoice = Math.floor(Math.random()*relatedNouns.length);
+                if (randomChoices.indexOf(randomChoice)  <= -1) {
+                    pushed = true;
+                    randomChoices.push(randomChoice);
+                    randomNouns.push(relatedNouns[randomChoice]);
+                }
+            }
+        }
+    }  else {
+        randomNouns = relatedNouns;
+    }
+    return new Promise((resolve, reject) => {
+        if (randomNouns.length === 7) {
+            Promise.all([
+                words.getRhymingWordsFromRhymeBrain(randomNouns[0]),
+                words.getRhymingWordsFromRhymeBrain(randomNouns[1]),
+                words.getRhymingWordsFromRhymeBrain(randomNouns[2]),
+                words.getRhymingWordsFromRhymeBrain(randomNouns[3]),
+                words.getRhymingWordsFromRhymeBrain(randomNouns[4]),
+                words.getRhymingWordsFromRhymeBrain(randomNouns[5]),
+                words.getRhymingWordsFromRhymeBrain(randomNouns[6])
+            ]).then(
+                (response) => {
+                    var finalResultOfRhymeDictionaries = [];
+                    Promise.all([
+                        words.getPartsOfSpeech(response[0]),
+                        words.getPartsOfSpeech(response[1]),
+                        words.getPartsOfSpeech(response[2]),
+                        words.getPartsOfSpeech(response[3]),
+                        words.getPartsOfSpeech(response[4]),
+                        words.getPartsOfSpeech(response[5]),
+                        words.getPartsOfSpeech(response[6])
+                    ]).then( (finalResult) =>
+                        {
+                            for (var i = 0; i < 7; i++) {
+                                finalResultOfRhymeDictionaries.push(
+                                    {
+                                        NounRhyming : finalResult[i].nouns,
+                                        AdjectiveRhyming : finalResult[i].adjectives,
+                                        AdverbRhyming : finalResult[i].adverbs,
+                                        VerbRhyming : finalResult[i].verbs,
+                                        TopicWord : [randomNouns[i]]
+                                    }
+                                );
+                            }
+                            resolve(finalResultOfRhymeDictionaries);
+                        }
+                    );
+                    //console.log(finalResultOfRhymeDictionaries[0].NounRhyming.length);
+                });
+        } else /*if it reaches here, there are less than 7 related nouns.*/{
+            // Make a request for each related topic
+        }
+    });
+};
 
 function createRapTopic(rapTopic) {
     return {
@@ -334,16 +383,16 @@ function buildSpeechletResponse(title, output, repromptText, shouldEndSession) {
     };
 }
 
-function buildSpeechletSSMLResponse(title, output, repromptText, shouldEndSession) {
+function buildSpeechletSSMLResponse(title, outputs, repromptText, shouldEndSession) {
     return {
         outputSpeech: {
-            type: "PlainText",
-            text: output.ssml
+            type: "SSML",
+            text: outputs.ssml
         },
         card: {
             type: "Simple",
             title: "SessionSpeechlet - " + title,
-            content: "SessionSpeechlet - " + output.text
+            content: "SessionSpeechlet - " + outputs.text
         },
         reprompt: {
             outputSpeech: {
