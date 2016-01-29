@@ -1,10 +1,10 @@
-var sentencebuilder, partofspeechseparator, randomwords, words;
+var sentencebuilder, versebuilder, partofspeechseparator, randomwords, words;
 sentencebuilder = require('../components/sentencebuilder');
 versebuilder = require('../components/versebuilder');
 words = require('../services/words.js');
 randomwords = require('random-words');
 rhyme = require('../components/findRhymes');
-var testTopic = 'school';
+var testTopic = 'music';
 
 var mainTest = () => {
     Promise.all([
@@ -20,7 +20,6 @@ var mainTest = () => {
          * response[2] is the response of rhyming words from RhymeBrain.
          */
         if (response[0].associations_array && response[1]) {
-
             // Using a set to ensure no duplicates.
             var relatedWords = new Set(
                 response[0].associations_array

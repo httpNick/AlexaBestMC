@@ -3,8 +3,8 @@ module.exports = {
 
   generateVerses : (Sentences, cb) => {
 
-    cb(buildVersesV2(Sentences));
-
+    //cb(buildVersesV2(Sentences));
+    cb(buildVerses(Sentences));
   }
 };
 

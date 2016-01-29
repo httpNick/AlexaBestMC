@@ -39,6 +39,7 @@ var wordTypes = {
   PronounPossessive: "PronounPossessive",
   Verb: "Verb",
   VerbPast: "VerbPast",
+  VerbPresent: "VerbPresent",
   VerbPerfect: "VerbPerfect",
   VerbProgressive: "VerbProgressive",
   Adjective: "Adjective",
@@ -54,36 +55,36 @@ var wordTypes = {
   VerbPastRhyming: "VerbPastRhyming",
   VerbPerfectRhyming: "VerbPerfectRhyming",
   VerbPresentRhyming: "VerbPresentRhyming",
-  VerbProgressiveRhyming: "VerbProgressiveRhyming"
+  VerbProgressiveRhyming: "VerbProgressiveRhyming",
+  ModalVerb: "ModalVerb"
 };
 var wordTypeDictionary = {};
 
 var constructSentences = (words, grammar, numberOfSentences) => {
 
-    grammar.RhymingWords = words.rhymingWords;
-    grammar.Noun = grammar.Noun.concat(words.nouns);
-    grammar.Verb = grammar.Verb.concat(words.verbs);
-    grammar.Adjective = grammar.Adjective.concat(words.adjectives);
-    grammar.Adverb = grammar.Adverb.concat(words.adverbs);
-    if (grammar.Rest) grammar.Rest = words.Rest;
-    grammar.TopicWord = words.topic;
-    var conjugatedVerbs = conjugateVerbs(words.verbs);
-    grammar.VerbPast = conjugatedVerbs.past;
-    grammar.VerbPerfect = conjugatedVerbs.perfect;
-    grammar.VerbPresent = conjugatedVerbs.present;
-    grammar.VerbProgressive = conjugatedVerbs.progressive;
-    grammar.NounRhyming = words.NounRhyming;
-    grammar.AdjectiveRhyming = words.AdjectiveRhyming;
-    grammar.AdverbRhyming = words.AdverbRhyming;
-    var conjugatedRhymeVerbs = conjugateVerbs(words.VerbRhyming);
-    //grammar.LocativeAdverbRhyming
-    grammar.VerbPastRhyming = conjugatedRhymeVerbs.past;
-    grammar.VerbPerfectRhyming = conjugatedRhymeVerbs.perfect;
-    grammar.VerbPresentRhyming = conjugatedRhymeVerbs.present;
-    grammar.VerbProgressiveRhyming = conjugatedRhymeVerbs.progressive;
+  grammar.RhymingWords = words.rhymingWords;
+  grammar.Noun = words.nouns;
+  grammar.Verb = words.verbs;
+  grammar.Adjective = grammar.Adjective.concat(words.adjectives);
+  grammar.Adverb = grammar.Adverb.concat(words.adverbs);
+  if (grammar.Rest) grammar.Rest = words.Rest;
+  grammar.TopicWord = words.topic;
+  var conjugatedVerbs = conjugateVerbs(grammar.Verb);
+  grammar.VerbPast = conjugatedVerbs.past;
+  grammar.VerbPerfect = conjugatedVerbs.perfect;
+  grammar.VerbPresent = conjugatedVerbs.present;
+  grammar.VerbProgressive = conjugatedVerbs.progressive;
+  grammar.NounRhyming = words.NounRhyming;
+  grammar.AdjectiveRhyming = words.AdjectiveRhyming;
+  grammar.AdverbRhyming = words.AdverbRhyming;
+  var conjugatedRhymeVerbs = conjugateVerbs(words.VerbRhyming);
+  grammar.VerbPastRhyming = conjugatedRhymeVerbs.past;
+  grammar.VerbPerfectRhyming = conjugatedRhymeVerbs.perfect;
+  grammar.VerbPresentRhyming = conjugatedRhymeVerbs.present;
+  grammar.VerbProgressiveRhyming = conjugatedRhymeVerbs.progressive;
 
-    //clear it before each use
-    wordTypeDictionary = {};
+  //clear it before each use
+  wordTypeDictionary = {};
 
   addWordsToDictionary(wordTypeDictionary, grammar.Noun, wordTypes.Noun);
   addWordsToDictionary(wordTypeDictionary, grammar.PronounNominative, wordTypes.PronounNominative);
@@ -100,6 +101,7 @@ var constructSentences = (words, grammar, numberOfSentences) => {
   addWordsToDictionary(wordTypeDictionary, grammar.DeterminerPlural, wordTypes.DeterminerPlural);
   addWordsToDictionary(wordTypeDictionary, grammar.DeterminerSingular, wordTypes.DeterminerSingular);
   addWordsToDictionary(wordTypeDictionary, grammar.AuxiliaryVerbBe, wordTypes.AuxiliaryVerbBe);
+  addWordsToDictionary(wordTypeDictionary, grammar.ModalVerb, wordTypes.ModalVerb);
 
   addWordsToDictionary(wordTypeDictionary, grammar.NounRhyming, wordTypes.NounRhyming);
   addWordsToDictionary(wordTypeDictionary, grammar.AdjectiveRhyming, wordTypes.AdjectiveRhyming);
@@ -109,7 +111,7 @@ var constructSentences = (words, grammar, numberOfSentences) => {
   addWordsToDictionary(wordTypeDictionary, grammar.VerbPerfectRhyming, wordTypes.VerbPerfectRhyming);
   addWordsToDictionary(wordTypeDictionary, grammar.VerbPresentRhyming, wordTypes.VerbPresentRhyming);
   addWordsToDictionary(wordTypeDictionary, grammar.VerbProgressiveRhyming, wordTypes.VerbProgressiveRhyming);
-
+  
 
 /*
 NounRhyming
@@ -120,49 +122,50 @@ VerbPastRhyming
 VerbPerfectRhyming
 VerbPresentRhyming
 VerbProgressiveRhyming
+<<<<<<< HEAD
 */
-    var sentencesToBeSentToVerses = [];
-    //concat two sentences to the final list of sentences that will total 16.
-    sentencesToBeSentToVerses.push(
-        generateTwoSentences(grammar)
-    );
-    for (var i = 0; i < 7; i++) {
-        //reset topicword
+  var sentencesToBeSentToVerses = [];
+  //concat two sentences to the final list of sentences that will total 16.
+  sentencesToBeSentToVerses.push(
+      generateTwoSentences(grammar)
+  );
+  for (var i = 0; i < 7; i++) {
+      //reset topicword
 
-        grammar.AdjectiveRhyming = [];
-        grammar.AdjectiveRhyming = words.RelatedWordRhymes[i].AdjectiveRhyming;
-        addWordsToDictionary(wordTypeDictionary, grammar.AdjectiveRhyming, wordTypes.AdjectiveRhyming);
+      grammar.AdjectiveRhyming = [];
+      grammar.AdjectiveRhyming = words.RelatedWordRhymes[i].AdjectiveRhyming;
+      addWordsToDictionary(wordTypeDictionary, grammar.AdjectiveRhyming, wordTypes.AdjectiveRhyming);
 
-        grammar.AdverbRhyming = [];
-        grammar.AdverbRhyming = words.RelatedWordRhymes[i].AdverbRhyming;
-        addWordsToDictionary(wordTypeDictionary, grammar.AdverbRhyming, wordTypes.AdverbRhyming);
+      grammar.AdverbRhyming = [];
+      grammar.AdverbRhyming = words.RelatedWordRhymes[i].AdverbRhyming;
+      addWordsToDictionary(wordTypeDictionary, grammar.AdverbRhyming, wordTypes.AdverbRhyming);
 
-        grammar.NounRhyming = [];
-        grammar.NounRhyming = words.RelatedWordRhymes[i].NounRhyming;
-        addWordsToDictionary(wordTypeDictionary, grammar.NounRhyming, wordTypes.NounRhyming);
+      grammar.NounRhyming = [];
+      grammar.NounRhyming = words.RelatedWordRhymes[i].NounRhyming;
+      addWordsToDictionary(wordTypeDictionary, grammar.NounRhyming, wordTypes.NounRhyming);
 
-        var conjugatedNewRhymeVerbs = conjugateVerbs(words.RelatedWordRhymes[i].VerbRhyming);
+      var conjugatedNewRhymeVerbs = conjugateVerbs(words.RelatedWordRhymes[i].VerbRhyming);
 
-        grammar.VerbPastRhyming = [];
-        grammar.VerbPastRhyming = conjugatedNewRhymeVerbs.past;
-        addWordsToDictionary(wordTypeDictionary, grammar.VerbPastRhyming, wordTypes.VerbPastRhyming);
+      grammar.VerbPastRhyming = [];
+      grammar.VerbPastRhyming = conjugatedNewRhymeVerbs.past;
+      addWordsToDictionary(wordTypeDictionary, grammar.VerbPastRhyming, wordTypes.VerbPastRhyming);
 
-        grammar.VerbPerfectRhyming = [];
-        grammar.VerbPerfectRhyming = conjugatedNewRhymeVerbs.perfect;
-        addWordsToDictionary(wordTypeDictionary, grammar.VerbPerfectRhyming, wordTypes.VerbPerfectRhyming);
+      grammar.VerbPerfectRhyming = [];
+      grammar.VerbPerfectRhyming = conjugatedNewRhymeVerbs.perfect;
+      addWordsToDictionary(wordTypeDictionary, grammar.VerbPerfectRhyming, wordTypes.VerbPerfectRhyming);
 
-        grammar.VerbPresentRhyming = [];
-        grammar.VerbPresentRhyming = conjugatedNewRhymeVerbs.present;
-        addWordsToDictionary(wordTypeDictionary, grammar.VerbPresentRhyming, wordTypes.VerbPresentRhyming);
+      grammar.VerbPresentRhyming = [];
+      grammar.VerbPresentRhyming = conjugatedNewRhymeVerbs.present;
+      addWordsToDictionary(wordTypeDictionary, grammar.VerbPresentRhyming, wordTypes.VerbPresentRhyming);
 
-        grammar.VerbProgressiveRhyming = [];
-        grammar.VerbProgressiveRhyming = conjugatedNewRhymeVerbs.progressive;
-        addWordsToDictionary(wordTypeDictionary, grammar.VerbProgressiveRhyming, wordTypes.VerbProgressiveRhyming);
-        sentencesToBeSentToVerses.push(
-            generateTwoSentences(grammar)
-        );
-    }
-    return sentencesToBeSentToVerses;
+      grammar.VerbProgressiveRhyming = [];
+      grammar.VerbProgressiveRhyming = conjugatedNewRhymeVerbs.progressive;
+      addWordsToDictionary(wordTypeDictionary, grammar.VerbProgressiveRhyming, wordTypes.VerbProgressiveRhyming);
+      sentencesToBeSentToVerses.push(
+          generateTwoSentences(grammar)
+      );
+  }
+  return sentencesToBeSentToVerses;
 };
 /*
  NounRhyming
@@ -174,15 +177,6 @@ VerbProgressiveRhyming
  VerbPresentRhyming
  VerbProgressiveRhyming
  */
-var chooseANewTopic = (relatedNounsWithRymes, index) => {
-    return {
-        newTopic : relatedNounsWithRymes.TopicWord,
-        newRhymingNouns : relatedNounsWithRymes.NounRhyming,
-        newRhymingAdjectives : relatedNounsWithRymes.AdjectiveRhyming,
-        newRhymingVerbs : relatedNounsWithRymes.VerbRhyming,
-
-    }
-};
 
 var generateTwoSentences = (grammar) => {
     var constructedSentences = [];
@@ -200,7 +194,7 @@ var generateTwoSentences = (grammar) => {
         //for handling various inflection rules
         var previousWord = '';
         var previousDeterminer = '';
-
+        var modalPresent = false;
 
         while (!recognizer.isComplete(currSentence)) {
             var choice = guide.choices()[Math.floor(Math.random()*guide.choices().length)];
@@ -210,14 +204,22 @@ var generateTwoSentences = (grammar) => {
 
             if(wordTypeDictionary.hasOwnProperty(choice) && wordTypeDictionary.hasOwnProperty(previousWord)) {
                 var types = wordTypeDictionary[choice];
+
                 if(types.indexOf(wordTypes.DeterminerSingular) > -1 || types.indexOf(wordTypes.DeterminerPlural) > -1) {
                     previousDeterminer = choice;
                 }
+                if(types.indexOf(wordTypes.ModalVerb) > -1) {
+                    modalPresent = true;
+                } 
+
                 if((types.indexOf(wordTypes.Noun) > -1 || types.indexOf(wordTypes.NounRhyming) > -1) && previousDeterminer.length > 0) {
                     choice = declineNounByNumber(choice, previousDeterminer);
                 }
                 else if(types.indexOf(wordTypes.VerbPresent) > -1 || types.indexOf(wordTypes.VerbPresentRhyming) > -1) {
-                    choice = conjugateVerbPresentByPerson(choice, previousWord);
+                    choice = conjugateVerbPresentByPerson(choice, previousWord, modalPresent);
+                    if(modalPresent) {
+                      modalPresent = false;
+                    }
                 }
                 else if(types.indexOf(wordTypes.AuxiliaryVerbBe) > -1) {
                     choice = conjugateAuxiliaryVerbBeByPerson(choice, previousWord);
@@ -287,21 +289,42 @@ var declineNounByNumber = (word, previousDeterminer) => {
   return word;
 };
 
-var conjugateVerbPresentByPerson = (word, previousWord) => {
+var conjugateVerbPresentByPerson = (word, previousWord, modalPresent) => {
   var nonThirdPersonPronouns = ['I', 'you', 'we', 'they'];
-  if(nonThirdPersonPronouns.indexOf(previousWord) > -1) {
-    return conjugate('you', word);
+  if(nonThirdPersonPronouns.indexOf(previousWord) > -1 || modalPresent) {
+    if(word == 'be') {
+      console.log("CONJUGATE VP REST: " + word);  
+      console.log("CONJUGATED - " + conjugate('you', word));
+      return conjugate('you', word);
+    } 
+    if(word[word.length - 1] === 's') {
+      console.log("CONJUGATE VP REST: " + word);  
+      console.log("CONJUGATED - " + word.substring(0, word.length - 1));
+      return word.substring(0, word.length - 1); //truncate the s manually since the module doesn't unless it's an easy and common one -.-
+    }
   }
-  return conjugate('you', word);
+  else {
+    if(word == 'be') {
+      console.log("CONJUGATE VP 3rd P: " + word);
+      console.log("CONJUGATED - " + conjugate('it', word));
+      return conjugate('it', word);
+    } 
+    if(word[word.length - 1] !== 's') {
+      console.log("CONJUGATE VP 3rd P: " + word);
+      console.log("CONJUGATED - " + word + 's');
+      return word + 's'; //add the s manually since the module only deals with common and easy words -.-
+    }
+  }
 };
 
 var conjugateAuxiliaryVerbBeByPerson = (word, previousWord) => {
   if(wordTypeDictionary[previousWord].indexOf(wordTypes.PronounNominative) > -1) {
     var werePronouns = ['you', 'we', 'they'];
-    if(word == 'be') {
+    if(word === 'be') {
+      console.log("CONJUGATE BE: " + word);
       return conjugate(previousWord, word);
     } 
-    else if(word == 'was' && werePronouns.indexOf(previousWord) > -1) {
+    else if(word === 'was' && werePronouns.indexOf(previousWord) > -1) {
       //neither the nlp_compromise nor conjugate module can conjugate the past tense of 'be' by person, so we have to do it manually
       return 'were';
     }
