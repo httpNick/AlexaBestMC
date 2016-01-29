@@ -9,6 +9,7 @@
     "event-stream": "^3.3.2",
     "grammar-graph": "^3.1.0",
     "nlp_compromise": "^2.0.1",
+    "q": "^1.4.1",
     "random-words": "0.0.1",
     "request": "^2.67.0",
     "rhyme-plus": "0.0.6",

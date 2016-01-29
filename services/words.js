@@ -5,6 +5,7 @@ var randomWords = require('random-words');
 var wordPos = new WordPOS();
 var keychain = require('../config.keys.json');
 var wordnikparse = require('../components/wordnikresponseparse');
+var Q = require('q');
 
 exports.getRelatedWords = function(topic) {
   var urlPath = '/associations/?entry=' + topic;
@@ -18,7 +19,7 @@ exports.getRelatedWords = function(topic) {
     }
   };
 
-  return new Promise(function(resolve, reject) {
+  return Q.Promise(function(resolve, reject) {
       request(options, function(err, response, body) {
           if(err) {
               reject(err);
@@ -38,8 +39,8 @@ exports.getRelatedWordsFromWordnik = function(topic) {
             'Content-Type': 'application/json'
         }
     };
-    return new Promise( function(resolve, reject) {
-        request(options, (err, response, body) => {
+    return Q.Promise( function(resolve, reject) {
+        request(options, function(err, response, body) {
             if (err) {
                 reject(err);
             } else {
@@ -61,7 +62,7 @@ exports.getRhymingWordsFromRhymeBrain = function(topic) {
             'Content-Type': 'application/json'
         }
     };
-    return new Promise(function(resolve, reject) {
+    return Q.Promise(function(resolve, reject) {
         request(options, function(err, response, body) {
             if (err) {
                 reject(err);
@@ -88,7 +89,7 @@ var setRhymeBrainTopic = function(topic) {
 };
 
 var getPartsOfSpeech = function(words) {
-  return new Promise(function(resolve, reject) {
+  return Q.Promise(function(resolve, reject) {
     wordPos.getPOS(words, function(partsOfSpeech) {
         resolve(partsOfSpeech);
     })

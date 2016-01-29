@@ -14,6 +14,7 @@ sentencebuilder = require('./components/sentencebuilder');
 versebuilder = require('./components/versebuilder');
 words = require('./services/words.js');
 randomwords = require('random-words');
+var Q = require('q');
 
 var $ = module.exports;
 
@@ -160,7 +161,7 @@ function setTopicInSession(intent, session, callback) {
 
         if(rapTopic) {
 
-            Promise.all([
+            Q.all([
 
                 words.getRelatedWords(rapTopic),
                 words.getRelatedWordsFromWordnik(rapTopic),
@@ -174,14 +175,18 @@ function setTopicInSession(intent, session, callback) {
                  */
                 if (response[0].associations_array && response[1]) {
                     // Using a set to ensure no duplicates.
-                    var relatedWords = new Set(
-                        response[0].associations_array
-                            .concat(response[1].sameContext)
-                            .concat(response[1].synonym)
-                            .concat(response[1].unknown)
-                    );
+                    listWithNoDupes = [];
+                    listOfAll =  response[0].associations_array
+                        .concat(response[1].sameContext)
+                        .concat(response[1].synonym)
+                        .concat(response[1].unknown);
+                    listOfAll.forEach(function(item) {
+                        if(listWithNoDupes.indexOf(item) < 0) {
+                            listWithNoDupes.push(item);
+                        }
+                    });
 
-                    words.getPartsOfSpeech(Array.from(relatedWords)).then(function(posDict) {
+                    words.getPartsOfSpeech(listWithNoDupes).then(function(posDict) {
                         posDict.topic = [rapTopic];
                         posDict.rhymingWords = response[1].rhyme;
                         words.getPartsOfSpeech(response[1].rhyme.concat(response[2]))
@@ -257,9 +262,9 @@ function chooseSevenOtherTopicsAndGetTheRhymingWords(relatedNouns){
     }  else {
         randomNouns = relatedNouns;
     }
-    return new Promise(function(resolve, reject) {
+    return Q.Promise(function(resolve, reject) {
         if (randomNouns.length === 7) {
-            Promise.all([
+            Q.all([
                 words.getRhymingWordsFromRhymeBrain(randomNouns[0]),
                 words.getRhymingWordsFromRhymeBrain(randomNouns[1]),
                 words.getRhymingWordsFromRhymeBrain(randomNouns[2]),
@@ -270,7 +275,7 @@ function chooseSevenOtherTopicsAndGetTheRhymingWords(relatedNouns){
             ]).then(
                 function(response) {
                     var finalResultOfRhymeDictionaries = [];
-                    Promise.all([
+                    Q.all([
                         words.getPartsOfSpeech(response[0]),
                         words.getPartsOfSpeech(response[1]),
                         words.getPartsOfSpeech(response[2]),
