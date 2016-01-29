@@ -291,11 +291,11 @@ var addWordsToDictionary = (dictionary, wordsList, type) => {
 };
 
 var declineNounByNumber = (word, previousDeterminer) => {
-  if(wordTypeDictionary[previousDeterminer].indexOf(wordTypes.DeterminerSingular) > -1) {
-    return nlp.noun(word).singularize();
+  if((word[word.length - 1] === 's') && (wordTypeDictionary[previousDeterminer].indexOf(wordTypes.DeterminerSingular) > -1)) {
+    return word.substring(0, word.length - 1);
   } 
-  else if (wordTypeDictionary[previousDeterminer].indexOf(wordTypes.DeterminerPlural) > -1) {
-    return nlp.noun(word).pluralize();
+  else if ((word[word.length - 1] !== 's') && wordTypeDictionary[previousDeterminer].indexOf(wordTypes.DeterminerPlural) > -1) {
+    return word + 's';
   }
   return word;
 };
