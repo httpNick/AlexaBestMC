@@ -15,14 +15,14 @@ module.exports = {
   @param {callback} cb: callback to use once this function is finished executing.
   @param {int} numberOfSentences: number of sentences to be generated.
   */
-  generateSentences : (words, numberOfSentences, cb) => {
+  generateSentences : function(words, numberOfSentences, cb) {
 
     fs.createReadStream(
       __dirname + '/res/GrammarRulesConfig.json'
     ).pipe(
       JSONStream.parse()
     ).pipe(
-      es.mapSync((grammarData) => {
+      es.mapSync(function(grammarData) {
         cb(
           constructSentences(words, grammarData, numberOfSentences)
         );
@@ -60,7 +60,7 @@ var wordTypes = {
 };
 var wordTypeDictionary = {};
 
-var constructSentences = (words, grammar, numberOfSentences) => {
+var constructSentences = function(words, grammar, numberOfSentences) {
 
   grammar.RhymingWords = words.rhymingWords;
   grammar.Noun = words.nouns;
@@ -180,7 +180,7 @@ VerbProgressiveRhyming
  VerbProgressiveRhyming
  */
 
-var generateTwoSentences = (grammar) => {
+var generateTwoSentences = function(grammar) {
     var constructedSentences = [];
 
     var recognizer = new gg(grammar)
@@ -280,7 +280,7 @@ var conjugateVerbs = (verbs) => {
   return conjugatedVerbs;
 };
 
-var addWordsToDictionary = (dictionary, wordsList, type) => {
+var addWordsToDictionary = function(dictionary, wordsList, type) {
   wordsList.forEach(function(element) {
     if(dictionary.hasOwnProperty(element)) {
       dictionary[element].push(type);
@@ -290,7 +290,7 @@ var addWordsToDictionary = (dictionary, wordsList, type) => {
   });
 };
 
-var declineNounByNumber = (word, previousDeterminer) => {
+var declineNounByNumber = function(word, previousDeterminer) {
   console.log(previousDeterminer + "       " + word);
   if((word[word.length - 1] === 's') && (wordTypeDictionary[previousDeterminer].indexOf(wordTypes.DeterminerSingular) > -1)) {
     console.log("SINGULAR: " + word);
@@ -303,17 +303,16 @@ var declineNounByNumber = (word, previousDeterminer) => {
   return word;
 };
 
-var conjugateVerbPresentByPerson = (word, previousWord, modalPresent) => {
+var conjugateVerbPresentByPerson = function(word, previousWord, modalPresent) {
   var nonThirdPersonPronouns = ['I', 'you', 'we', 'they'];
-  console.log(word);
   if(nonThirdPersonPronouns.indexOf(previousWord) > -1 || modalPresent) {
     if(word === 'be') {
-      //console.log("CONJUGATE VP REST: " + word);  
+      //console.log("CONJUGATE VP REST: " + word);
       //console.log("CONJUGATED - " + conjugate('you', word));
       return conjugate('you', word);
     } 
     if(word[word.length - 1] === 's') {
-      //console.log("CONJUGATE VP REST: " + word);  
+      //console.log("CONJUGATE VP REST: " + word);
       //console.log("CONJUGATED - " + word.substring(0, word.length - 1));
       console.log(word.substring(0, word.length - 1));
       return word.substring(0, word.length - 1); //truncate the s manually since the module doesn't unless it's an easy and common one -.-
@@ -333,7 +332,7 @@ var conjugateVerbPresentByPerson = (word, previousWord, modalPresent) => {
   }
 };
 
-var conjugateAuxiliaryVerbBeByPerson = (word, previousWord) => {
+var conjugateAuxiliaryVerbBeByPerson = function(word, previousWord) {
   if(wordTypeDictionary[previousWord].indexOf(wordTypes.PronounNominative) > -1) {
     var werePronouns = ['you', 'we', 'they'];
     if(word === 'be') {

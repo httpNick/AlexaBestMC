@@ -1,7 +1,7 @@
 
 module.exports = {
 
-  generateVerses : (Sentences, cb) => {
+  generateVerses : function(Sentences, cb) {
 
     //cb(buildVersesV2(Sentences));
     cb(buildVerses(Sentences));
@@ -11,7 +11,7 @@ module.exports = {
 
 
 function buildVerses(listOfSentencesThatRhyme){
-  //always have 16 sentences 
+  //always have 16 sentences
   var song = [];
   var count = 0;
   for(var x = 0;x < 4;x++){
