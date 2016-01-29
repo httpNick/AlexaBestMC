@@ -4,14 +4,15 @@ module.exports = {
   generateVerses : function(Sentences, cb) {
 
     //cb(buildVersesV2(Sentences));
-    cb(buildVerses(Sentences));
+    cb(buildVerseABAB(Sentences));
+//    cb(buildVerses(Sentences));
   }
 };
 
 
 
 function buildVerses(listOfSentencesThatRhyme){
-  //always have 16 sentences
+  //always have 8 sentences
   var song = [];
   var count = 0;
   for(var x = 0;x < 2;x++){
@@ -24,6 +25,19 @@ function buildVerses(listOfSentencesThatRhyme){
   }
   return song;
 };
+
+function buildVerseABAB(listOfSentencesThatRhyme){
+  var firstVerse = [];
+  var secondVerse = [];
+  for(var i = 0; i < 4; i++){
+    firstVerse.push(listOfSentencesThatRhyme[i%2][Math.floor(i/2)%2]);
+    secondVerse.push(listOfSentencesThatRhyme[i%2+2][Math.floor(i/2)%2]);
+  }
+
+  var song = [firstVerse, secondVerse];
+  return song;
+}
+
 // ex [[a,b],[c,d],[e,f],[g,h],[i,j],[k,l],[m,n],[o,p],[q,r],[s,t]] => [[],[],[],[]]
 function buildVersesV2(tupleOfSentencesThatRhyme){
   //combine four times

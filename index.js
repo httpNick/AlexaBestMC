@@ -198,33 +198,14 @@ function setTopicInSession(intent, session, callback) {
                                 if (response[2]) {
                                     posDict.rhymingWords = posDict.rhymingWords.concat(response[2]);
                                 }
-                                /*chooseSevenOtherTopicsAndGetTheRhymingWords(posDict.nouns)
-                                    .then(function(result) {
-                                        posDict.RelatedWordRhymes = result;*/
+
                                         sentencebuilder.generateSentences(posDict, 8, function(results) {
-                                            var verses = [[]];
+
+                                            var entryText = "I am about to lay down a sick rhyme about " + rapTopic + ", here we go now";
+
                                             versebuilder.generateVerses(results, function(resultVerses){
-                                                /*
-                                                console.log(resultVerses[0]);
-                                                console.log("___________________________")
-                                                console.log(resultVerses[1]);
-                                                */
-                                                verses = resultVerses;
-                                                var speechOutput = 'I am about to lay down a sick rhyme about ' + rapTopic + ", here we go, ";
-                                                for (var i = 0; i < resultVerses.length; i++) {
-                                                    for(var j =0; j < resultVerses[i].length; j++) {
-                                                        for (var x = 0; x < resultVerses[i][j].length; x++) {
-                                                            //console.log(resultVerses[i][j][x]);
-                                                            speechOutput += resultVerses[i][j][x] + ', '
-                                                        }
-                                                    }
-                                                }
-                                                speechOutput = speechOutput.slice(0, speechOutput.length - 2);
-                                                console.log(speechOutput);
-                                                callback(sessionAttributes,
-                                                    buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
-                                            });
-                                            /*verseConverter.convertVersesToOutput(verses, function(outputs) {
+
+                                                verseConverter.convertVersesToOutput(resultVerses, entryText, function(outputs) {
 
                                                 sessionAttributes = createRapTopic(rapTopic);
 
@@ -232,8 +213,8 @@ function setTopicInSession(intent, session, callback) {
 
                                                 callback(sessionAttributes,
                                                     buildSpeechletSSMLResponse(cardTitle, outputs, repromptText, shouldEndSession));
-                                            });*/
-                                        //});
+                                            });
+                                        });
                                     });
                             });
                     });
