@@ -250,7 +250,7 @@ var generateTwoSentences = (grammar) => {
         typeOfLastWord += 'Rhyming';       
 
         //if there's a list of words in the same part of speech that rhyme, then pick a rnadom one from that list
-        if(grammar.hasOwnProperty(typeOfLastWord)) {
+        if(grammar.hasOwnProperty(typeOfLastWord) && grammar[typeOfLastWord].length > 0) {
           finalWord = grammar[typeOfLastWord][Math.floor(Math.random()*grammar[typeOfLastWord].length)];
           console.log(typeOfLastWord + ' ----- ' + 'RHYMES');
         }
