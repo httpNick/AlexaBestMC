@@ -82,7 +82,7 @@ var constructSentences = (words, grammar, numberOfSentences) => {
   grammar.VerbPerfectRhyming = conjugatedRhymeVerbs.perfect;
   grammar.VerbPresentRhyming = conjugatedRhymeVerbs.present;
   grammar.VerbProgressiveRhyming = conjugatedRhymeVerbs.progressive;
-
+  grammar.LocativeAdverbRhyming = grammar.LocativeAdverb;
   //clear it before each use
   wordTypeDictionary = {};
 
@@ -106,7 +106,7 @@ var constructSentences = (words, grammar, numberOfSentences) => {
   addWordsToDictionary(wordTypeDictionary, grammar.NounRhyming, wordTypes.NounRhyming);
   addWordsToDictionary(wordTypeDictionary, grammar.AdjectiveRhyming, wordTypes.AdjectiveRhyming);
   addWordsToDictionary(wordTypeDictionary, grammar.AdverbRhyming, wordTypes.AdverbRhyming);
-//addWordsToDictionary(wordTypeDictionary, grammar.LocativeAdverbRhyming, wordTypes.LocativeAdverbRhyming);
+  addWordsToDictionary(wordTypeDictionary, grammar.LocativeAdverbRhyming, wordTypes.LocativeAdverbRhyming);
   addWordsToDictionary(wordTypeDictionary, grammar.VerbPastRhyming, wordTypes.VerbPastRhyming);
   addWordsToDictionary(wordTypeDictionary, grammar.VerbPerfectRhyming, wordTypes.VerbPerfectRhyming);
   addWordsToDictionary(wordTypeDictionary, grammar.VerbPresentRhyming, wordTypes.VerbPresentRhyming);
@@ -161,9 +161,12 @@ VerbProgressiveRhyming
       grammar.VerbProgressiveRhyming = [];
       grammar.VerbProgressiveRhyming = conjugatedNewRhymeVerbs.progressive;
       addWordsToDictionary(wordTypeDictionary, grammar.VerbProgressiveRhyming, wordTypes.VerbProgressiveRhyming);
-      sentencesToBeSentToVerses.push(
+console.log(words.RelatedWordRhymes[i].TopicWord);
+console.log(generateTwoSentences(grammar));
+     /* sentencesToBeSentToVerses.push(
           generateTwoSentences(grammar)
       );
+*/
   }
   return sentencesToBeSentToVerses;
 };
@@ -234,18 +237,28 @@ var generateTwoSentences = (grammar) => {
 
             previousWord = choice;
         }
+
+        //the last word in the sentence will be one that rhymes but is the same part of speech as the one it replaces
+
         //make sure to get the last word of the generated sentence
-        var lastWord = currSentence.split(' ').pop();
+        currSentenceArray = currSentence.split(' ');
+        var lastWord = currSentenceArray.pop();
+        var finalWord = lastWord;
 
-        /*
-         //just go with the first type if it has more than one
-         var typeOfLastWord = wordTypeDictionary[lastWord][0];
-         typeOfLastWord += 'Rhyming';
+        //just go with the first type if it has more than one
+        var typeOfLastWord = wordTypeDictionary[lastWord][0];
+        typeOfLastWord += 'Rhyming';       
 
-         //the last word in the sentence will be one that rhymes but is the same part of speech as the one it replaces
-         lastWord = grammar[typeOfLastWord][Math.floor(Math.random()*grammar[typeOfLastWord].length)]
-         */
-        outputSentence += lastWord;
+        //if there's a list of words in the same part of speech that rhyme, then pick a rnadom one from that list
+        if(grammar.hasOwnProperty(typeOfLastWord)) {
+          finalWord = grammar[typeOfLastWord][Math.floor(Math.random()*grammar[typeOfLastWord].length)];
+          console.log(typeOfLastWord + ' ----- ' + 'RHYMES');
+        }
+        
+        currSentenceArray.push(finalWord);
+
+        outputSentence += currSentenceArray.join(' ');
+
         constructedSentences.push(outputSentence);
     }
     return constructedSentences;

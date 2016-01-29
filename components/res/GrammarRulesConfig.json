@@ -1,14 +1,13 @@
 {
   "Grammar": [
     "Sentence",
-    "Sentence ConjunctionSpecial Sentence",
-    "Sentence ConjunctionSpecial Sentence ConjunctionSpecial Sentence"
+    "Sentence ConjunctionSpecial Sentence"
   ],
   "Sentence": [
     "NounPhraseNominative PrepositionalPhrase",
     "NounPhrasePronounDeterminer NounPhrase",
     "NounPhrasePronounDeterminer NounPhrase PrepositionalPhrase",
-    "VerbPhrasetart",
+    "VerbPhraseStart",
     "NounPhraseNominative VerbPhrase"
   ],
   "Conjunction": [
