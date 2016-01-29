@@ -198,10 +198,10 @@ function setTopicInSession(intent, session, callback) {
                                 if (response[2]) {
                                     posDict.rhymingWords = posDict.rhymingWords.concat(response[2]);
                                 }
-                                chooseSevenOtherTopicsAndGetTheRhymingWords(posDict.nouns)
+                                /*chooseSevenOtherTopicsAndGetTheRhymingWords(posDict.nouns)
                                     .then(function(result) {
-                                        posDict.RelatedWordRhymes = result;
-                                        sentencebuilder.generateSentences(posDict, 16, function(results) {
+                                        posDict.RelatedWordRhymes = result;*/
+                                        sentencebuilder.generateSentences(posDict, 4, function(results) {
                                             console.log(results);
                                             var verses = [[]];
                                             versebuilder.generateVerses(results, function(resultVerses){
@@ -217,7 +217,7 @@ function setTopicInSession(intent, session, callback) {
                                                 callback(sessionAttributes,
                                                     buildSpeechletSSMLResponse(cardTitle, outputs, repromptText, shouldEndSession));
                                             });
-                                        });
+                                        //});
                                     });
                             });
                     });

@@ -129,6 +129,7 @@ VerbProgressiveRhyming
   sentencesToBeSentToVerses.push(
       generateTwoSentences(grammar)
   );
+    /*
   for (var i = 0; i < 7; i++) {
       //reset topicword
 
@@ -167,6 +168,7 @@ VerbProgressiveRhyming
           generateTwoSentences(grammar)
       );
   }
+  */
   return sentencesToBeSentToVerses;
 };
 /*
@@ -188,7 +190,7 @@ var generateTwoSentences = function(grammar) {
             completeSentenceChoice
         );
 
-    while (constructedSentences.length < 2) {
+    while (constructedSentences.length < 4) {
         var currSentence = '';
         var outputSentence = '';
         var guide = new gg(grammar).createGuide(completeSentenceChoice);
