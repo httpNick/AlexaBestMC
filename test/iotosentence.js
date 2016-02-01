@@ -1,4 +1,4 @@
-var gg = require('grammar-graph')
+/*var gg = require('grammar-graph')
 , JSONStream = require('JSONStream')
 , fs = require('fs')
 , es = require('event-stream')
@@ -57,3 +57,7 @@ process.stdin.on('readable', function() {
 process.stdin.on('end', function() {
   process.stdout.write('end')
 });
+*/
+var nlp = require('../node_modules/nlp_compromise/builds/nlp_compromise.es5.js');
+
+console.log(nlp.Adjective());

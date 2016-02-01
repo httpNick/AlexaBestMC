@@ -1,6 +1,6 @@
 module.exports = {
 
-    extractRelationshipTypesFromWordnik : (res) => {
+    extractRelationshipTypesFromWordnik : function(res) {
         var relationships = {
 
             equivalent : [],

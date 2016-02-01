@@ -18,7 +18,7 @@ exports.getRelatedWords = function(topic) {
     }
   };
 
-  return new Promise( (resolve, reject) => {
+  return new Promise(function(resolve, reject) {
       request(options, function(err, response, body) {
           if(err) {
               reject(err);
@@ -30,7 +30,7 @@ exports.getRelatedWords = function(topic) {
     });
 };
 
-exports.getRelatedWordsFromWordnik = (topic) => {
+exports.getRelatedWordsFromWordnik = function(topic) {
     var options = {
         url: setWordNikSearchTopic(topic),
         method: 'GET',
@@ -38,7 +38,7 @@ exports.getRelatedWordsFromWordnik = (topic) => {
             'Content-Type': 'application/json'
         }
     };
-    return new Promise( (resolve, reject) => {
+    return new Promise( function(resolve, reject) {
         request(options, (err, response, body) => {
             if (err) {
                 reject(err);
@@ -53,7 +53,7 @@ exports.getRelatedWordsFromWordnik = (topic) => {
     });
 };
 
-exports.getRhymingWordsFromRhymeBrain = (topic) => {
+exports.getRhymingWordsFromRhymeBrain = function(topic) {
     var options = {
         url: setRhymeBrainTopic(topic),
         method: 'GET',
@@ -61,8 +61,8 @@ exports.getRhymingWordsFromRhymeBrain = (topic) => {
             'Content-Type': 'application/json'
         }
     };
-    return new Promise( (resolve, reject) => {
-        request(options, (err, response, body) => {
+    return new Promise(function(resolve, reject) {
+        request(options, function(err, response, body) {
             if (err) {
                 reject(err);
             } else {
@@ -75,20 +75,20 @@ exports.getRhymingWordsFromRhymeBrain = (topic) => {
 
 };
 
-var setWordNikSearchTopic = (topic) => {
+var setWordNikSearchTopic = function(topic) {
     return "http://api.wordnik.com:80/v4/word.json/"
         + topic +
         "/relatedWords?useCanonical=false&limitPerRelationshipType=10&api_key="
         + keychain.wordnik;
 };
 
-var setRhymeBrainTopic = (topic) => {
+var setRhymeBrainTopic = function(topic) {
     return "http://rhymebrain.com/talk?function=getRhymes&word="
         + topic;
 };
 
 var getPartsOfSpeech = function(words) {
-  return new Promise( (resolve, reject) => {
+  return new Promise(function(resolve, reject) {
     wordPos.getPOS(words, function(partsOfSpeech) {
         resolve(partsOfSpeech);
     })
@@ -104,9 +104,9 @@ exports.getRandomWordsByPos = function(callback) {
   getPartsOfSpeech(words, callback);
 };
 
-var toListOfWords = (res) => {
+var toListOfWords = function(res) {
     var allWords = [];
-    res.forEach((responseObject) => {
+    res.forEach(function(responseObject) {
         allWords.push(responseObject.word);
     });
     return allWords;
